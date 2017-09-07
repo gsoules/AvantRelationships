@@ -4,10 +4,17 @@ echo head(array('title' => $pageTitle, 'bodyclass' => 'browse-relationships'));
 
 $db = get_db();
 $list = $db->getTable('RelationshipTypes')->getRelationshipTypesAndRules();
-?>
 
-<a class="button small green" href="<?php echo html_escape(url('relationships/edit/types')); ?>"><?php echo __('Edit Relationship Types'); ?></a>
-<a class="button small green" href="<?php echo html_escape(url('relationships/edit/rules')); ?>"><?php echo __('Edit Relationship Rules'); ?></a>
+if (is_admin_theme())
+{
+    ?>
+    <a class="button small green"
+       href="<?php echo html_escape(url('relationships/edit/types')); ?>"><?php echo __('Edit Relationship Types'); ?></a>
+    <a class="button small green"
+       href="<?php echo html_escape(url('relationships/edit/rules')); ?>"><?php echo __('Edit Relationship Rules'); ?></a>
+    <?php
+}
+?>
 
 <?php echo "<h4>Relationship Types & Rules</h4>"; ?>
 
@@ -15,7 +22,7 @@ $list = $db->getTable('RelationshipTypes')->getRelationshipTypesAndRules();
     <tr>
         <td>Id</td>
         <td><?php echo __('This Item Rule'); ?></td>
-        <td><?php echo __('Relationship'); ?></td>
+        <td><?php echo __('Relationship Type'); ?></td>
         <td><?php echo __('Related Item Rule'); ?></td>
     </tr>
 <?php
@@ -31,7 +38,15 @@ foreach ($list as $type)
 ?>
 </table>
 
-<a id="validate-button" class="button small green" href="<?php echo html_escape(url('relationships/validate')); ?>"><?php echo __('Validate Relationships'); ?></a>
+<?php
+if (is_admin_theme())
+{
+    ?>
+    <a id="validate-button" class="button small green"
+       href="<?php echo html_escape(url('relationships/validate')); ?>"><?php echo __('Validate Relationships'); ?></a>
+    <?php
+}
+?>
 
 <script type="text/javascript">
     jQuery(document).ready(function ()
