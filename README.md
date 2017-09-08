@@ -1,11 +1,15 @@
 # AvantRelationships (plugin for Omeka Classic)
 
+> Code and documentation for this plugin are being finalized. First release is expected by 9/30/2017.
+
 The AvantRelationships plugin visually displays real-world relationships between items in an Omeka database. When you view an item, the plugin displays thumbnails and titles of related items. It also displays a graphical visualization depicting the relationships among items. The user instantly sees how the item fits in with the rest of the collection and can easily discover and view related items.
+
+The AvantRelationships plugin was developed for the [Southwest Harbor Public Library](http://www.swhplibrary.org/), in Southwest Harbor, Maine. Funding was provided by the [John S. and James L. Knight Foundation](https://knightfoundation.org/). The library's [Digital Archive] contains historic photographs, documents and research material given to and shared with the library since about 1900. The Archive illustrates the way people, houses, businesses, vessels, Acadia National Park, places, structures, organizations, and events relate to one another and tells the story of how islanders and “people from away” lived on and visited Mount Desert Island, Maine, in the nineteenth, twentieth, and twenty-first centuries.
 
 ## Demonstration Sites
 The best way to understand what AvantRelationships does is to see it in action. Here are two sites:
 * Southwest Harbor Public Library's [Digital Archive].
-* [Basic Omeka site] using only the AvantRelationships plugin and the Seasons theme.
+* A [basic Omeka site] using only the AvantRelationships plugin and the Seasons theme.
 
 Both sites use items and relationship data from the Southwest Harbor Public Library's Digital Archive, but the library site has a highly customized theme and utilizes many other plugins. The basic Omeka site is an out-of-the-box Omeka installation with only the AvantRelationships plugin installed. The basic site makes it easy to see just the functionality the plugin provides.
 
@@ -13,11 +17,11 @@ Both sites use items and relationship data from the Southwest Harbor Public Libr
 AvantRelationships depends on the following open source libraries which are included in the `views/shared/javascripts` folder.
 Click the links below to see copyrights and licenses for each.
 
-* [Cytoscape.js](http://js.cytoscape.org/) - Graph theory / network library for analysis and visualization
+* [Cytoscape.js](http://js.cytoscape.org/) - graph theory / network library for analysis and visualization
 * [cytoscape-panzoom](https://github.com/cytoscape/cytoscape.js-panzoom) - widget that lets the user pan and zoom about a Cytoscape.js graph
-* [Dagre](https://github.com/cytoscape/cytoscape.js-dagre) DAG (directed acyclic graph) for Cytoscape.js
-* [CoSE Bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent) layout for Cytoscape.js
-* [Magnific Popup](https://github.com/dimsemenov/Magnific-Popup/) lightbox for jQuery
+* [Dagre](https://github.com/cytoscape/cytoscape.js-dagre) - DAG (directed acyclic graph) for Cytoscape.js
+* [CoSE Bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent) - layout for Cytoscape.js
+* [Magnific Popup](https://github.com/dimsemenov/Magnific-Popup/) - lightbox for jQuery
 ## Installation
 
 The AvantRelationships plugin requires that the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin be installed. AvantCommon contains common logic used by AvantRelationships and a few other plugins (AvantSearch and AvantElements) that have not yet been released.
@@ -31,7 +35,7 @@ Follow these steps to install the AvantRelationships plugin:
 5. Configure the plugin or accept the defaults.
 
 ## Uninstalling
-You can uninstall AvantRelationships in the usual way; however, by default, the uninstaller will not remove the database tables that store relationship information. This is to protect against accidental deletion of important data. To remove the tables, you must check the Delete Tables option on the Configure Plugin page, save the change, and then proceed with uninstalling the plugin.
+You can uninstall AvantRelationships in the usual way; however, by default, the uninstaller will not remove the database tables that store relationship information. This is to protect against accidental deletion of important data. To remove the tables, you must check the *Delete Tables* option on the Configure Plugin page, save the change, and then proceed with uninstalling the plugin.
 
 ## Usage
 Once installed, AvantRelationships extends the Omeka admin and public user interfaces to provide the ability to add and display relationships. Specifically, the plugin:
@@ -40,6 +44,7 @@ Once installed, AvantRelationships extends the Omeka admin and public user inter
 * Adds a **Cover Image** tab on the admin item Edit page.
 * Displays **Item Relationship Groups** below the item's metadata on the public and admin Show pages.
 * Displays a **Visualization Preview** on the on the public and admin Show pages for an item that has relationships.
+* Adds **Relationships Filtering Options** to the bottom of the admin Advanced Search page.
 
 To learn about the features provided by the AvantRelationships plugin, see the following topics on the [Digital Archive] website:
 * [Viewing Relationships]
@@ -50,9 +55,9 @@ To learn about the features provided by the AvantRelationships plugin, see the f
 * [Relationship Rules]
 * [Digital Archive Data Model]
 
-### Visualization Graph Placement
-By default, the AvantRelationships plugin displays its visualization graph preview immediately after an item's metadata elements and before item relationship groups. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup.  You can have the  preview display somewhere else such as in the sidebar. To display the graph at a designated location:
-1. Go to the Configure Plugin page for AvantRelationships and choose *At designated location* for the *Visualization Preview* option.
+### Visualization Graph Preview Placement
+By default, the AvantRelationships plugin displays its visualization graph preview immediately after an item's metadata elements and before item relationship groups. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup.  You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
+1. On the Configure Plugin page for AvantRelationships, choose *At designated location* for the *Visualization Preview* option.
 2. Call the hook shown below from `/themes/<your-theme-name>/items/show.php` as shown in the example below. 
 
 ```
@@ -66,7 +71,7 @@ As examples, the [Digital Archive] places the preview in the sidebar whereas the
 ### Custom Relationships
 You can add custom relationships using the `custom_relationships` filter which is called from `RelatedItemsTree::insertCustomRelationships()`. The filter allows you to insert your own `RelatedItemsTreeNode` objects into the `RelatedItemsTree` to be displayed to the user as described in the Digital Archive topic [Viewing Relationships].
 
-Below is an example of a callback function that uses the filter. It calls a method (not shown) called `createCustomRelationshipsFor()` which returns a single `RelatedItemsTreeNode` object. The function implements the [Implicit Relationships] feature of the [Digital Archive]. Note that the last two parameters of `createCustomRelationshipsFor()` are the source and target labels for custom Creator and Publisher relationships types (see the Digital Archive topic [Relationship Types] for information about source and target labels).
+Below is an example of a callback function that uses the filter. It calls a method (not shown) called `createCustomRelationshipsFor()` which returns a single `RelatedItemsTreeNode` object. The function implements the [Implicit Relationships] feature of the [Digital Archive]. Note that the last two parameters of `createCustomRelationshipsFor()` are the source and target labels for custom Creator and Publisher relationships types. See the Digital Archive topic [Relationship Types] for information about source and target labels.
 
 ```
 public function filterCustomRelationships($nodes, $args)
@@ -107,9 +112,9 @@ this program; if not, write to the Free Software Foundation, Inc.,
 Copyright
 ---------
 
-* Created by [gsoules](https://github.com/gsoules) for the Southwest Harbor Public Library.
-* Copyright George Soules, 2016-2017.
-* See [LICENSE](https://github.com/gsoules/AvantRelationships/blob/master/LICENSE) for more information.
+* Created by [gsoules](https://github.com/gsoules) for the Southwest Harbor Public Library
+* Copyright George Soules, 2016-2017
+* See [LICENSE](https://github.com/gsoules/AvantRelationships/blob/master/LICENSE) for more information
 
 ## Acknowledgments
 
