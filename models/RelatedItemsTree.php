@@ -455,11 +455,14 @@ class RelatedItemsTree
 
     protected function insertCustomRelationships()
     {
+        // Create an empty array to pass. If it comes back with values, add them to the tree.
         $nodes = array();
+
         $nodes = apply_filters('custom_relationships', $nodes, array('item' => $this->primaryItem, 'tree' => $this));
 
         foreach ($nodes as $node)
         {
+            /* @var $node RelatedItemsTreeNode */
             $this->kidId++;
             $node->setId($this->kidId);
             $this->rootNode->addKid($node);
