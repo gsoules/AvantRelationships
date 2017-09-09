@@ -89,9 +89,8 @@
     {
         var itemValues =
             {
-                determiner:item.find('.determiner').val(),
                 description:item.find('.description').val(),
-                rule:item.find('.rule').val(),
+                rule:item.find('.rule').val()
             };
 
         return itemValues;

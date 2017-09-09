@@ -4,11 +4,11 @@
 
 The AvantRelationships plugin visually displays real-world relationships between items in an Omeka database. When you view an item, the plugin displays thumbnails and titles of related items. It also displays a graphical visualization depicting the relationships among items. The user instantly sees how the item fits in with the rest of the collection and can easily discover and view related items.
 
-The AvantRelationships plugin was developed for the [Southwest Harbor Public Library](http://www.swhplibrary.org/), in Southwest Harbor, Maine. Funding was provided by the [John S. and James L. Knight Foundation](https://knightfoundation.org/). The library's [Digital Archive] contains historic photographs, documents and research material given to and shared with the library since about 1900. The Archive illustrates the way people, houses, businesses, vessels, Acadia National Park, places, structures, organizations, and events relate to one another and tells the story of how islanders and “people from away” lived on and visited Mount Desert Island, Maine, in the nineteenth, twentieth, and twenty-first centuries.
+This plugin was developed for the [Southwest Harbor Public Library](http://www.swhplibrary.org/), in Southwest Harbor, Maine. Funding was provided by the [John S. and James L. Knight Foundation](https://knightfoundation.org/). The library's [Digital Archive] contains historic photographs, documents, maps, and research material given to and shared with the library since about 1900. The Archive illustrates the way people, houses, businesses, vessels, Acadia National Park, places, structures, organizations, and events relate to one another and tells the story of how islanders and “people from away” lived on and visited Mount Desert Island, Maine, in the nineteenth, twentieth, and twenty-first centuries.
 
 ## Demonstration Sites
 The best way to understand what AvantRelationships does is to see it in action. Here are two sites:
-* Southwest Harbor Public Library's [Digital Archive].
+* Southwest Harbor Public Library [Digital Archive].
 * A [basic Omeka site] using only the AvantRelationships plugin and the Seasons theme.
 
 Both sites use items and relationship data from the Southwest Harbor Public Library's Digital Archive, but the library site has a highly customized theme and utilizes many other plugins. The basic Omeka site is an out-of-the-box Omeka installation with only the AvantRelationships plugin installed. The basic site makes it easy to see just the functionality the plugin provides.
@@ -24,9 +24,9 @@ Click the links below to see copyrights and licenses for each.
 * [Magnific Popup](https://github.com/dimsemenov/Magnific-Popup/) - lightbox for jQuery
 ## Installation
 
-The AvantRelationships plugin requires that the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin be installed. AvantCommon contains common logic used by AvantRelationships and a few other plugins (AvantSearch and AvantElements) that have not yet been released.
+The AvantRelationships plugin requires that the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin be installed. AvantCommon contains common logic used by AvantRelationships and a few other plugins like AvantSearch that have not yet been released. The user documentation for AvantSearch is located in the Digital Archive topic [Searching the Digital Archive](http://swhplibrary.net/searching/).
 
-Follow these steps to install the AvantRelationships plugin:
+To install the AvantRelationships plugin, follow these steps:
 
 1. Install the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin.
 2. Unzip the AvantRelationships-master file into your Omeka installation's plugin directory.
@@ -45,8 +45,9 @@ Once installed, AvantRelationships extends the Omeka admin and public user inter
 * Displays **Item Relationship Groups** below the item's metadata on the public and admin Show pages.
 * Displays a **Visualization Preview** on the on the public and admin Show pages for an item that has relationships.
 * Adds **Relationships Filtering Options** to the bottom of the admin Advanced Search page.
+* Inserts a small number of default relationship types into the relationship_types table.
 
-To learn about the features provided by the AvantRelationships plugin, see the following topics on the [Digital Archive] website:
+To learn about features provided by AvantRelationships, see the following topics on the [Digital Archive](http://swhplibrary.net/archive/relationships/) website:
 * [Viewing Relationships]
 * [Adding Relationships]
 * [Implicit Relationships]
@@ -116,9 +117,6 @@ Copyright
 * Copyright George Soules, 2016-2017
 * See [LICENSE](https://github.com/gsoules/AvantRelationships/blob/master/LICENSE) for more information
 
-## Acknowledgments
-
-* [John S. and James L. Knight Foundation](https://knightfoundation.org/) for funding development of the AvantRelationships plugin and for its support of the [Digital Archive] project.
 
 [Digital Archive]: http://swhplibrary.net/archive
 [Basic Omeka site]: http://swhplibrary.net/demo/relationships/

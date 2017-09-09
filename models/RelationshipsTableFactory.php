@@ -40,7 +40,6 @@ class RelationshipsTableFactory
         $sql = "
         CREATE TABLE IF NOT EXISTS `{$db->prefix}relationship_rules` (
             `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-            `determiner` varchar(50) NOT NULL,
             `description` varchar(512) DEFAULT NULL,
             `rule` varchar(512) NOT NULL,
             PRIMARY KEY (`id`)

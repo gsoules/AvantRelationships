@@ -9,7 +9,6 @@ class RelationshipRulesEditor
     public static function addDefaultRule()
     {
         $relationshipRules = new RelationshipRules();
-        $relationshipRules['determiner'] = 'an';
         $relationshipRules['description'] = 'Image';
         $relationshipRules['rule'] = 'Type:^Image';
         $relationshipRules->save();
@@ -30,7 +29,6 @@ class RelationshipRulesEditor
 
         $relationshipRules = new RelationshipRules();
         $relationshipRules['id'] = isset($object['id']) ? intval($object['id']) : null;
-        $relationshipRules['determiner'] = $object['determiner'];
         $relationshipRules['description'] = $object['description'];
         $relationshipRules['rule'] = $object['rule'];
 

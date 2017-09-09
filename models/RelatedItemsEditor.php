@@ -203,6 +203,23 @@ class RelatedItemsEditor
         $sql = (string)$select;
     }
 
+    protected function formatRuleDescription($description)
+    {
+        // In English grammar, a determiner is a word that precedes a noun to express its reference in the context.
+        // For relationship rules, the determiners are the indefinite articles 'a' and 'an'. This method chooses
+        // the correct determiner based on the first letter of the rule description. This logic should be controlled
+        // by a configuration setting, but for now it's based on whether the user's browser language is English.
+        $determiner = '';
+        $isEnglish = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) == 'en';
+        if ($isEnglish && strlen($description) >= 1)
+        {
+            $firstLetterIsVowel = in_array(strtolower($description[0]), array('a', 'e', 'i', 'o', 'u'));
+            $determiner = $firstLetterIsVowel ? 'an ' : 'a ';
+        }
+
+        return $determiner . $description;
+    }
+
     public static function getRelatedItemLink($identifier)
     {
         $item = ItemView::getItemFromIdentifier($identifier);
@@ -490,9 +507,9 @@ class RelatedItemsEditor
         if (empty($rule))
             return true;
 
-        $elementRules = explode(';', $rule['rule']);
-        $ruleDescription = $rule['determiner'] . ' ' .  $rule['description'];
+        $ruleDescription = $this->formatRuleDescription($rule['description']);
 
+        $elementRules = explode(';', $rule['rule']);
         $query = $this->constructAdvancedQuery($elementRules);
         if (empty($query))
         {

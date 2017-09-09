@@ -25,7 +25,6 @@ echo '<div>' . __('The number following the rule indicates how many relationship
                     <span class="drawer"></span>
                 </div>
                 <div class="drawer-contents" style="display:none;">
-                    <label><?php echo __('Determiner'); ?></label><input class="determiner" type="text" value="<?php echo $item['determiner']; ?>">
                     <label><?php echo __('Description'); ?></label><input class="description" type="text" value="<?php echo $item['description']; ?>">
                     <label><?php echo __('Rule'); ?></label><input class="rule" type="text" value="<?php echo $item['rule']; ?>">
                     <button type="button" class="action-button update-item-button"><?php echo __('Update'); ?></button>

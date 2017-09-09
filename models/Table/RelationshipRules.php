@@ -32,7 +32,6 @@ class Table_RelationshipRules extends Omeka_Db_Table
 
         $rule = new RelationshipRules;
         $rule['id'] = $relationshipRuleId;
-        $rule['determiner'] = $relationshipRule->determiner;
         $rule['description'] = $relationshipRule->description;
         $rule['rule'] = $relationshipRule->rule;
         return $rule;
