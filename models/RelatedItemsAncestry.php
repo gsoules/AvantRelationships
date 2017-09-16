@@ -10,16 +10,25 @@ class RelatedItemsAncestry
 
     public function __construct($ancestryData)
     {
-        $parts = json_decode($ancestryData, true);
-        $this->siblingsName = isset($parts['siblings']) ? $parts['siblings'] : 'INVALID SIBLINGS SYNTAX, INVALID SIBLING SYNTAX';
-        $this->ancestorsName = isset($parts['ancestors']) ? $parts['ancestors'] : '';
-        $this->descendantsName = isset($parts['descendants']) ? $parts['descendants'] : '';
+        $parts = explode(';', $ancestryData);
+        $parts = array_map('trim', $parts);
 
-        if (!is_array($this->ancestorsName))
+        if (count($parts) != 3)
+        {
+            $this->siblingsName = 'INVALID SIBLINGS SYNTAX,INVALID SIBLING SYNTAX';
             $this->ancestorsName = array('INVALID ANCESTORS SYNTAX,INVALID ANCESTOR SYNTAX');
-
-        if (!is_array($this->descendantsName))
             $this->descendantsName = array('INVALID DESCENDANTS SYNTAX,INVALID DESCENDANT SYNTAX');
+        }
+        else
+        {
+            $this->siblingsName = $parts[0];
+
+            $this->ancestorsName = explode(':', $parts[1]);
+            $this->ancestorsName = array_map('trim', $this->ancestorsName);
+
+            $this->descendantsName = explode(':', $parts[2]);
+            $this->descendantsName = array_map('trim', $this->descendantsName);
+        }
     }
 
     public function getAncestorsName($level)
