@@ -230,11 +230,16 @@ class RelatedItemsTree
         if (empty($directives))
             return;
 
-        foreach ($directives as $relationshipLabel => $indirectRelationshipTypeId)
+        foreach ($directives as $indirectRelationshipTypeId)
         {
             $indirectlyRelatedItems = $this->getIndirectlyRelatedItems($relatedItem, $indirectRelationshipTypeId);
             if (count($indirectlyRelatedItems) == 0)
                 continue;
+
+            // Determine the name for this group of indirectly related items.
+            $firstIndirectlyRelatedItem = $indirectlyRelatedItems[0];
+            $relationshipLabel = count($indirectlyRelatedItems) == 1 ?
+                $firstIndirectlyRelatedItem->getRelationshipLabelSingular() : $firstIndirectlyRelatedItem->getRelationshipLabelPlural();
 
             // Indirectly related items exist for this directive. Create a subtree for these items.
             $subtree = $this->createKid($relationshipLabel);

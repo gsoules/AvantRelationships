@@ -35,8 +35,8 @@ class RelatedItem
             $this->relationshipLabelSingular = $relationshipRecord->getSourceLabelSingular();
 
             // Directives apply only to the source item in a relationship.
-            $directivesJson = $relationshipRecord->getDirectives();
-            $this->directives = json_decode($directivesJson, true);
+            $this->directives = explode(',', $relationshipRecord->getDirectives());
+            $this->directives = array_map('trim', $this->directives);
         }
         else
         {
