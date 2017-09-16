@@ -5,40 +5,42 @@ echo head(array('title' => $pageTitle, 'bodyclass' => 'edit-relationship-types')
 $db = get_db();
 $list = $db->getTable('RelationshipTypes')->getRelationshipTypes();
 
-echo '<div>' . __('Drag types into the preferred display order and then click the Update Order button that appears at the bottom of the page.
-The number following the type names indicates how many relationships use the type. Only types with zero usage can be removed.') . '</div>';
+echo '<div>' . __('Drag Realtionship Types into the preferred display order. Then click the Update Order button at the bottom of the page.') . '<br/>' .
+    __('The first number is the Id for the Relationship Type. Use this Id when specifying Directives.') . '<br/>' .
+    __('The second number indicates how many relationships use the type. Only types with zero usage can be removed.') . '</div>';
 
 ?>
 <br/>
 
 <ul id="relationship-items-list" class="ui-sortable">
     <?php
-    foreach ($list as $item)
+    foreach ($list as $type)
     {
-        $id = $item['id'];
+        $id = $type['id'];
         $usageCount = RelationshipTypesEditor::getUsageCount($id);
         $removeClass = $usageCount > 0 || count($list) == 1 ? ' no-remove' : '';
 
-        $sourceRule = get_view()->formSelect(null, $item['source_rule_id'], array('multiple' => false, 'class' => 'source-rule-id'), get_table_options('RelationshipRules'));
-        $targetRule = get_view()->formSelect(null, $item['target_rule_id'], array('multiple' => false, 'class' => 'target-rule-id'), get_table_options('RelationshipRules'));
+        $sourceRule = get_view()->formSelect(null, $type['source_rule_id'], array('multiple' => false, 'class' => 'source-rule-id'), get_table_options('RelationshipRules'));
+        $targetRule = get_view()->formSelect(null, $type['target_rule_id'], array('multiple' => false, 'class' => 'target-rule-id'), get_table_options('RelationshipRules'));
     ?>
         <li id="<?php echo $id; ?>">
             <div class="main_link ui-sortable-handle">
                 <div class="sortable-item">
-                    <div class="relationship-type-title"><?php echo $item['source_name']; ?></div>
-                    <div class="relationship-type-title"><?php echo $item['target_name']; ?></div>
+                    <div class="relationship-type-title"><?php echo $type['id']; ?></div>
+                    <div class="relationship-type-title"><?php echo $type['source_name']; ?></div>
+                    <div class="relationship-type-title"><?php echo $type['target_name']; ?></div>
                     <span class="relationship-item-count"><?php echo $usageCount; ?></span>
                     <span class="drawer"></span>
                 </div>
                 <div class="drawer-contents" style="display:none;">
-                    <div class="order" style="display: none"><?php echo $item['order']; ?></div>
+                    <div class="order" style="display: none"><?php echo $type['order']; ?></div>
                     <table>
                         <tr>
                             <td>
-                                <label><?php echo __('Source Name'); ?></label><input class="source-name" type="text" value="<?php echo $item['source_name']; ?>">
+                                <label><?php echo __('Source Name'); ?></label><input class="source-name" type="text" value="<?php echo $type['source_name']; ?>">
                             </td>
                             <td>
-                                <label><?php echo __('Source Label'); ?></label><input class="source-label" type="text" value="<?php echo $item['source_label']; ?>">
+                                <label><?php echo __('Source Label'); ?></label><input class="source-label" type="text" value="<?php echo $type['source_label']; ?>">
                             </td>
                         </tr>
                         <tr>
@@ -48,10 +50,10 @@ The number following the type names indicates how many relationships use the typ
                         </tr>
                         <tr>
                             <td>
-                                <label><?php echo __('Target Name'); ?></label><input class="target-name" type="text" value="<?php echo $item['target_name']; ?>">
+                                <label><?php echo __('Target Name'); ?></label><input class="target-name" type="text" value="<?php echo $type['target_name']; ?>">
                             </td>
                             <td>
-                                <label><?php echo __('Target Label'); ?></label><input class="target-label" type="text" value="<?php echo $item['target_label']; ?>">
+                                <label><?php echo __('Target Label'); ?></label><input class="target-label" type="text" value="<?php echo $type['target_label']; ?>">
                             </td>
                         </tr>
                         <tr>
@@ -61,12 +63,12 @@ The number following the type names indicates how many relationships use the typ
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <label><?php echo __('Directives'); ?></label><input class="directives" type="text" value="<?php echo html_escape($item['directives']); ?>">
+                                <label><?php echo __('Directives'); ?></label><input class="directives" type="text" value="<?php echo html_escape($type['directives']); ?>">
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <label><?php echo __('Ancestry'); ?></label><input class="ancestry" type="text" value="<?php echo html_escape($item['ancestry']); ?>">
+                                <label><?php echo __('Ancestry'); ?></label><input class="ancestry" type="text" value="<?php echo html_escape($type['ancestry']); ?>">
                             </td>
                         </tr>
                     </table>
