@@ -447,9 +447,14 @@ class RelatedItemsGraph
         {
             if ($node == $this->graphRootNode)
             {
-                if ($kidCount > $this->maxPrimaryNodeKids)
+                $extras = $kidCount - $this->maxPrimaryNodeKids;
+                if ($extras >= 1)
                 {
-                    $this->pruneKids($node, $this->maxPrimaryNodeKids);
+                    // Adjust the max so that there are at least two orphans because telling the user that
+                    // 1 item is not showing looks bad since you could have shown the item in the area
+                    // where it says 1 item is not showing.
+                    $maxKids = $extras == 1 ? $this->maxPrimaryNodeKids - 1 : $this->maxPrimaryNodeKids;
+                    $this->pruneKids($node, $maxKids);
                 }
             }
 
@@ -492,7 +497,7 @@ class RelatedItemsGraph
             {
                 // Replace the set of orphaned nodes with a text node that says how many nodes are not showing.
                 $moreNode = new RelatedItemsTreeNode($id, '');
-                $message = $orphanCount == 1 ? __('1 related item is not shown') : __('%s related items are not shown', $orphanCount);
+                $message = __('%s related items are not shown', $orphanCount);
                 $moreNode->setData("{data:{id:'$id', name:'$message'}, classes:'moreNode'}");
                 $node->addKid($moreNode);
             }
