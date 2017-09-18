@@ -2,7 +2,9 @@
 
 > Code and documentation for this plugin are being finalized. First release is expected by 9/30/2017.
 
-The AvantRelationships plugin visually displays real-world relationships between items in an Omeka database. When you view an item, the plugin displays thumbnails and titles of related items. It also displays a graphical visualization depicting the relationships among items. The user instantly sees how the item fits in with the rest of the collection and can easily discover and view related items.
+The AvantRelationships plugin visually displays real-world relationships between items in an Omeka database. When you view an item, the plugin displays thumbnails and titles of related items. It also displays a graphical visualization (shown below) depicting the relationships among items. The user instantly sees how the item fits in with the rest of the collection and can easily discover and view related items.
+
+![Example](http://swhplibrary.net/wp/wp-content/uploads/2017/09/view-relationships-2.jpg)
 
 This plugin was developed for the [Southwest Harbor Public Library](http://www.swhplibrary.org/), in Southwest Harbor, Maine. Funding was provided by the [John S. and James L. Knight Foundation](https://knightfoundation.org/). The library's [Digital Archive] contains historic photographs, documents, maps, and research material given to and shared with the library since about 1900. The Archive illustrates the way people, houses, businesses, vessels, Acadia National Park, places, structures, organizations, and events relate to one another and tells the story of how islanders and “people from away” lived on and visited Mount Desert Island, Maine, in the nineteenth, twentieth, and twenty-first centuries.
 
@@ -68,7 +70,11 @@ By default, the AvantRelationships plugin displays its visualization graph previ
     ...
 </div><!-- end secondary -->
  ```
+
+If you don't want to see the visualization, choose the *At designated location* configuration option, but don't call the hook.
+
 As examples, the [Digital Archive] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
+
 
 ### Custom Relationships
 You can add custom relationships using the `custom_relationships` filter which is called from `RelatedItemsTree::insertCustomRelationships()`. The filter allows you to insert your own `RelatedItemsTreeNode` objects into the `RelatedItemsTree` to be displayed to the user as described in the Digital Archive topic [Viewing Relationships].
