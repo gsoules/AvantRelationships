@@ -48,13 +48,14 @@ Once installed, AvantRelationships extends the Omeka admin and public user inter
 * Inserts a small number of default relationship types into the relationship_types table.
 
 To learn about features provided by AvantRelationships, see the following topics on the [Digital Archive](http://swhplibrary.net/archive/relationships/) website:
+* [Archive Relational Model]
+* [Relationships Overview]
 * [Viewing Relationships]
 * [Adding Relationships]
 * [Implicit Relationships]
 * [Cover Images]
 * [Relationship Types]
 * [Relationship Rules]
-* [Digital Archive Data Model]
 
 ### Visualization Graph Preview Placement
 By default, the AvantRelationships plugin displays its visualization graph preview immediately after an item's metadata elements and before item relationship groups. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup.  You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
@@ -121,10 +122,11 @@ Copyright
 [Digital Archive]: http://swhplibrary.net/archive
 [Basic Omeka site]: http://swhplibrary.net/demo/relationships/
 [relationships types]: http://swhplibrary.net/digitalarchive/relationships/browse
+[Relationships Overview]: http://swhplibrary.net/archive/relationships/
 [Viewing Relationships]: http://swhplibrary.net/archive/viewing-relationships/
 [Adding Relationships]: http://swhplibrary.net/archive/adding-relationships/
 [Implicit Relationships]: http://swhplibrary.net/archive/implicit-relationships/
 [Cover Images]: http://swhplibrary.net/archive/cover-images/
 [Relationship Types]: http://swhplibrary.net/archive/relationship-types/
 [Relationship Rules]: http://swhplibrary.net/archive/relationship-rules/
-[Digital Archive Data Model]: http://swhplibrary.net/archive/digital-archive-data-model/
+[Archive Relational Model]: http://swhplibrary.net/archive/digital-relational-model/
