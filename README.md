@@ -1,8 +1,6 @@
 # AvantRelationships (plugin for Omeka Classic)
 
-> Code and documentation for this plugin are being finalized. First release is expected by 9/30/2017.
-
-The AvantRelationships plugin visually displays real-world relationships between items in an Omeka database. When you view an item, the plugin displays thumbnails and titles of related items. It also displays a graphical visualization (shown below) depicting the relationships among items. The user instantly sees how the item fits in with the rest of the collection and can easily discover and view related items.
+The AvantRelationships plugin visually displays real-world relationships between items in an Omeka database. When you view an item, the plugin displays thumbnails and titles of related items. It also displays a graphical visualization (shown below) depicting the relationships among items. The user instantly sees how the item fits in with the rest of the collection and easily discovers related items.
 
 ![Example](http://swhplibrary.net/wp/wp-content/uploads/2017/09/view-relationships-2.jpg)
 
@@ -26,7 +24,7 @@ Click the links below to see copyrights and licenses for each.
 * [Magnific Popup](https://github.com/dimsemenov/Magnific-Popup/) - lightbox for jQuery
 ## Installation
 
-The AvantRelationships plugin requires that the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin be installed. AvantCommon contains common logic used by AvantRelationships and a few other plugins like AvantSearch that have not yet been released. The user documentation for AvantSearch is located in the Digital Archive topic [Searching the Digital Archive](http://swhplibrary.net/searching/).
+The AvantRelationships plugin requires that the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin be installed. AvantCommon contains common logic used by AvantRelationships and [AvantSearch](https://github.com/gsoules/AvantSearch).
 
 To install the AvantRelationships plugin, follow these steps:
 
@@ -59,8 +57,8 @@ To learn about features provided by AvantRelationships, see the following topics
 * [Relationship Types]
 * [Relationship Rules]
 
-### Visualization Graph Preview Placement
-By default, the AvantRelationships plugin displays its visualization graph preview immediately after an item's metadata elements and before item relationship groups. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup.  You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
+### Placement of the Visualization Graph Preview
+The preview is a small image of the visualization graph. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup.By default, the AvantRelationships plugin displays the preview immediately after an item's metadata elements and before item relationship groups. You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
 1. On the Configure Plugin page for AvantRelationships, choose *At designated location* for the *Visualization Preview* option.
 2. Call the hook shown below from `/themes/<your-theme-name>/items/show.php` as shown in the example below. 
 
@@ -71,7 +69,7 @@ By default, the AvantRelationships plugin displays its visualization graph previ
 </div><!-- end secondary -->
  ```
 
-If you don't want to see the visualization, choose the *At designated location* configuration option, but don't call the hook.
+If you don't want to show the preview, choose the *At designated location* configuration option, but don't call the hook.
 
 As examples, the [Digital Archive] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
 
