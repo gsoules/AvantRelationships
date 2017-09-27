@@ -4,7 +4,7 @@ The AvantRelationships plugin visually displays real-world relationships between
 
 ![Example](http://swhplibrary.net/wp/wp-content/uploads/2017/09/view-relationships-2.jpg)
 
-This plugin was developed for the [Southwest Harbor Public Library](http://www.swhplibrary.org/), in Southwest Harbor, Maine. Funding was provided by the [John S. and James L. Knight Foundation](https://knightfoundation.org/). The library's [Digital Archive] contains historic photographs, documents, maps, and research material given to and shared with the library since about 1900. The Archive illustrates the way people, houses, businesses, vessels, Acadia National Park, places, structures, organizations, and events relate to one another and tells the story of how islanders and “people from away” lived on and visited Mount Desert Island, Maine, in the nineteenth, twentieth, and twenty-first centuries.
+This plugin was developed for the [Southwest Harbor Public Library](http://www.swhplibrary.org/), in Southwest Harbor, Maine. Funding was provided in part by the [John S. and James L. Knight Foundation](https://knightfoundation.org/). The library's [Digital Archive] contains historic photographs, documents, maps, and research material given to and shared with the library since about 1900. The Archive illustrates the way people, houses, businesses, vessels, Acadia National Park, places, structures, organizations, and events relate to one another and tells the story of how islanders and “people from away” lived on and visited Mount Desert Island, Maine, in the nineteenth, twentieth, and twenty-first centuries.
 
 ## Demonstration Sites
 The best way to understand what AvantRelationships does is to see it in action. Here are two sites:
@@ -22,6 +22,8 @@ Click the links below to see copyrights and licenses for each.
 * [Dagre](https://github.com/cytoscape/cytoscape.js-dagre) - DAG (directed acyclic graph) for Cytoscape.js
 * [CoSE Bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent) - layout for Cytoscape.js
 * [Magnific Popup](https://github.com/dimsemenov/Magnific-Popup/) - lightbox for jQuery
+* [AvantCommon](https://github.com/gsoules/AvantCommon) plugin (see Installation section below)
+
 ## Installation
 
 The AvantRelationships plugin requires that the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin be installed. AvantCommon contains common logic used by AvantRelationships and [AvantSearch](https://github.com/gsoules/AvantSearch).
