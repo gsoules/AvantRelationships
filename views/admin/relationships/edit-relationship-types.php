@@ -5,9 +5,9 @@ echo head(array('title' => $pageTitle, 'bodyclass' => 'edit-relationship-types')
 $db = get_db();
 $list = $db->getTable('RelationshipTypes')->getRelationshipTypes();
 
-echo '<div>' . __('Drag Realtionship Types into the preferred display order. Then click the Update Order button at the bottom of the page.') . '<br/>' .
-    __('The first number is the Id for the Relationship Type. Use this Id when specifying Directives.') . '<br/>' .
-    __('The second number indicates how many relationships use the type. Only types with zero usage can be removed.') . '</div>';
+echo '<div>' . __('Drag Relationship Types in the list below into the preferred order. Then click the Update Order button at the bottom of the page.') . '<br/>' .
+    __('The number on the left is the Id for the Relationship Type. Use this Id when specifying Directives.') . '<br/>' .
+    __('The number on the right indicates how many relationships use the type. Only types with zero usage can be removed.') . '</div>';
 
 ?>
 <br/>
