@@ -36,6 +36,8 @@ To install the AvantRelationships plugin, follow these steps:
 4. Activate the plugin from the Admin → Settings → Plugins page.
 5. Configure the plugin or accept the defaults.
 
+The installer creates one relationship type (depicts / depicted by) and one rule (Image) to get you started.
+
 ## Uninstalling
 You can uninstall AvantRelationships in the usual way; however, by default, the uninstaller will not remove the database tables that store relationship information. This is to protect against accidental deletion of important data. To remove the tables, you must check the *Delete Tables* option on the Configure Plugin page, save the change, and then proceed with uninstalling the plugin.
 
@@ -74,7 +76,6 @@ The preview is a small image of the visualization graph. When you click on the p
 If you don't want to show the preview, choose the *At designated location* configuration option, but don't call the hook.
 
 As examples, the [Digital Archive] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
-
 
 ### Custom Relationships
 You can add custom relationships using the `custom_relationships` filter which is called from `RelatedItemsTree::insertCustomRelationships()`. The filter allows you to insert your own `RelatedItemsTreeNode` objects into the `RelatedItemsTree` to be displayed to the user as described in the Digital Archive topic [Viewing Relationships].
