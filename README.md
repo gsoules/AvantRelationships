@@ -7,11 +7,11 @@ The AvantRelationships plugin visually displays real-world relationships between
 This plugin was developed for the [Southwest Harbor Public Library](http://www.swhplibrary.org/), in Southwest Harbor, Maine. Funding was provided in part by the [John S. and James L. Knight Foundation](https://knightfoundation.org/). The library's [Digital Archive] contains historic photographs, documents, maps, and research material given to and shared with the library since about 1900. The Archive illustrates the way people, houses, businesses, vessels, Acadia National Park, places, structures, organizations, and events relate to one another and tells the story of how islanders and “people from away” lived on and visited Mount Desert Island, Maine, in the nineteenth, twentieth, and twenty-first centuries.
 
 ## Demonstration Sites
-The best way to understand what AvantRelationships does is to see it in action. Here are two sites:
-* Southwest Harbor Public Library [Digital Archive].
+The best way to understand what AvantRelationships does is to see some examples. Below are links to two different Omeka sites that display the same item. Both sites use items and relationship data from the Southwest Harbor Public Library's Digital Archive, but the library site has a highly customized theme and utilizes many other plugins. The basic Omeka site is an out-of-the-box Omeka installation with only the AvantRelationships plugin installed. The basic site makes it easy to see just the functionality the plugin provides.
+
+* Southwest Harbor Public Library [Digital Archive site].
 * A [basic Omeka site] using only the AvantRelationships plugin and the Seasons theme.
 
-Both sites use items and relationship data from the Southwest Harbor Public Library's Digital Archive, but the library site has a highly customized theme and utilizes many other plugins. The basic Omeka site is an out-of-the-box Omeka installation with only the AvantRelationships plugin installed. The basic site makes it easy to see just the functionality the plugin provides.
 
 ## Dependencies
 AvantRelationships depends on the following open source libraries which are included in the `views/shared/javascripts` folder.
@@ -36,7 +36,7 @@ To install the AvantRelationships plugin, follow these steps:
 4. Activate the plugin from the Admin → Settings → Plugins page.
 5. Configure the plugin or accept the defaults.
 
-The installer creates one relationship type (depicts / depicted by) and one rule (Image) to get you started.
+The installer creates some relationship types and rules to get you started.
 
 ## Uninstalling
 You can uninstall AvantRelationships in the usual way; however, by default, the uninstaller will not remove the database tables that store relationship information. This is to protect against accidental deletion of important data. To remove the tables, you must check the *Delete Tables* option on the Configure Plugin page, save the change, and then proceed with uninstalling the plugin.
@@ -47,7 +47,7 @@ Once installed, AvantRelationships extends the Omeka admin and public user inter
 * Adds a **Relationships** tab on the admin item Edit page.
 * Adds a **Cover Image** tab on the admin item Edit page.
 * Displays **Item Relationship Groups** below the item's metadata on the public and admin Show pages.
-* Displays a **Visualization Preview** on the on the public and admin Show pages for an item that has relationships.
+* Displays a **Visualization Preview** on the public and admin Show pages for an item that has relationships.
 * Adds **Relationships Filtering Options** to the bottom of the admin Advanced Search page.
 * Inserts a small number of default relationship types into the relationship_types table.
 
@@ -62,7 +62,7 @@ To learn about features provided by AvantRelationships, see the following topics
 * [Relationship Rules]
 
 ### Placement of the Visualization Graph Preview
-The preview is a small image of the visualization graph. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup.By default, the AvantRelationships plugin displays the preview immediately after an item's metadata elements and before item relationship groups. You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
+The preview is a small image of the visualization graph. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup. By default, the AvantRelationships plugin displays the preview immediately after an item's metadata elements and before item relationship groups. You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
 1. On the Configure Plugin page for AvantRelationships, choose *At designated location* for the *Visualization Preview* option.
 2. Call the hook shown below from `/themes/<your-theme-name>/items/show.php` as shown in the example below. 
 
@@ -75,7 +75,7 @@ The preview is a small image of the visualization graph. When you click on the p
 
 If you don't want to show the preview, choose the *At designated location* configuration option, but don't call the hook.
 
-As examples, the [Digital Archive] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
+As examples, the [Digital Archive site] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
 
 ### Custom Relationships
 You can add custom relationships using the `custom_relationships` filter which is called from `RelatedItemsTree::insertCustomRelationships()`. The filter allows you to insert your own `RelatedItemsTreeNode` objects into the `RelatedItemsTree` to be displayed to the user as described in the Digital Archive topic [Viewing Relationships].
@@ -127,7 +127,8 @@ Copyright
 
 
 [Digital Archive]: http://swhplibrary.net/archive
-[Basic Omeka site]: http://swhplibrary.net/demo/relationships/
+[Digital Archive site]: http://swhplibrary.net/digitalarchive/items/show/9165
+[Basic Omeka site]: http://swhplibrary.net/demo/relationships/items/show/9165
 [relationships types]: http://swhplibrary.net/digitalarchive/relationships/browse
 [Relationships Overview]: http://swhplibrary.net/archive/relationships/
 [Viewing Relationships]: http://swhplibrary.net/archive/viewing-relationships/
