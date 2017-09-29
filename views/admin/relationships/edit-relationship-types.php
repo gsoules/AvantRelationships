@@ -36,6 +36,11 @@ echo '<div>' . __('Drag Relationship Types in the list below into the preferred 
                     <div class="order" style="display: none"><?php echo $type['order']; ?></div>
                     <table>
                         <tr>
+                            <td colspan="2">
+                                <label><?php echo __('Source Rule'); ?></label><?php echo $sourceRule; ?>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
                                 <label><?php echo __('Source Name'); ?></label><input class="source-name" type="text" value="<?php echo $type['source_name']; ?>">
                             </td>
@@ -45,7 +50,7 @@ echo '<div>' . __('Drag Relationship Types in the list below into the preferred 
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <label><?php echo __('Source Rule'); ?></label><?php echo $sourceRule; ?>
+                                <label><?php echo __('Target Rule'); ?></label><?php echo $targetRule; ?>
                             </td>
                         </tr>
                         <tr>
@@ -54,11 +59,6 @@ echo '<div>' . __('Drag Relationship Types in the list below into the preferred 
                             </td>
                             <td>
                                 <label><?php echo __('Target Label'); ?></label><input class="target-label" type="text" value="<?php echo $type['target_label']; ?>">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <label><?php echo __('Target Rule'); ?></label><?php echo $targetRule; ?>
                             </td>
                         </tr>
                         <tr>
