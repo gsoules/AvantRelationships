@@ -473,6 +473,13 @@ class RelatedItemsEditor
 
     public function validateRelationshipParameters($primaryItem, $relationshipTypeCode, $relatedItemIdentifier, $relatedItem)
     {
+        // Make sure there's a primary item. There will be none if the item's Identifier is not set.
+        if (empty($primaryItem))
+        {
+            $this->addValidationError(__('This item has no Identifier. Give this item an Identifier, Save Changes, and then edit again to add relationships.'));
+            return false;
+        }
+
         // Make sure the admin provided both the relationship type and the target item.
         if (empty($relationshipTypeCode))
         {
@@ -489,7 +496,7 @@ class RelatedItemsEditor
 
         if (empty($relatedItem))
         {
-            $this->addValidationError(__('Related item \'%s\' does not exist', $relatedItemIdentifier));
+            $this->addValidationError(__('Related item with Identifier \'%s\' does not exist', $relatedItemIdentifier));
             return false;
         }
 
