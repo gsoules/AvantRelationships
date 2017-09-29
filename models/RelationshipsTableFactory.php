@@ -2,6 +2,32 @@
 
 class RelationshipsTableFactory
 {
+    public static function CreateDefaultRelationshipTypesAndRules()
+    {
+        $ruleIdArticle = RelationshipRulesEditor::addDefaultRule('Article', 'Type:^Article');
+        $ruleIdArticleDwelling = RelationshipRulesEditor::addDefaultRule('Article with subject Dwelling or Places', 'Type:^Article;Subject:^(Structures, Dwelling|Places)');
+        $ruleIdArticlePeople = RelationshipRulesEditor::addDefaultRule('Article with subject People', 'Type:^Article;Subject:^People');
+        $ruleIdArticleStructures = RelationshipRulesEditor::addDefaultRule('Article with subject Structures', 'Type:^Article;Subject:^Structures');
+        $ruleIdImage = RelationshipRulesEditor::addDefaultRule('Image', 'Type:^Image');
+
+        $order = 1;
+
+        // Create a 'depicts' type and set the Directives to that same type.
+        $typeDepicts = RelationshipTypesEditor::addDefaultType($order++, $ruleIdImage, 'depicts', 'Related Articles,Related Article', $ruleIdArticle, 'depicted by', 'Images,Image');
+        $depictsTypeId = $typeDepicts['id'];
+        $typeDepicts['directives'] = $depictsTypeId;
+        $typeDepicts->save();
+
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticlePeople, 'married to', 'Married to', $ruleIdArticlePeople, 'married to', 'Married to');
+
+        $ancestry = 'Siblings,Sibling; Parents,Parent:Grandparents,Grandparent:Great *; Children,Child:Grandchildren,Grandchild:Great *';
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticlePeople, 'child of', 'Parents,Parent', $ruleIdArticlePeople, 'parent of', 'Children,Child', '', $ancestry);
+
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticleStructures, 'designed by', 'Designed by', $ruleIdArticlePeople, 'designed', 'Designed');
+
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticlePeople, 'resided at', 'Resided at', $ruleIdArticleDwelling, 'occupied by', 'Residents,Resident');
+    }
+
     public static function CreateRelationshipsTable()
     {
         $db = get_db();
@@ -46,8 +72,6 @@ class RelationshipsTableFactory
         ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
         $db->query($sql);
-
-        RelationshipRulesEditor::addDefaultRule();
     }
 
     public static function CreateRelationshipTypesTable()
@@ -70,8 +94,6 @@ class RelationshipsTableFactory
         ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
         $db->query($sql);
-
-        RelationshipTypesEditor::addDefaultType();
     }
 
     public static function DropRelatonshipsTable()

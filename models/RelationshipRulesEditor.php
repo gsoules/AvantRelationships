@@ -6,12 +6,13 @@ class RelationshipRulesEditor
     const REMOVE_RELATIONSHIP_RULE = 2;
     const UPDATE_RELATIONSHIP_RULE = 3;
 
-    public static function addDefaultRule()
+    public static function addDefaultRule($description, $rule)
     {
         $relationshipRules = new RelationshipRules();
-        $relationshipRules['description'] = 'Image';
-        $relationshipRules['rule'] = 'Type:^Image';
+        $relationshipRules['description'] = $description;
+        $relationshipRules['rule'] = $rule;
         $relationshipRules->save();
+        return $relationshipRules['id'];
     }
 
     protected function addRule()

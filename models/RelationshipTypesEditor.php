@@ -7,19 +7,20 @@ class RelationshipTypesEditor
     const UPDATE_RELATIONSHIP_TYPE = 3;
     const UPDATE_RELATIONSHIP_TYPE_ORDER = 4;
 
-    public static function addDefaultType()
+    public static function addDefaultType($order, $sourceRuleId, $sourceName, $sourceLabel, $targetRuleId, $targetName, $targetLabel, $directives = '', $ancestry = '')
     {
         $relationshipTypes = new RelationshipTypes();
-        $relationshipTypes['order'] = 1;
-        $relationshipTypes['source_name'] = 'depicts';
-        $relationshipTypes['target_name'] = 'depicted by';
-        $relationshipTypes['source_rule_id'] = 0;
-        $relationshipTypes['target_rule_id'] = 0;
-        $relationshipTypes['source_label'] = 'Related Items,Related Item';
-        $relationshipTypes['target_label'] = 'Images,Image';
-        $relationshipTypes['directives'] = '';
-        $relationshipTypes['ancestry'] = '';
+        $relationshipTypes['order'] = $order;
+        $relationshipTypes['source_rule_id'] = $sourceRuleId;
+        $relationshipTypes['source_name'] = $sourceName;
+        $relationshipTypes['source_label'] = $sourceLabel;
+        $relationshipTypes['target_rule_id'] = $targetRuleId;
+        $relationshipTypes['target_name'] = $targetName;
+        $relationshipTypes['target_label'] = $targetLabel;
+        $relationshipTypes['directives'] = $directives;
+        $relationshipTypes['ancestry'] = $ancestry;
         $relationshipTypes->save();
+        return $relationshipTypes;
     }
 
     protected function addType()

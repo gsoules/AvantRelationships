@@ -189,6 +189,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         RelationshipsTableFactory::CreateRelationshipTypesTable();
         RelationshipsTableFactory::CreateRelationshipsTable();
         RelationshipsTableFactory::CreateRelationshipImagesTable();
+        RelationshipsTableFactory::CreateDefaultRelationshipTypesAndRules();
     }
 
     public function hookItemsBrowseSql($args)
