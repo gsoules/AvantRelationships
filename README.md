@@ -36,7 +36,9 @@ To install the AvantRelationships plugin, follow these steps:
 4. Activate the plugin from the Admin → Settings → Plugins page.
 5. Configure the plugin or accept the defaults.
 
-To help get you started using AvantRelationships, the installer creates the relationship types and rules shown below. After installation, you can see and edit these by clicking on the **Relationships** menu item in the admin left navigation panel. Unless you are starting with a new Omeka database, chances are that your items won't have types like 'Article' and 'Image' or subjects like 'People' or 'Structures' and so you'll need to [edit/add/remove rules](http://swhplibrary.net/archive/relationship-rules/) to match your own types and subjects. You also want to [edit/add/remove relationship types](http://swhplibrary.net/archive/relationship-types/) that make sense with your collection.
+**Default Relationship Rules and Types**
+
+To help get you started using AvantRelationships, the installer creates the relationship types and rules shown below. After installation, you can see and edit these by clicking on the **Relationships** menu item in the admin left navigation panel. Unless you are starting with a new Omeka database, chances are that your items won't have types like 'Article' and 'Image' or subjects like 'People' or 'Structures' and so you'll need to [edit/add/remove rules](http://swhplibrary.net/archive/relationship-rules/) to match your own types and subjects. You also want to [edit/add/remove relationship types](http://swhplibrary.net/archive/relationship-types/) in ways that make sense with your collection.
 
 ![Relationships](http://swhplibrary.net/wp/wp-content/uploads/2017/09/Git-Hub-README-Relationship-Types-and-Rules.jpg)
 
