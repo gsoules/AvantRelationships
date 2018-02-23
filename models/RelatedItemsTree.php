@@ -20,7 +20,8 @@ class RelatedItemsTree
         $this->primaryItem = $primaryItem;
         $this->hasIndirectlyRelatedItems = false;
 
-        $this->rootNode = $this->createKid(metadata($primaryItem, array('Dublin Core', 'Title'), array('no_filter' => true)));
+        $titleParts = ItemView::getPartsForTitleElement();
+        $this->rootNode = $this->createKid(metadata($primaryItem, array($titleParts[0], $titleParts[1]), array('no_filter' => true)));
 
         $this->createTreeFromRelatedItemGroups();
         $this->insertCustomRelationships();

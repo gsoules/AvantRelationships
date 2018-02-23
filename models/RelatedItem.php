@@ -161,12 +161,12 @@ class RelatedItem
 
     protected function setItemIdentifier()
     {
-        $this->identifier = metadata($this->item, array('Dublin Core', 'Identifier'), array('no_filter' => true));
+        $this->identifier = ItemView::getItemIdentifier($this->item);
     }
 
     protected function setItemTitle()
     {
-        $this->title = metadata($this->item, array('Dublin Core', 'Title'), array('no_filter' => true));
+        $this->title = ItemView::getItemTitle($this->item);
     }
 
     public function setLabels($plural, $singular = null)
