@@ -9,7 +9,7 @@ if (empty($coverImageIdentifier))
 
 echo '<p>' . __('Specify the Identifier for the item to use for this item\'s cover image.') . '</p>';
 echo '<p><field>' . __('Item:') . ' </field>';
-echo get_view()->formText('cover-image-identifier', $coverImageIdentifier, array('size' => 4));
+echo get_view()->formText('cover-image-identifier', $coverImageIdentifier, array('size' => 12));
 echo "</p>";
 
 if (!empty($coverImageIdentifier))

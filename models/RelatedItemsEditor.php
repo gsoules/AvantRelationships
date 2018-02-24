@@ -28,7 +28,12 @@ class RelatedItemsEditor
             $rule = array();
             $parts = explode(':', $elementRule);
             $elementName = $parts[0];
+
             $element = $this->db->getTable('Element')->findByElementSetNameAndElementName('Dublin Core', $elementName);
+            if (empty($element))
+            {
+                $element = $this->db->getTable('Element')->findByElementSetNameAndElementName('Item Type Metadata', $elementName);
+            }
 
             if (empty($element) || count($parts) != 2)
             {

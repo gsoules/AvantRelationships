@@ -19,7 +19,7 @@ class Table_RelationshipImages extends Omeka_Db_Table
     public function getRelationshipImagesByItemIdentifier($itemIdentifier)
     {
         $select = $this->getSelect();
-        $select->where("relationship_images.identifier = $itemIdentifier");
+        $select->where("relationship_images.identifier = '$itemIdentifier'");
         $relationshipImages = $this->fetchObjects($select);
         return $relationshipImages;
     }

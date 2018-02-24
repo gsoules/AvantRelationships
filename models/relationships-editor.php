@@ -32,7 +32,7 @@ $primaryItemIdentifier = ItemView::getItemIdentifier($item);
     <?php }; ?>
     <tr class="add-relationship-row">
         <td><?php echo get_view()->formSelect('relationship-type-code', null, array('multiple' => false), $formSelectRelationshipNames); ?></td>
-        <td><?php echo get_view()->formText('related-item-identifier', null, array('size' => 4)); ?></td>
+        <td><?php echo get_view()->formText('related-item-identifier', null, array('size' => 12)); ?></td>
         <td></td>
         <td>
             <button type="button" class="action-button add-relationship-button"><?php echo __('Add'); ?></button>
