@@ -6,7 +6,6 @@ class RelatedItemsEditor
     const REMOVE_RELATIONSHIP = 2;
     const UPDATE_RELATIONSHIP = 3;
 
-    protected $advancedSearchRule;
     protected $db;
     protected $primaryItem;
     protected $relatedItemsModel;
@@ -309,15 +308,6 @@ class RelatedItemsEditor
     public function processAdvancedSearchSql($args)
     {
         $params = $args['params'];
-
-        // Save the advanced search options as rule text that will appear at the end of admin search results.
-        // An admin can copy/paste this text for use as a relationship validation rule.
-        if (isset($params['advanced']))
-        {
-            $advanced = $params['advanced'];
-            $this->advancedSearchRule = json_encode($advanced);
-        }
-
         $this->extendAdvancedSearchQueryForRelationships($params, $args['select']);
     }
 
