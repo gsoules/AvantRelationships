@@ -12,7 +12,6 @@ The best way to understand what AvantRelationships does is to see some examples.
 * Southwest Harbor Public Library [Digital Archive site].
 * A [basic Omeka site] using only the AvantRelationships plugin and the Seasons theme.
 
-
 ## Dependencies
 AvantRelationships depends on the following open source libraries which are included in the `views/shared/javascripts` folder.
 Click the links below to see copyrights and licenses for each.
@@ -24,9 +23,15 @@ Click the links below to see copyrights and licenses for each.
 * [Magnific Popup](https://github.com/dimsemenov/Magnific-Popup/) - lightbox for jQuery
 * [AvantCommon](https://github.com/gsoules/AvantCommon) plugin (see Installation section below)
 
+AvantRelationships requires that each item have a unique identifier. It uses the identifiers to establish the relationship
+between two items. It assumes that you are using the Dublin Core Identifier element
+for this purpose. If you are using another element, you must specify it on the AvantCommon configuration page. It also
+assumes use of the Dublin Core Title element, but you can specify another element on the AvantCommon configuration page.
+
 ## Installation
 
-The AvantRelationships plugin requires that the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin be installed. AvantCommon contains common logic used by AvantRelationships and [AvantSearch](https://github.com/gsoules/AvantSearch).
+The AvantRelationships plugin requires that the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin be installed.
+AvantCommon contains common logic used by AvantRelationships and [AvantSearch](https://github.com/gsoules/AvantSearch).
 
 To install the AvantRelationships plugin, follow these steps:
 
@@ -35,6 +40,7 @@ To install the AvantRelationships plugin, follow these steps:
 3. Rename the folder to AvantRelationships.
 4. Activate the plugin from the Admin → Settings → Plugins page.
 5. Configure the plugin or accept the defaults.
+6. Configure the AvantCommon plugin to specify your item identifier and title elements.
 
 **Default Relationship Rules and Types**
 
@@ -65,22 +71,6 @@ To learn about features provided by AvantRelationships, see the following topics
 * [Relationship Types]
 * [Relationship Rules]
 
-### Placement of the Visualization Graph Preview
-The preview is a small image of the visualization graph. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup. By default, the AvantRelationships plugin displays the preview immediately after an item's metadata elements and before item relationship groups. You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
-1. On the Configure Plugin page for AvantRelationships, choose *At designated location* for the *Visualization Preview* option.
-2. Call the hook shown below from `/themes/<your-theme-name>/items/show.php` as shown in the example below. 
-
-```
-<div id="secondary">
-    <?php fire_plugin_hook('show_relationships_visualization', array('view' => $this, 'item' => $item)); ?>
-    ...
-</div><!-- end secondary -->
- ```
-
-If you don't want to show the preview, choose the *At designated location* configuration option, but don't call the hook.
-
-As examples, the [Digital Archive site] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
-
 ### Implicit Relationships
 An implicit relationship is one where two items are related to each other by virtue of having common
 data that creates an implicit association between them. In contrast, an explicit relationship is one that an
@@ -99,6 +89,22 @@ Notes:
 item and the corresponding Title text in another. If the text varies even by a space, the relationship won't be detected.
 * The implicit relationships features assumes that you are using the Dublin Core Title element and the Dublin Core Creator and/or Publisher elements.
 If you need the feature to work with other elements, you'll have to adapt the source code.
+
+### Placement of the Visualization Graph Preview
+The preview is a small image of the visualization graph. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup. By default, the AvantRelationships plugin displays the preview immediately after an item's metadata elements and before item relationship groups. You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
+1. On the Configure Plugin page for AvantRelationships, choose *At designated location* for the *Visualization Preview* option.
+2. Call the hook shown below from `/themes/<your-theme-name>/items/show.php` as shown in the example below. 
+
+```
+<div id="secondary">
+    <?php fire_plugin_hook('show_relationships_visualization', array('view' => $this, 'item' => $item)); ?>
+    ...
+</div><!-- end secondary -->
+ ```
+
+If you don't want to show the preview, choose the *At designated location* configuration option, but don't call the hook.
+
+As examples, the [Digital Archive site] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
 
 ##  License
 
