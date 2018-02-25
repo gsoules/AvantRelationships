@@ -28,9 +28,50 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_filters = array(
         'admin_items_form_tabs',
         'admin_navigation_main',
+        'filterBeforeDisplayCreator' => array('Display', 'Item', 'Dublin Core', 'Creator'),
+        'filterBeforeDisplayPublisher' => array('Display', 'Item', 'Dublin Core', 'Publisher'),
         'item_search_filters',
         'related_items_model'
     );
+
+    public function filterBeforeDisplayCreator($text, $args)
+    {
+        return $this->emitCreatorLink($text, $args['record']->id);
+    }
+
+    public function filterBeforeDisplayPublisher($text, $args)
+    {
+        return $this->emitCreatorLink($text, $args['record']->id);
+    }
+
+    protected function emitCreatorLink($text, $sourceItemId)
+    {
+        $text = html_entity_decode($text);
+
+        $elementId = ElementFinder::getElementIdForElementName('Title');
+        $result = ElementFinder::getFirstItemWithElementValue($elementId, $text);
+
+        if (empty($result))
+            return $text;
+
+        $targetItemId = $result['id'];
+        $targetItem = ItemView::getItemFromId($targetItemId);
+        if (empty($targetItem))
+        {
+            // The user does not have access to the target item e.g. because it's private.
+            return $text;
+        }
+
+        if ($sourceItemId == $targetItemId)
+        {
+            // This item is its own creator.
+            return $text;
+        }
+
+        $tooltip = "See item for \"$text\"";
+        $href = html_escape(url("items/show/$targetItemId"));
+        return "<a href='$href' title='$tooltip'>$text</a>";
+    }
 
     protected function createRelatedItemsEditor($primaryItem = null)
     {

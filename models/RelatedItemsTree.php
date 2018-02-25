@@ -24,7 +24,7 @@ class RelatedItemsTree
         $this->rootNode = $this->createKid(metadata($primaryItem, array($titleParts[0], $titleParts[1]), array('no_filter' => true)));
 
         $this->createTreeFromRelatedItemGroups();
-        $this->insertCustomRelationships();
+        $this->insertImplicitRelationships();
     }
 
     protected function addAncestor($name, RelatedItem $relatedItem)
@@ -160,6 +160,58 @@ class RelatedItemsTree
         }
 
         return $hybridGroupName;
+    }
+
+    protected function createImplicitRelationshipsFor($item, RelatedItemsTree $tree, $elementName, $groupName)
+    {
+        $elementId = ElementFinder::getElementIdForElementName($elementName);
+        $title = ItemView::getItemTitle($item, false);
+        $label = $groupName;
+
+        $results = ElementFinder::getItemsWithElementValue($elementId, $title);
+
+        if (empty($results))
+            return null;
+
+        $customRelationshipsNode = new RelatedItemsTreeNode(0, $label);
+
+        if (plugin_is_active('AvantSearch'))
+        {
+            // Form a URL for a search that will find all the related items. The URL is
+            // emitted in the "See all n items" link that appears following a short list of items.
+            $url = ElementFinder::getAdvancedSearchUrl($elementId, $title);
+            $imageViewId = SearchResultsViewFactory::IMAGE_VIEW_ID;
+            $url .= "&view=$imageViewId";
+            $customRelationshipsNode->setData($url);
+        }
+
+        foreach ($results as $result)
+        {
+            $itemId = $result['id'];
+            if (RelatedItemsTree::containsItem($itemId, $tree->getRootNode()))
+            {
+                // This item is part of another relationship so don't emit it again.
+                // If it's the only custom item, then don't emit the custom tree.
+                if (count($results) == 1)
+                    return null;
+                else
+                    continue;
+            }
+            $item = ItemView::getItemFromId($itemId);
+            if (empty($item))
+            {
+                // The user does not have access to the target item e.g. because it's private.
+                continue;
+            }
+            $itemTitle = ItemView::getItemTitle($item);
+            $relatedItem = new RelatedItem($itemId);
+            $relatedItem->setItem($item);
+            $relatedItem->setLabels($label);
+            $kid = new RelatedItemsTreeNode($itemId, $itemTitle, $relatedItem);
+            $customRelationshipsNode->addKid($kid);
+        }
+
+        return $customRelationshipsNode;
     }
 
     protected function createKid($name, $relatedItem = null)
@@ -459,12 +511,17 @@ class RelatedItemsTree
         return $this->hasIndirectlyRelatedItems;
     }
 
-    protected function insertCustomRelationships()
+    protected function insertImplicitRelationships()
     {
-        // Create an empty array to pass. If it comes back with values, add them to the tree.
         $nodes = array();
 
-        $nodes = apply_filters('custom_relationships', $nodes, array('item' => $this->primaryItem, 'tree' => $this));
+        $node = $this->createImplicitRelationshipsFor($this->primaryItem, $this, 'Creator', __('Created'));
+        if (!empty($node))
+            $nodes[] = $node;
+
+        $node = $this->createImplicitRelationshipsFor($this->primaryItem, $this, 'Publisher', __('Published'));
+        if (!empty($node))
+            $nodes[] = $node;
 
         foreach ($nodes as $node)
         {
