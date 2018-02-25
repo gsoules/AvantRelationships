@@ -81,28 +81,24 @@ If you don't want to show the preview, choose the *At designated location* confi
 
 As examples, the [Digital Archive site] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
 
-### Custom Relationships
-You can add custom relationships using the `custom_relationships` filter which is called from `RelatedItemsTree::insertCustomRelationships()`. The filter allows you to insert your own `RelatedItemsTreeNode` objects into the `RelatedItemsTree` to be displayed to the user as described in the Digital Archive topic [Viewing Relationships].
+### Implicit Relationships
+An implicit relationship is one where two items are related to each other by virtue of having common
+data that creates an implicit association between them. In contrast, an explicit relationship is one that an
+archivist manually adds a relationship between two items.
+The AvantRelationships plugin detects an implicit relationship when an item’s Creator or Publisher text exactly matches the Title of another item.
+For example if three photograph items (creations) list "Andsel Adams" as their Creator, and another item has "Ansel Adams"
+as its Title, the three creation items are implicitly related to the creator item. The plugin displays implicit relationships in two ways:
 
-Below is an example of a callback function that uses the filter. It calls a method (not shown) called `createCustomRelationshipsFor()` which returns a single `RelatedItemsTreeNode` object. The function implements the [Implicit Relationships] feature of the [Digital Archive]. Note that the last two parameters of `createCustomRelationshipsFor()` are the source and target labels for custom Creator and Publisher relationships types. See the Digital Archive topic [Relationship Types] for information about source and target labels.
+* When a creation item is displayed, its Creator and/or Publisher text is shown as a hyperlink to the corresponding creator item.
 
-```
-public function filterCustomRelationships($nodes, $args)
-{
-    $item = $args['item'];
-    $tree = $args['tree'];
+* When a creator item is displayed, a list of its creations and/or publications appears following other related items. These implicit
+relationships also appear in the Visualization.
 
-    $node = $this->createCustomRelationshipsFor($item, $tree, 'Creator', 'Created');
-    if (!empty($node))
-        $nodes[] = $node;
-
-    $node = $this->createCustomRelationshipsFor($item, $tree, 'Publisher', 'Published');
-    if (!empty($node))
-        $nodes[] = $node;
-
-    return $nodes;
-}
-```
+Notes:
+* The plugin only detects an implicit relationships when there is an exact match between the Creator or Publisher text in one
+item and the corresponding Title text in another. If the text varies even by a space, the relationship won't be detected.
+* The implicit relationships features assumes that you are using the Dublin Core Title element and the Dublin Core Creator and/or Publisher elements.
+If you need the feature to work with other elements, you'll have to adapt the source code.
 
 ##  License
 
