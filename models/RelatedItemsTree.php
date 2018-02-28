@@ -207,7 +207,8 @@ class RelatedItemsTree
             $relatedItem = new RelatedItem($itemId);
             $relatedItem->setItem($item);
             $relatedItem->setLabels($label);
-            $kid = new RelatedItemsTreeNode($itemId, $itemTitle, $relatedItem);
+            $this->kidId++;
+            $kid = new RelatedItemsTreeNode($this->kidId, $itemTitle, $relatedItem);
             $customRelationshipsNode->addKid($kid);
         }
 
