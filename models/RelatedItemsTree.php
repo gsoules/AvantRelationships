@@ -164,11 +164,11 @@ class RelatedItemsTree
 
     protected function createImplicitRelationshipsFor($item, RelatedItemsTree $tree, $elementName, $groupName)
     {
-        $elementId = ElementFinder::getElementIdForElementName($elementName);
+        $elementId = ItemView::getElementIdForElementName($elementName);
         $title = ItemView::getItemTitle($item, false);
         $label = $groupName;
 
-        $results = ElementFinder::getItemsWithElementValue($elementId, $title);
+        $results = ItemView::getItemsWithElementValue($elementId, $title);
 
         if (empty($results))
             return null;
@@ -179,7 +179,7 @@ class RelatedItemsTree
         {
             // Form a URL for a search that will find all the related items. The URL is
             // emitted in the "See all n items" link that appears following a short list of items.
-            $url = ElementFinder::getAdvancedSearchUrl($elementId, $title);
+            $url = ItemView::getAdvancedSearchUrl($elementId, $title);
             $imageViewId = SearchResultsViewFactory::IMAGE_VIEW_ID;
             $url .= "&view=$imageViewId";
             $customRelationshipsNode->setData($url);

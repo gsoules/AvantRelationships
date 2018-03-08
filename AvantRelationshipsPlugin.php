@@ -48,8 +48,8 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
     {
         $text = html_entity_decode($text);
 
-        $elementId = ElementFinder::getElementIdForElementName('Title');
-        $result = ElementFinder::getFirstItemWithElementValue($elementId, $text);
+        $elementId = ItemView::getElementIdForElementName('Title');
+        $result = ItemView::getFirstItemWithElementValue($elementId, $text);
 
         if (empty($result))
             return $text;
