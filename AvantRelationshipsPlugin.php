@@ -47,9 +47,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
     protected function emitCreatorLink($text, $sourceItemId)
     {
         $text = html_entity_decode($text);
-
-        $elementId = ItemView::getElementIdForElementName('Title');
-        $result = ItemView::getFirstItemWithElementValue($elementId, $text);
+        $result = ItemView::getFirstItemWithElementValue(ItemView::getTitleElementId(), $text);
 
         if (empty($result))
             return $text;
