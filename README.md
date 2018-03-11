@@ -1,6 +1,9 @@
 # AvantRelationships (plugin for Omeka Classic)
 
-The AvantRelationships plugin visually displays real-world relationships between items in an Omeka database. When you view an item, the plugin displays thumbnails and titles of related items. It also displays a graphical visualization (shown below) depicting the relationships among items. The user instantly sees how the item fits in with the rest of the collection and easily discovers related items.
+The AvantRelationships plugin visually displays real-world relationships between items in an Omeka database.
+When you view an item, the plugin displays thumbnails and titles of related items. It also displays a graphical
+visualization (shown below) depicting the relationships among items. The user instantly sees how the item fits
+in with the rest of the collection and easily discovers related items.
 
 ![Example](http://swhplibrary.net/wp/wp-content/uploads/2017/09/view-relationships-2.jpg)
 
