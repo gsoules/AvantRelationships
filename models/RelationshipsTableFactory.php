@@ -52,7 +52,7 @@ class RelationshipsTableFactory
         CREATE TABLE IF NOT EXISTS `{$db->prefix}relationship_images` (
             `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
             `item_id` int(10) unsigned NOT NULL,
-            `identifier` varchar(64) unsigned NOT NULL,
+            `identifier` varchar(64) NOT NULL,
             PRIMARY KEY (`id`)
         ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 
