@@ -38,12 +38,13 @@ AvantCommon contains common logic used by AvantRelationships and [AvantSearch](h
 
 To install the AvantRelationships plugin, follow these steps:
 
-1. Install the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin.
-2. Unzip the AvantRelationships-master file into your Omeka installation's plugin directory.
-3. Rename the folder to AvantRelationships.
-4. Activate the plugin from the Admin → Settings → Plugins page.
-5. Configure the plugin or accept the defaults.
-6. Configure the AvantCommon plugin to specify your item identifier and title elements.
+1. First install and activate the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin.
+1. Unzip the AvantRelationships-master file into your Omeka installation's plugin directory.
+1. Rename the folder to AvantRelationships.
+1. Activate the plugin from the Admin → Settings → Plugins page.
+1. Configure the AvantCommon plugin to specify your item identifier and title elements.
+1. Configure the AvantRelationships plugin or accept the defaults.
+
 
 **Default Relationship Rules and Types**
 
