@@ -1,7 +1,7 @@
 <?php
-$primaryItemIdentifier = ItemView::getItemIdentifier($item);
+$primaryItemIdentifier = ItemMetadata::getItemIdentifier($item);
 ?>
-<div><?php echo ItemView::getItemTitle($item); ?></div>
+<div><?php echo ItemMetadata::getItemTitle($item); ?></div>
 <br/>
 <div>This item is: <?php echo $primaryItemIdentifier; ?></div>
 <br/>

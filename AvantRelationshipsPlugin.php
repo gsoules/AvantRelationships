@@ -47,13 +47,13 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
     protected function emitCreatorLink($text, $sourceItemId)
     {
         $text = html_entity_decode($text);
-        $result = ItemView::getFirstItemWithElementValue(ItemView::getTitleElementId(), $text);
+        $result = ItemSearch::getFirstItemWithElementValue(ItemMetadata::getTitleElementId(), $text);
 
         if (empty($result))
             return $text;
 
         $targetItemId = $result['id'];
-        $targetItem = ItemView::getItemFromId($targetItemId);
+        $targetItem = ItemMetadata::getItemFromId($targetItemId);
         if (empty($targetItem))
         {
             // The user does not have access to the target item e.g. because it's private.
@@ -211,8 +211,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookDefineRoutes($args)
     {
-        $args['router']->addConfig(new Zend_Config_Ini(
-            dirname(__FILE__) . DIRECTORY_SEPARATOR . 'routes.ini', 'routes'));
+        $args['router']->addConfig(new Zend_Config_Ini(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'routes.ini', 'routes'));
     }
 
     public function hookInitialize()

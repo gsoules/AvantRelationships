@@ -320,7 +320,7 @@ class RelatedItemsGraph
             $style = ", style:{'background-image':'$url'}";
 
             $class = ", classes:'root'";
-            $identifier = ItemView::getItemIdentifier($this->primaryItem);
+            $identifier = ItemMetadata::getItemIdentifier($this->primaryItem);
             $name .= " [$identifier]";
         }
         else
@@ -404,7 +404,7 @@ class RelatedItemsGraph
     protected function getBackgroundImageUrl($item, $useCoverImage = true)
     {
         // Determine which image to use as a graph node's background.
-        $coverImageItem = ItemView::getCoverImageItem($item);
+        $coverImageItem = ItemPreview::getCoverImageItem($item);
         if (!$coverImageItem || !$useCoverImage)
         {
             // Use the displayed item's image when there is no cover image item or when the plugin is
@@ -412,7 +412,7 @@ class RelatedItemsGraph
             $coverImageItem = $item;
         }
 
-        return ItemView::getItemImageUri($coverImageItem);
+        return ItemPreview::getItemImageUri($coverImageItem);
     }
 
     public function getEdgeCount()

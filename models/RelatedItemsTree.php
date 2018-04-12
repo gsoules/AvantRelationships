@@ -20,7 +20,7 @@ class RelatedItemsTree
         $this->primaryItem = $primaryItem;
         $this->hasIndirectlyRelatedItems = false;
 
-        $titleParts = ItemView::getPartsForTitleElement();
+        $titleParts = ItemMetadata::getPartsForTitleElement();
         $this->rootNode = $this->createKid(metadata($primaryItem, array($titleParts[0], $titleParts[1]), array('no_filter' => true)));
 
         $this->createTreeFromRelatedItemGroups();
@@ -164,11 +164,11 @@ class RelatedItemsTree
 
     protected function createImplicitRelationshipsFor($item, RelatedItemsTree $tree, $elementName, $groupName)
     {
-        $elementId = ItemView::getElementIdForElementName($elementName);
-        $title = ItemView::getItemTitle($item, false);
+        $elementId = ItemMetadata::getElementIdForElementName($elementName);
+        $title = ItemMetadata::getItemTitle($item, false);
         $label = $groupName;
 
-        $results = ItemView::getItemsWithElementValue($elementId, $title);
+        $results = ItemMetadata::getItemsWithElementValue($elementId, $title);
 
         if (empty($results))
             return null;
@@ -179,7 +179,7 @@ class RelatedItemsTree
         {
             // Form a URL for a search that will find all the related items. The URL is
             // emitted in the "See all n items" link that appears following a short list of items.
-            $url = ItemView::getAdvancedSearchUrl($elementId, $title);
+            $url = ItemSearch::getAdvancedSearchUrl($elementId, $title);
             $imageViewId = SearchResultsViewFactory::IMAGE_VIEW_ID;
             $url .= "&view=$imageViewId";
             $customRelationshipsNode->setData($url);
@@ -197,13 +197,13 @@ class RelatedItemsTree
                 else
                     continue;
             }
-            $item = ItemView::getItemFromId($itemId);
+            $item = ItemMetadata::getItemFromId($itemId);
             if (empty($item))
             {
                 // The user does not have access to the target item e.g. because it's private.
                 continue;
             }
-            $itemTitle = ItemView::getItemTitle($item);
+            $itemTitle = ItemMetadata::getItemTitle($item);
             $relatedItem = new RelatedItem($itemId);
             $relatedItem->setItem($item);
             $relatedItem->setLabels($label);

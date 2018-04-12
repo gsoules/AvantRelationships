@@ -5,7 +5,7 @@
 $coverImageIdentifier = isset($_REQUEST['cover-image-identifier']) ? $_REQUEST['cover-image-identifier'] : '';
 
 if (empty($coverImageIdentifier))
-    $coverImageIdentifier = ItemView::getCoverImageIdentifier($item->id);
+    $coverImageIdentifier = ItemPreview::getCoverImageIdentifier($item->id);
 
 echo '<p>' . __('Specify the Identifier for the item to use for this item\'s cover image.') . '</p>';
 echo '<p><field>' . __('Item:') . ' </field>';
@@ -14,13 +14,13 @@ echo "</p>";
 
 if (!empty($coverImageIdentifier))
 {
-    $coverImageItem = ItemView::getItemFromIdentifier($coverImageIdentifier);
+    $coverImageItem = ItemMetadata::getItemFromIdentifier($coverImageIdentifier);
     if (!empty($coverImageItem))
     {
-        $itemView = new ItemView($coverImageItem);
+        $itemPreview = new ItemPreview($coverImageItem);
         $html = "<div class=\"item-preview cover-image\">";
-        $html .= $itemView->emitItemThumbnail(false);
-        $html .= $itemView->emitItemTitle();
+        $html .= $itemPreview->emitItemThumbnail(false);
+        $html .= $itemPreview->emitItemTitle();
         $html .= "</div>";
         echo $html;
     }

@@ -161,12 +161,12 @@ class RelatedItem
 
     protected function setItemIdentifier()
     {
-        $this->identifier = ItemView::getItemIdentifier($this->item);
+        $this->identifier = ItemMetadata::getItemIdentifier($this->item);
     }
 
     protected function setItemTitle()
     {
-        $this->title = ItemView::getItemTitle($this->item);
+        $this->title = ItemMetadata::getItemTitle($this->item);
     }
 
     public function setLabels($plural, $singular = null)

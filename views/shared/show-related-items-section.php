@@ -64,9 +64,9 @@ if ($numItemsInSection > $maxItemsVisible)
             /* @var $relatedItem RelatedItem */
             $relatedItem = $kid->getRelatedItem();
             $item = $relatedItem->getItem();
-            $itemView = new ItemView($item);
+            $itemPreview = new ItemPreview($item);
             $attributes = $itemsShown <= $maxItemsVisible - 1 ? '' : " class='$sectionId-extra' style='display:none'";
-            echo $itemView->emitItemPreviewAsListElement($relatedItem->usesCoverImage(), $attributes);
+            echo $itemPreview->emitItemPreviewAsListElement($relatedItem->usesCoverImage(), $attributes);
             $itemsShown++;
             if ($itemsShown >= $maxItemsToEmit)
             {

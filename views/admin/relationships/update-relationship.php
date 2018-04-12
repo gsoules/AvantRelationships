@@ -7,7 +7,7 @@ if ($action == 0)
     return;
 
 $primaryItemIdentifier = isset($_POST['primary']) ? $_POST['primary'] : '';
-$primaryItem = ItemView::getItemFromIdentifier($primaryItemIdentifier);
+$primaryItem = ItemMetadata::getItemFromIdentifier($primaryItemIdentifier);
 $relatedItemsModel = new RelatedItemsModel($primaryItem);
 $relatedItemsEditor = new RelatedItemsEditor($relatedItemsModel, $primaryItem);
 

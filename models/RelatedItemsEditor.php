@@ -54,7 +54,7 @@ class RelatedItemsEditor
         $relatedItemIdentifier = isset($_POST['related']) ? $_POST['related'] : '';
         $relationshipTypeCode = isset($_POST['code']) ? $_POST['code'] : '';
 
-        $relatedItem = ItemView::getItemFromIdentifier($relatedItemIdentifier);
+        $relatedItem = ItemMetadata::getItemFromIdentifier($relatedItemIdentifier);
 
         if (!$this->validateRelationshipParameters($this->primaryItem, $relationshipTypeCode, $relatedItemIdentifier, $relatedItem))
             return json_encode(array('success' => false, 'message' => $this->validationErrorMessage));
@@ -101,7 +101,7 @@ class RelatedItemsEditor
         }
 
         // Delete the cover image records for any other item that uses this item's image as its cover image.
-        $itemIdentifier = ItemView::getItemIdentifier($item);
+        $itemIdentifier = ItemMetadata::getItemIdentifier($item);
         $list = $this->db->getTable('RelationshipImages')->getRelationshipImagesByItemIdentifier($itemIdentifier);
         foreach ($list as $relationshipImages)
         {
@@ -226,9 +226,9 @@ class RelatedItemsEditor
 
     public static function getRelatedItemLink($identifier)
     {
-        $item = ItemView::getItemFromIdentifier($identifier);
+        $item = ItemMetadata::getItemFromIdentifier($identifier);
         $href = url('items/show/' . $item->id);
-        $title = ItemView::getItemTitle($item);
+        $title = ItemMetadata::getItemTitle($item);
         return "<a href='$href' target='_blank'>$title</a>";
     }
 
@@ -269,7 +269,7 @@ class RelatedItemsEditor
 
     public function insertItemRelationship($primaryItem, $relationshipTypeCode, $relatedItemIdentifier)
     {
-        $relatedItem = ItemView::getItemFromIdentifier($relatedItemIdentifier);
+        $relatedItem = ItemMetadata::getItemFromIdentifier($relatedItemIdentifier);
 
         $direction = RelationshipTypeCode::getDirection($relationshipTypeCode);
         $relationshipTypeId = RelationshipTypeCode::getRelationshipTypeId($relationshipTypeCode);
@@ -396,7 +396,7 @@ class RelatedItemsEditor
         if (empty($coverImageIdentifier))
             return;
 
-        $coverImageItem = ItemView::getItemFromIdentifier($coverImageIdentifier);
+        $coverImageItem = ItemMetadata::getItemFromIdentifier($coverImageIdentifier);
         if (empty($coverImageItem))
         {
             $item->addError(__('Cover Image'), __('%s is not a valid item Identifier', $coverImageIdentifier));
@@ -433,8 +433,8 @@ class RelatedItemsEditor
             $relationshipTypeCode = RelationshipTypeCode::createRelationshipTypeCode(
                 RelationshipTypeCode::SOURCE_TO_TARGET,
                 $relationship->getRelationshipTypeId());
-            $sourceItem = ItemView::getItemFromId($relationship->getSourceItemId());
-            $targetItem = ItemView::getItemFromId($relationship->getTargetItemId());
+            $sourceItem = ItemMetadata::getItemFromId($relationship->getSourceItemId());
+            $targetItem = ItemMetadata::getItemFromId($relationship->getTargetItemId());
 
             $relatedItemsEditor = new RelatedItemsEditor(null, $sourceItem);
             $valid = $relatedItemsEditor->validateRelationship($sourceItem, $relationshipTypeCode, $targetItem);

@@ -16,7 +16,8 @@ The best way to understand what AvantRelationships does is to see some examples.
 * A [basic Omeka site] using only the AvantRelationships plugin and the Seasons theme.
 
 ## Dependencies
-AvantRelationships depends on the following open source libraries which are included in the `views/shared/javascripts` folder.
+AvantRelationships depends on the following open source libraries which are included in either the
+`views/shared/javascripts` folder or in AvantCommon.
 Click the links below to see copyrights and licenses for each.
 
 * [Cytoscape.js](http://js.cytoscape.org/) - graph theory / network library for analysis and visualization
@@ -39,10 +40,10 @@ AvantCommon contains common logic used by AvantRelationships and [AvantSearch](h
 To install the AvantRelationships plugin, follow these steps:
 
 1. First install and activate the [AvantCommon](https://github.com/gsoules/AvantCommon) plugin.
+1. Configure the AvantCommon plugin to specify your item identifier and title elements.
 1. Unzip the AvantRelationships-master file into your Omeka installation's plugin directory.
 1. Rename the folder to AvantRelationships.
 1. Activate the plugin from the Admin → Settings → Plugins page.
-1. Configure the AvantCommon plugin to specify your item identifier and title elements.
 1. Configure the AvantRelationships plugin or accept the defaults.
 
 

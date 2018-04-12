@@ -20,8 +20,8 @@ foreach ($relationships as $index => $relationship)
     $relationshipTypeCode = RelationshipTypeCode::createRelationshipTypeCode(
         RelationshipTypeCode::SOURCE_TO_TARGET,
         $relationship->relationship_type_id);
-    $sourceItem = ItemView::getItemFromId($relationship->source_item_id);
-    $targetItem = ItemView::getItemFromId($relationship->target_item_id);
+    $sourceItem = ItemMetadata::getItemFromId($relationship->source_item_id);
+    $targetItem = ItemMetadata::getItemFromId($relationship->target_item_id);
 
     $relatedItemsEditor = new RelatedItemsEditor(null, $sourceItem);
     $valid = $relatedItemsEditor->validateRelationship($sourceItem, $relationshipTypeCode, $targetItem);
@@ -29,8 +29,8 @@ foreach ($relationships as $index => $relationship)
     {
         $invalidCount++;
         $errorMessage = $relatedItemsEditor->getValidationErrorMessage();
-        $sourceIdentifier = ItemView::getItemIdentifier($sourceItem);
-        $targetIdentifier = ItemView::getItemIdentifier($targetItem);
+        $sourceIdentifier = ItemMetadata::getItemIdentifier($sourceItem);
+        $targetIdentifier = ItemMetadata::getItemIdentifier($targetItem);
         $adminSourceUrl = WEB_ROOT . '/admin/items/edit/' . $sourceItem->id;
         $adminTargetUrl = WEB_ROOT . '/admin/items/edit/' . $targetItem->id;
         $sourceLink = "<a href='$adminSourceUrl' target='_blank'>$sourceIdentifier</a>";
