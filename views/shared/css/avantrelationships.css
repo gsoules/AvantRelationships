@@ -1,0 +1,339 @@
+.relationships-table-view .search-td-title .item-img {
+    border-top: none;
+}
+
+.related-items-section-name {
+    color: #444;
+    font-size: 16px;
+    font-weight:bold;
+    margin-bottom: 8px;
+    background: #f8f8f8; /* default for browsers w/o gradients */
+    background: -webkit-linear-gradient(to right, #d7d7d7, #e2e2e2, #e2e2e2, #f8f8f8, #ffffff);
+    background: -moz-linear-gradient(to right, #d7d7d7, #e2e2e2, #e2e2e2, #f8f8f8, #ffffff);
+    background: -o-linear-gradient(to right, #d7d7d7, #e2e2e2, #e2e2e2, #f8f8f8, #ffffff);
+    background: linear-gradient(to right, #d7d7d7, #e2e2e2, #e2e2e2, #f8f8f8, #ffffff);
+    margin-left: -24px;
+    padding: 8px 0 8px 24px;
+    border-bottom-style: none;
+}
+
+.related-items-main-section .related-items-section-name {
+    border-radius: 10px;
+    margin-left: -35px;
+    padding-left: 45px;
+}
+
+.related-items-subsection-header {
+    background: linear-gradient(to right, #e2e2e2, #e2e2e2, #f8f8f8, #ffffff);
+    color: #777;
+    margin-bottom: 24px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.related-items-subsection-header::after {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    bottom: -10px;
+    left: 11%;
+    margin-left: -55px;
+    background-color: #e2e2e2;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: 1;
+}
+
+.related-items-subsection .item-preview li {
+    margin-right: 12px;
+    width: 120px;
+}
+
+.related-items-subsection {
+    padding-left: 0;
+}
+
+.related-items-subsection p {
+    background: linear-gradient(to right, #e2e2e2, #e2e2e2, #f8f8f8, #ffffff);
+    color: #777;
+    font-size: 14px;
+    padding: 6px 0 6px 20px;
+    margin-left:-4px;;
+    border-bottom-style: none;
+}
+
+.related-items-subsection .item-preview .item-img {
+    max-height: 130px;
+    width: 120px;
+}
+
+.related-items-subsection .item-preview .item-img img {
+    max-height: 120px;
+}
+
+#related-items-graph h2 {
+    margin-bottom: 0;
+}
+
+#related-items {
+    clear: both;
+}
+
+.related-items-see-all a {
+    background-color:#2E5D78;
+}
+
+.related-items-show-more a {
+    background-color:#7ea115;
+}
+
+.related-items-show-more a:link {
+    color: #c76941;
+    text-decoration-color: currentcolor;
+    text-decoration-line: none;
+    text-decoration-style: solid;
+}
+
+.related-items-see-all a,
+.related-items-show-more a {
+    color:#fff !important;
+    padding: 4px 6px 4px 6px;
+}
+
+.related-items-see-all,
+.related-items-show-more {
+    margin-left: 0;
+    clear: both;
+}
+
+#related-items ul {
+    padding-left:0;
+    margin-left:0;
+    list-style-type:none;
+}
+
+.related-items-section-name {
+    color: #444;
+    font-size: 16px;
+    font-weight:bold;
+    margin-bottom: 8px;
+    border-bottom: 2px solid #777;
+}
+
+.related-items-subsection-header {
+    color: #777;
+    position: relative;
+}
+
+.related-items-subsection .item-preview li {
+    margin-right: 12px;
+    width: 120px;
+}
+
+.related-items-subsection {
+    padding-left: 16px;
+}
+
+.related-items-subsection p {
+    color: #777;
+    font-size: 14px;
+    border-bottom: 2px solid #ccc;
+}
+
+.related-items-subsection .item-preview .item-img {
+    max-height: 130px;
+    width: 120px;
+}
+
+.related-items-subsection .item-preview .item-img img {
+    max-height: 120px;
+}
+
+.relationship-rule {
+    margin-top: 8px;
+}
+
+.relationship-rule span {
+    font-weight: bold;
+}
+
+.relationship-rule div {
+    font-family: "Courier New";
+    background-color: #eee;
+}
+
+#relationship-items-list li {
+    margin-bottom: 6px;
+}
+
+#relationship-items-list .sortable-item {
+    padding: 4px 10px 4px 10px;
+}
+
+#relationship-items-list .drawer-contents td {
+    border: none;
+    padding: 4px 4px 4px 4px;
+}
+
+#relationship-items-list .drawer-contents select {
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+}
+
+#relationship-items-list .drawer-contents label {
+    padding-bottom: 2px;
+}
+
+.relationship-rule-title {
+    font-weight: bold;
+    width: 700px;
+    display: inline-block;
+}
+
+.relationship-type-title {
+    font-weight: bold;
+    width: 160px;
+    display: inline-block;
+}
+
+#relationships-table {
+    table-layout: fixed;
+}
+
+#relationships-table tr td:first-child {
+    width: 30px;
+}
+
+#relationships-table tr td {
+    word-wrap: break-word;
+}
+
+#relationships-table tr:first-child {
+    font-weight: bold;
+}
+
+.relationship-editor-popup {
+    position: relative;
+    background: #FFF;
+    padding: 10px 50px 10px 10px;
+    width: auto;
+    max-width: 500px;
+    margin: 20px auto;
+    border: 2px solid #c41130;
+    font-size: 16px;
+}
+
+.not-sortable {
+    cursor: auto !important;
+}
+
+/* === CSS for Width less than 844px ===
+--------------------------------------------------------- */
+@media screen and (max-width: 844px) {
+
+    .related-items-section-name {
+        margin-left: 6px;
+        padding-left: 12px;
+    }
+
+    .related-items-main-section .related-items-section-name {
+        margin-left: 0;
+        padding-left: 12px;
+    }
+
+    .related-items-subsection {
+        margin-left: 8px;
+    }
+
+    .related-items-subsection-header::after {
+        display: none;
+    }
+
+    #related-items ul {
+        max-width: 100%;
+    }
+
+}
+
+/* === CSS for Width less than 768px ===
+--------------------------------------------------------- */
+@media screen and (max-width: 768px) {
+
+}
+
+
+/* Styling for the visualization */
+
+.cy-popup-link:link {
+    font-size: 14px;
+    color: var(--link-color);
+}
+
+.cy-popup-link:hover {
+    color: var(--link-hover-color);
+}
+
+#cyPreview {
+    width: 100%;
+    height:  100%;
+}
+
+#cyPopup {
+    width: 100%;
+    height: 100%;
+}
+
+.cyPreviewBox {
+    position: relative;
+    background: #fff;
+    border: 1px solid #ccc !important;
+    padding: 4px;
+    width:auto;
+    max-width: 310px;
+    height: 217px;
+}
+
+/*
+The height of the full size graph (cyPopupBox) should not exceed 700 so that it fits an iPad.
+The aspect ration of the preview and full size graphs should be the same.
+ */
+.cyPopupBox {
+    position: relative;
+    background: #fff;
+    border: 6px solid #4d728d;
+    padding: 4px;
+    width:auto;
+    max-width: 1000px;
+    height: 700px;
+    margin: 0px auto;
+}
+
+.mfp-bg {
+    background-color: #000;
+    opacity: 0.4;
+}
+
+.fa {
+    display: inline-block;
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+}
+
+.fa-expand::before {
+    content: "\f065";
+}
+.fa-plus::before {
+    content: "\f067";
+}
+.fa-minus::before {
+    content: "\f068";
+}
+
+.fa:hover {
+    color: #333;
+}

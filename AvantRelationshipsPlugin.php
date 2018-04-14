@@ -152,7 +152,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
     protected function head()
     {
         queue_css_file('cytoscape.js-panzoom');
-        queue_css_file('related-items-graph');
+        queue_css_file('avantrelationships');
 
         queue_js_file('cytoscape.min');
         queue_js_file('cytoscape-cose-bilkent');
