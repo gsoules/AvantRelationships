@@ -14,7 +14,7 @@ class RelatedItemsListView
 
     public function emitSection(RelatedItemsTreeNode $directKid, $excludeItem = null)
     {
-        $itemsToShow = intval(get_option('relationships_max_direct_shown'));
+        $itemsToShow = intval(get_option('avantrelationships_max_direct_shown'));
         if ($itemsToShow <= 0)
             $itemsToShow = self::MAX_RELATED_ITEMS_SHOWN;
 
@@ -23,7 +23,7 @@ class RelatedItemsListView
 
     public function emitSubsection(RelatedItemsTreeNode $indirectKid)
     {
-        $itemsToShow = intval(get_option('relationships_max_indirect_shown'));
+        $itemsToShow = intval(get_option('avantrelationships_max_indirect_shown'));
         if ($itemsToShow <= 0)
             $itemsToShow = self::MAX_INDIRECTLY_RELATED_ITEMS_SHOWN;
 

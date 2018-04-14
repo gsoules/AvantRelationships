@@ -198,10 +198,10 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookConfig()
     {
-        set_option('relationships_max_direct_shown', $_POST['relationships_max_direct_shown']);
-        set_option('relationships_max_indirect_shown', $_POST['relationships_max_indirect_shown']);
-        set_option('relationships_visualizaton', $_POST['relationships_visualizaton']);
-        set_option('relationships_delete_tables', (int)(boolean)$_POST['relationships_delete_tables']);
+        set_option('avantrelationships_max_direct_shown', $_POST['avantrelationships_max_direct_shown']);
+        set_option('avantrelationships_max_indirect_shown', $_POST['avantrelationships_max_indirect_shown']);
+        set_option('avantrelationships_visualizaton', $_POST['avantrelationships_visualizaton']);
+        set_option('avantrelationships_delete_tables', (int)(boolean)$_POST['avantrelationships_delete_tables']);
     }
 
     public function hookConfigForm()
@@ -252,7 +252,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookPublicItemsShow($args)
     {
-        $visualizationOption = intval(get_option('relationships_visualizaton'));
+        $visualizationOption = intval(get_option('avantrelationships_visualizaton'));
         $excludeItem = isset($args['exclude']) ? $args['exclude'] : null;
         $this->createRelatedItemsModel($args['item'], $args['view']);
 
@@ -270,7 +270,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookShowRelationshipsVisualization($args)
     {
-        $visualizationOption = intval(get_option('relationships_visualizaton'));
+        $visualizationOption = intval(get_option('avantrelationships_visualizaton'));
         if ($visualizationOption == RelatedItemsGraphView::SHOW_PREVIEW_AT_DESIGNATED_LOCATION)
         {
             $this->createRelatedItemsModel($args['item'], $args['view']);
@@ -280,7 +280,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookUninstall()
     {
-        $deleteTables = intval(get_option('relationships_delete_tables'))== 1;
+        $deleteTables = intval(get_option('avantrelationships_delete_tables'))== 1;
         if (!$deleteTables)
             return;
 
