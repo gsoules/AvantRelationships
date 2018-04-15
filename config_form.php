@@ -1,7 +1,9 @@
 <?php
 $view = get_view();
 
-$visualizationOptions = array(RelatedItemsGraphView::SHOW_PREVIEW_AT_DEFAULT_LOCATION => __('After metadata elements'), RelatedItemsGraphView::SHOW_PREVIEW_AT_DESIGNATED_LOCATION => __('At designated location'));
+$visualizationOptions = array(RelatedItemsGraphView::SHOW_PREVIEW_AT_DEFAULT_LOCATION => __('After metadata elements'),
+    RelatedItemsGraphView::SHOW_PREVIEW_AT_DESIGNATED_LOCATION => __('At designated location'),
+    RelatedItemsGraphView::SHOW_PREVIEW_NEVER => __('Don\'t show visualization'));
 
 $maxRelatedItemsShown = intval(get_option('avantrelationships_max_direct_shown'));
 if ($maxRelatedItemsShown == 0)
