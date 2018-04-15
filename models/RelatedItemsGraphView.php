@@ -4,6 +4,7 @@ class RelatedItemsGraphView
 {
     const SHOW_PREVIEW_AT_DEFAULT_LOCATION = 0;
     const SHOW_PREVIEW_AT_DESIGNATED_LOCATION = 1;
+    const SHOW_PREVIEW_NEVER = 2;
 
     protected $relatedItemsModel;
     protected $view;
