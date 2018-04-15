@@ -20,8 +20,8 @@ class RelatedItemsTree
         $this->primaryItem = $primaryItem;
         $this->hasIndirectlyRelatedItems = false;
 
-        $titleParts = ItemMetadata::getPartsForTitleElement();
-        $this->rootNode = $this->createKid(metadata($primaryItem, array($titleParts[0], $titleParts[1]), array('no_filter' => true)));
+        $name = ItemMetadata::getElementTextFromElementId($primaryItem, ItemMetadata::getTitleElementId());
+        $this->rootNode = $this->createKid($name);
 
         $this->createTreeFromRelatedItemGroups();
         $this->insertImplicitRelationships();
