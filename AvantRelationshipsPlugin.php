@@ -34,43 +34,6 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         'related_items_model'
     );
 
-    public function filterBeforeDisplayCreator($text, $args)
-    {
-        return $this->emitCreatorLink($text, $args['record']->id);
-    }
-
-    public function filterBeforeDisplayPublisher($text, $args)
-    {
-        return $this->emitCreatorLink($text, $args['record']->id);
-    }
-
-    protected function emitCreatorLink($text, $sourceItemId)
-    {
-        $text = html_entity_decode($text);
-        $result = ItemSearch::getFirstItemWithElementValue(ItemMetadata::getTitleElementId(), $text);
-
-        if (empty($result))
-            return $text;
-
-        $targetItemId = $result['id'];
-        $targetItem = ItemMetadata::getItemFromId($targetItemId);
-        if (empty($targetItem))
-        {
-            // The user does not have access to the target item e.g. because it's private.
-            return $text;
-        }
-
-        if ($sourceItemId == $targetItemId)
-        {
-            // This item is its own creator.
-            return $text;
-        }
-
-        $tooltip = "See item for \"$text\"";
-        $href = html_escape(url("items/show/$targetItemId"));
-        return "<a href='$href' title='$tooltip'>$text</a>";
-    }
-
     protected function createRelatedItemsEditor($primaryItem = null)
     {
         if (!isset($this->relatedItemsEditor))
@@ -86,6 +49,16 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         {
             $this->relatedItemsModel = new RelatedItemsModel($primaryItem, $view);
         }
+    }
+
+    public function filterBeforeDisplayCreator($text, $args)
+    {
+        return AvantRelationships::emitImplicitRelationshipLink($text, $args['record']->id);
+    }
+
+    public function filterBeforeDisplayPublisher($text, $args)
+    {
+        return AvantRelationships::emitImplicitRelationshipLink($text, $args['record']->id);
     }
 
     public function filterAdminNavigationMain($nav)
