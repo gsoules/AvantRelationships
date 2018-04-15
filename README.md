@@ -112,7 +112,7 @@ The preview is a small image of the visualization graph. When you click on the p
 </div><!-- end secondary -->
  ```
 
-If you don't want to show the preview, choose the *At designated location* configuration option, but don't call the hook.
+If you don't want to show the preview, choose the *Don't show visualization* configuration option.
 
 As examples, the [Digital Archive site] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
 
