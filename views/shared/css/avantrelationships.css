@@ -115,43 +115,6 @@
     list-style-type:none;
 }
 
-.related-items-section-name {
-    color: #444;
-    font-size: 16px;
-    font-weight:bold;
-    margin-bottom: 8px;
-    border-bottom: 2px solid #777;
-}
-
-.related-items-subsection-header {
-    color: #777;
-    position: relative;
-}
-
-.related-items-subsection .item-preview li {
-    margin-right: 12px;
-    width: 120px;
-}
-
-.related-items-subsection {
-    padding-left: 16px;
-}
-
-.related-items-subsection p {
-    color: #777;
-    font-size: 14px;
-    border-bottom: 2px solid #ccc;
-}
-
-.related-items-subsection .item-preview .item-img {
-    max-height: 130px;
-    width: 120px;
-}
-
-.related-items-subsection .item-preview .item-img img {
-    max-height: 120px;
-}
-
 .relationship-rule {
     margin-top: 8px;
 }
