@@ -171,10 +171,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookConfig()
     {
-        set_option('avantrelationships_max_direct_shown', $_POST['avantrelationships_max_direct_shown']);
-        set_option('avantrelationships_max_indirect_shown', $_POST['avantrelationships_max_indirect_shown']);
-        set_option('avantrelationships_visualizaton', $_POST['avantrelationships_visualizaton']);
-        set_option('avantrelationships_delete_tables', (int)(boolean)$_POST['avantrelationships_delete_tables']);
+        AvantRelationships::saveConfiguration();
     }
 
     public function hookConfigForm()
@@ -199,6 +196,9 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         RelationshipsTableFactory::CreateRelationshipsTable();
         RelationshipsTableFactory::CreateRelationshipImagesTable();
         RelationshipsTableFactory::CreateDefaultRelationshipTypesAndRules();
+
+        set_option('avantrelationships_max_direct_shown', RelatedItemsListView::MAX_RELATED_ITEMS_SHOWN);
+        set_option('avantrelationships_max_indirect_shown', RelatedItemsListView::MAX_INDIRECTLY_RELATED_ITEMS_SHOWN);
     }
 
     public function hookItemsBrowseSql($args)

@@ -57,6 +57,16 @@ To help get you started using AvantRelationships, the installer creates the rela
 You can uninstall AvantRelationships in the usual way; however, by default, the uninstaller will not remove the database tables that store relationship information. This is to protect against accidental deletion of important data. To remove the tables, you must check the *Delete Tables* option on the Configure Plugin page, save the change, and then proceed with uninstalling the plugin.
 
 ## Usage
+AvantRelationships has the following configuration options.
+
+Option | Description
+--------|------------
+Visualization&nbsp;Preview |  Specify where the Relationships Visulization Preview should appear. You can designate a location, e.g. in the sidebar, by calling the 'show_relationships_visualization' hook in your theme's items/show.php page. To not show the visualization, choose the designated location option, but don't call the hoook.
+Max Direct Items | Number of directly related items listed before displaying a "Show more" message.
+MaxIndirectItems |  Number of indirectly related items listed before displaying a "Show more" message.
+Delete Tables |  WARNING: Checking this option will cause all relationship database tables and data to be permanently deleted if you uninstall this plugin. Do not check this box unless you are certain that in the future you will not be using relationship data that you created (relationships, types, rules, and cover images) while using this plugin . If you are just experimenting with the plugin, leave the box unchecked. If you decide not to use the plugin, check the box, Save Changes, and then uninstall the plugin.
+
+
 Once installed, AvantRelationships extends the Omeka admin and public user interfaces to provide the ability to add and display relationships. Specifically, the plugin:
 * Adds a **Relationships** menu item in the admin left navigation panel.
 * Adds a **Relationships** tab on the admin item Edit page.
