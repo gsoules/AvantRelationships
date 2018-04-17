@@ -61,7 +61,7 @@ AvantRelationships has the following configuration options.
 
 Option | Description
 --------|------------
-Visualization&nbsp;Preview |  Specify where the Relationships Visulization Preview should appear. You can designate a location, e.g. in the sidebar, by calling the 'show_relationships_visualization' hook in your theme's items/show.php page. To not show the visualization, choose the designated location option, but don't call the hoook.
+Visualization&nbsp;Preview |  Specify where the Relationships Visulization Preview should appear. You can have the visualization appear immediately after metadata elements,or you designate a location, e.g. in the sidebar, by calling the 'show_relationships_visualization' hook in your theme's `items/show.php` page. To not show the visualization, choose the `Don't show visualization option`.
 Max Direct Items | Number of directly related items listed before displaying a "Show more" message.
 MaxIndirectItems |  Number of indirectly related items listed before displaying a "Show more" message.
 Delete Tables |  WARNING: Checking this option will cause all relationship database tables and data to be permanently deleted if you uninstall this plugin. Do not check this box unless you are certain that in the future you will not be using relationship data that you created (relationships, types, rules, and cover images) while using this plugin . If you are just experimenting with the plugin, leave the box unchecked. If you decide not to use the plugin, check the box, Save Changes, and then uninstall the plugin.

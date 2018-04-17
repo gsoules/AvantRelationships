@@ -22,10 +22,7 @@ $deleteTables = intval(get_option('avantrelationships_delete_tables')) != 0;
         <label for="avantrelationships_visualizaton"><?php echo __('Visualization Preview'); ?></label>
     </div>
     <div class="inputs five columns omega">
-        <p class="explanation"><?php echo __('Specify where the Relationships Visulization Preview should appear.
-        You can designate a location, e.g. in the sidebar, by calling the \'show_relationships_visualization\' hook
-        in your theme\'s items/show.php page. To not show the visualization, choose the designated location option,
-        but don\'t call the hoook.'); ?></p>
+        <p class="explanation"><?php echo __('Specify where the Relationships Visulization Preview appears.'); ?></p>
         <?php echo $view->formRadio('avantrelationships_visualizaton', $visualizationOption, null, $visualizationOptions); ?>
     </div>
 </div>
@@ -55,11 +52,10 @@ $deleteTables = intval(get_option('avantrelationships_delete_tables')) != 0;
         <label><?php echo __('Delete Tables'); ?></label>
     </div>
     <div class="inputs five columns omega">
-        <p class="explanation"><?php echo __(" WARNING: Checking the box below will cause all relationship database
-        tables and data to be permanently deleted if you uninstall this plugin. Do not check this box unless you are
-        certain that in the future you will not be using relationship data that you created (relationships, types,
-        rules, and cover images) while using this plugin . If you are just experimenting with the plugin, leave the
-        box unchecked. If you decide not to use the plugin, check the box, Save Changes, and then uninstall the plugin."); ?></p>
+        <p class="explanation"><?php echo __(" WARNING: Checking this box will cause all relationship data to be
+        permanently deleted if you uninstall this plugin.<br/>
+        Click <a href=\"https://github.com/gsoules/AvantRelationships#usage\" target=\"_blank\" style=\"color:red;\">
+        here</a> to read the documentation for the Delete Tables option before unchecking the box."); ?></p>
         <?php echo $view->formCheckbox('avantrelationships_delete_tables', true, array('checked' => $deleteTables)); ?>
     </div>
 </div>
