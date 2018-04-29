@@ -65,13 +65,9 @@
     border-bottom-style: none;
 }
 
-.related-items-subsection .item-preview .item-img {
-    max-height: 130px;
-    width: 120px;
-}
-
 .related-items-subsection .item-preview .item-img img {
     max-height: 120px;
+    width: 120px;
 }
 
 #related-items-graph h2 {
