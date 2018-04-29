@@ -65,8 +65,8 @@
     border-bottom-style: none;
 }
 
+.related-items-main-section .item-preview .item-img img,
 .related-items-subsection .item-preview .item-img img {
-    max-height: 120px;
     width: 120px;
 }
 
