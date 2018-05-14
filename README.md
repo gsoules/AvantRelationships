@@ -132,6 +132,10 @@ If you don't want to show the preview, choose the *Don't show visualization* con
 
 As examples, the [Digital Archive site] places the preview in the sidebar whereas the [Basic Omeka site] shows the preview in the default location below the metadata elements.
 
+## Warning
+
+Use it at your own risk.
+
 ##  License
 
 This plugin is published under [GNU/GPL].
