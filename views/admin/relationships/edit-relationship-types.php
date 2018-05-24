@@ -26,7 +26,7 @@ echo '<div>' . __('Drag Relationship Types in the list below into the preferred 
         <li id="<?php echo $id; ?>">
             <div class="main_link ui-sortable-handle">
                 <div class="sortable-item">
-                    <div class="relationship-type-title"><?php echo $type['id']; ?></div>
+                    <div class="relationship-type-id"><?php echo $type['id']; ?></div>
                     <div class="relationship-type-title"><?php echo $type['source_name']; ?></div>
                     <div class="relationship-type-title"><?php echo $type['target_name']; ?></div>
                     <span class="relationship-item-count"><?php echo $usageCount; ?></span>

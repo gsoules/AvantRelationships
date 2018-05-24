@@ -9,7 +9,8 @@
         var newItem = lastItem.clone();
 
         newItem.attr('id', 'new-item');
-        newItem.find('.relationship-type-title').first().text('New');
+        newItem.find('.relationship-type-id').first().text('New');
+        newItem.find('.relationship-type-title').first().text('');
         newItem.find('.relationship-type-title').last().text('');
         newItem.find('.relationship-item-count').text('0');
         newItem.find('.drawer-contents').show();
@@ -57,6 +58,7 @@
     {
         var newItem = jQuery('#new-item');
         newItem.attr('id', data.itemId);
+        newItem.find('.relationship-type-id').first().text(data.itemId);
         newItem.find('.drawer-contents').hide();
 
         // Convert the Save button back into the Update button.

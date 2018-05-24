@@ -152,6 +152,7 @@
     display: inline-block;
 }
 
+.relationship-type-id,
 .relationship-type-title {
     font-weight: bold;
     width: 160px;
