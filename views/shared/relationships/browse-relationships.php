@@ -53,7 +53,7 @@ if (is_admin_theme())
     {
         jQuery('#validate-button').click(function ()
         {
-            if (confirm('<?php echo __('Validation can take several minutes. Click OK to continue.'); ?>'))
+            if (confirm('<?php echo __('Validation can take several minutes for databases with thousands of items. Click OK to continue.'); ?>'))
             {
                 jQuery('.button').slideUp();
                 jQuery('h4').text('<?php echo __('Validating Relationships. Please wait...'); ?>');

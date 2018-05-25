@@ -84,6 +84,8 @@ echo '<div>' . __('Drag Relationship Types in the list below into the preferred 
 </ul>
 
 <button type="button" class="action-button add-item-button">Add Relationship Type</button>
+<a class="button small green" href="<?php echo html_escape(url('relationships/edit/rules')); ?>"><?php echo __('Edit Relationship Rules'); ?></a>
+
 <button type="button" class="action-button update-order-button">Update Order</button>
 <p id="message-area"></p>
 

@@ -263,6 +263,8 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         RelationshipsTableFactory::DropRelatonshipTypesTable();
         RelationshipsTableFactory::DropRelatonshipRulesTable();
         RelationshipsTableFactory::DropRelatonshipImagesTable();
+
+        RelationshipsConfig::removeConfiguration();
     }
 
     public function hookUpgrade($args)

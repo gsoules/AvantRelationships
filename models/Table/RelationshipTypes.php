@@ -113,7 +113,7 @@ class Table_RelationshipTypes extends Omeka_Db_Table
     public function getRelationshipTypes()
     {
         $select = $this->getSelect();
-        $select->order('order');
+        $select->order('source_name');
         $types = $this->fetchObjects($select);
 
         $list = array();

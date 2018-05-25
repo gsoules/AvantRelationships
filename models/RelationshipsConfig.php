@@ -6,9 +6,11 @@ define('CONFIG_LABEL_MAX_INDIRECT_ITEMS', __('Max Indirect Items'));
 
 class RelationshipsConfig extends ConfigOptions
 {
+    const OPTION_DELETE_TABLES = 'avantrelationships_delete_tables';
     const OPTION_IMPLICIT_RELATIONSHIPS = 'avantrelationships_implicit';
     const OPTION_MAX_DIRECT_ITEMS = 'avantrelationships_max_direct_shown';
     const OPTION_MAX_INDIRECT_ITEMS = 'avantrelationships_max_indirect_shown';
+    const OPTION_VISUALIZATION = 'avantrelationships_visualizaton';
 
     public static function getOptionDataForImplicitRelationships()
     {
@@ -40,14 +42,23 @@ class RelationshipsConfig extends ConfigOptions
         return $text;
     }
 
+    public static function removeConfiguration()
+    {
+        delete_option(self::OPTION_DELETE_TABLES);
+        delete_option(self::OPTION_IMPLICIT_RELATIONSHIPS);
+        delete_option(self::OPTION_MAX_DIRECT_ITEMS);
+        delete_option(self::OPTION_MAX_INDIRECT_ITEMS);
+        delete_option(self::OPTION_VISUALIZATION);
+    }
+
     public static function saveConfiguration()
     {
         self::saveOptionDataForMaxDirectItems();
         self::saveOptionDataForMaxIndirectItems();
         self::saveOptionDataForImplicitRelationships();
 
-        set_option('avantrelationships_visualizaton', $_POST['avantrelationships_visualizaton']);
-        set_option('avantrelationships_delete_tables', (int)(boolean)$_POST['avantrelationships_delete_tables']);
+        set_option(self::OPTION_VISUALIZATION, $_POST[self::OPTION_VISUALIZATION]);
+        set_option(self::OPTION_DELETE_TABLES, (int)(boolean)$_POST[self::OPTION_DELETE_TABLES]);
     }
 
     public static function saveOptionDataForImplicitRelationships()

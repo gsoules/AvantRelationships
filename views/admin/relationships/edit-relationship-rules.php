@@ -38,6 +38,7 @@ echo '<div>' . __('The number following the rule indicates how many relationship
 </ul>
 
 <button type="button" class="action-button add-item-button"><?php echo __('Add Relationship Rule'); ?></button>
+<a class="button small green" href="<?php echo html_escape(url('relationships/edit/types')); ?>"><?php echo __('Edit Relationship Types'); ?></a>
 
 <?php echo get_view()->partial('/edit-relationship-rules-script.php'); ?>
 

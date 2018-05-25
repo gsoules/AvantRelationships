@@ -5,9 +5,7 @@ class RelationshipsTableFactory
     public static function CreateDefaultRelationshipTypesAndRules()
     {
         $ruleIdArticle = RelationshipRulesEditor::addDefaultRule('Article', 'Type:^Article');
-        $ruleIdArticleDwelling = RelationshipRulesEditor::addDefaultRule('Article with subject Dwelling or Places', 'Type:^Article;Subject:^(Structures, Dwelling|Places)');
         $ruleIdArticlePeople = RelationshipRulesEditor::addDefaultRule('Article with subject People', 'Type:^Article;Subject:^People');
-        $ruleIdArticleStructures = RelationshipRulesEditor::addDefaultRule('Article with subject Structures', 'Type:^Article;Subject:^Structures');
         $ruleIdImage = RelationshipRulesEditor::addDefaultRule('Image', 'Type:^Image');
 
         $order = 1;
@@ -23,9 +21,7 @@ class RelationshipsTableFactory
         $ancestry = 'Siblings,Sibling; Parents,Parent:Grandparents,Grandparent:Great *; Children,Child:Grandchildren,Grandchild:Great *';
         RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticlePeople, 'child of', 'Parents,Parent', $ruleIdArticlePeople, 'parent of', 'Children,Child', '', $ancestry);
 
-        RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticleStructures, 'designed by', 'Designed by', $ruleIdArticlePeople, 'designed', 'Designed');
-
-        RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticlePeople, 'resided at', 'Resided at', $ruleIdArticleDwelling, 'occupied by', 'Residents,Resident');
+        RelationshipTypesEditor::addDefaultType($order++, 0, 'related to', 'Related to', 0, 'related to', 'Related to');
     }
 
     public static function CreateRelationshipsTable()
