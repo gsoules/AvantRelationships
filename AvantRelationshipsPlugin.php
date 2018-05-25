@@ -16,7 +16,6 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         'config',
         'config_form',
         'install',
-        'initialize',
         'items_browse_sql',
         'public_head',
         'public_items_show',
@@ -28,11 +27,30 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_filters = array(
         'admin_items_form_tabs',
         'admin_navigation_main',
-        'filterBeforeDisplayCreator' => array('Display', 'Item', 'Dublin Core', 'Creator'),
-        'filterBeforeDisplayPublisher' => array('Display', 'Item', 'Dublin Core', 'Publisher'),
         'item_search_filters',
         'related_items_model'
     );
+
+    public function __construct()
+    {
+        parent::__construct();
+        AvantRelationships::initializeImplicitRelationshipFilters($this->_filters);
+    }
+
+    public function __call($filterName, $args)
+    {
+        // Handle filter requests for filterRelationshipsImplicit.
+        $result = null;
+        $item = $args[1]['record'];
+        $text = $args[0];
+
+        if (strpos($filterName, 'filterRelationshipImplicit') === 0)
+        {
+            $result = AvantRelationships::emitImplicitRelationshipLink($text, $item->id);
+        }
+
+        return $result;
+    }
 
     protected function createRelatedItemsEditor($primaryItem = null)
     {
@@ -49,16 +67,6 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         {
             $this->relatedItemsModel = new RelatedItemsModel($primaryItem, $view);
         }
-    }
-
-    public function filterBeforeDisplayCreator($text, $args)
-    {
-        return AvantRelationships::emitImplicitRelationshipLink($text, $args['record']->id);
-    }
-
-    public function filterBeforeDisplayPublisher($text, $args)
-    {
-        return AvantRelationships::emitImplicitRelationshipLink($text, $args['record']->id);
     }
 
     public function filterAdminNavigationMain($nav)
@@ -171,7 +179,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookConfig()
     {
-        AvantRelationships::saveConfiguration();
+        RelationshipsConfig::saveConfiguration();
     }
 
     public function hookConfigForm()
@@ -184,11 +192,6 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         $args['router']->addConfig(new Zend_Config_Ini(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'routes.ini', 'routes'));
     }
 
-    public function hookInitialize()
-    {
-        return;
-    }
-
     public function hookInstall() {
 
         RelationshipsTableFactory::CreateRelationshipRulesTable();
@@ -197,8 +200,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         RelationshipsTableFactory::CreateRelationshipImagesTable();
         RelationshipsTableFactory::CreateDefaultRelationshipTypesAndRules();
 
-        set_option('avantrelationships_max_direct_shown', RelatedItemsListView::MAX_RELATED_ITEMS_SHOWN);
-        set_option('avantrelationships_max_indirect_shown', RelatedItemsListView::MAX_INDIRECTLY_RELATED_ITEMS_SHOWN);
+        RelationshipsConfig::setDefaultOptionValues();
     }
 
     public function hookItemsBrowseSql($args)

@@ -25,27 +25,21 @@ class AvantRelationships
 
         $tooltip = "See item for \"$text\"";
         $href = html_escape(url("items/show/$targetItemId"));
-        return "<a href='$href' title='$tooltip'>$text</a>";
+        return "<a class='metadata-implicit-link' href='$href' title='$tooltip'>$text</a>";
     }
 
-    public static function saveConfiguration()
+    public static function initializeImplicitRelationshipFilters(&$filters)
     {
-        $maxDirectItems = intval($_POST['avantrelationships_max_direct_shown']);
-        $maxIndirectItems = intval($_POST['avantrelationships_max_indirect_shown']);
-
-        if ($maxDirectItems == 0)
+        $implicitRelationshipsData = RelationshipsConfig::getOptionDataForImplicitRelationships();
+        foreach ($implicitRelationshipsData as $elementId => $definition)
         {
-            throw new Omeka_Validate_Exception(__('Max Direct Items must be an integer greater than zero.'));
+            $elementName = $definition['name'];
+            $elementSetName = ItemMetadata::getElementSetNameForElementName($elementName);
+            if (!empty($elementSetName))
+            {
+                // Set up a call to be made when this element is displayed on a Show page.
+                $filters['filterRelationshipImplicit' . $elementName] = array('Display', 'Item', $elementSetName, $elementName);
+            }
         }
-
-        if ($maxIndirectItems == 0)
-        {
-            throw new Omeka_Validate_Exception(__('Max Indirect Items must be an integer greater than zero.'));
-        }
-
-        set_option('avantrelationships_max_direct_shown', $maxDirectItems);
-        set_option('avantrelationships_max_indirect_shown', $maxIndirectItems);
-        set_option('avantrelationships_visualizaton', $_POST['avantrelationships_visualizaton']);
-        set_option('avantrelationships_delete_tables', (int)(boolean)$_POST['avantrelationships_delete_tables']);
     }
 }

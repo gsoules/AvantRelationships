@@ -516,13 +516,15 @@ class RelatedItemsTree
     {
         $nodes = array();
 
-        $node = $this->createImplicitRelationshipsFor($this->primaryItem, $this, 'Creator', __('Created'));
-        if (!empty($node))
-            $nodes[] = $node;
-
-        $node = $this->createImplicitRelationshipsFor($this->primaryItem, $this, 'Publisher', __('Published'));
-        if (!empty($node))
-            $nodes[] = $node;
+        $implicitRelationshipsData = RelationshipsConfig::getOptionDataForImplicitRelationships();
+        foreach ($implicitRelationshipsData as $elementId => $definition)
+        {
+            $elementName = $definition['name'];
+            $label = $definition['label'];
+            $node = $this->createImplicitRelationshipsFor($this->primaryItem, $this, $elementName, $label);
+            if (!empty($node))
+                $nodes[] = $node;
+        }
 
         foreach ($nodes as $node)
         {

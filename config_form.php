@@ -10,6 +10,10 @@ $visualizationOptions = array(RelatedItemsGraphView::SHOW_PREVIEW_AT_DEFAULT_LOC
     RelatedItemsGraphView::SHOW_PREVIEW_NEVER => __('Don\'t show visualization'));
 
 $visualizationOption = intval(get_option('avantrelationships_visualizaton'));
+
+$implicitRelationships = RelationshipsConfig::getOptionTextForImplicitRelationships();
+$implicitRelationshipsRows = max(2, count(explode(PHP_EOL, $implicitRelationships)));
+
 $deleteTables = intval(get_option('avantrelationships_delete_tables')) != 0;
 
 ?>
@@ -44,6 +48,16 @@ $deleteTables = intval(get_option('avantrelationships_delete_tables')) != 0;
     <div class="inputs five columns omega">
         <p class="explanation"><?php echo __("Number of indirectly related items listed before displaying a \"Show more\" message."); ?></p>
         <?php echo $view->formText('avantrelationships_max_indirect_shown', $maxIndirectlyRelatedItemsShown, array('style' => 'width: 40px;')); ?>
+    </div>
+</div>
+
+<div class="field">
+    <div class="two columns alpha">
+        <label><?php echo CONFIG_LABEL_IMPLICIT_RELATIONSHIPS; ?></label>
+    </div>
+    <div class="inputs five columns omega">
+        <p class="explanation"><?php echo __("Elements that are implicitly related to Titles."); ?></p>
+        <?php echo $view->formTextarea(RelationshipsConfig::OPTION_IMPLICIT_RELATIONSHIPS, $implicitRelationships, array('rows' => $implicitRelationshipsRows)); ?>
     </div>
 </div>
 

@@ -1,3 +1,17 @@
+:root {
+    --metadata-implicit-link-color: #137714;
+    --metadata-implicit-link-hover-color: #139714;
+}
+
+a.metadata-implicit-link:link,
+a.metadata-implicit-link:visited {
+    color: var(--metadata-implicit-link-color);
+}
+
+a.metadata-implicit-link:hover {
+    color: var(--metadata-implicit-link-hover-color);
+}
+
 .relationships-table-view .search-td-title .item-img {
     border-top: none;
 }
