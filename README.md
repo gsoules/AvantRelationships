@@ -55,9 +55,12 @@ To install the AvantRelationships plugin, follow these steps:
 
 **Default Relationship Rules and Types**
 
-To help get you started using AvantRelationships, the installer creates the relationship types and rules shown below. After installation, you can see and edit these by clicking on the **Relationships** menu item in the admin left navigation panel. Unless you are starting with a new Omeka database, chances are that your items won't have types like 'Article' and 'Image' or subjects like 'People' or 'Structures' and so you'll need to [edit/add/remove rules](http://swhplibrary.net/archive/relationship-rules/) to match your own types and subjects. You also want to [edit/add/remove relationship types](http://swhplibrary.net/archive/relationship-types/) in ways that make sense with your collection.
-
-![Relationships](http://swhplibrary.net/wp/wp-content/uploads/2017/09/Git-Hub-README-Relationship-Types-and-Rules.jpg)
+To help get you started using AvantRelationships, the installer creates a small set of relationship types and rules.
+After installation, you can see and edit these by clicking on the **Relationships** menu item in the admin left
+navigation panel. You'll need to
+[edit/add/remove rules](http://swhplibrary.net/archive/relationship-rules/) to meet your own needs.
+You also want to [edit/add/remove relationship types](http://swhplibrary.net/archive/relationship-types/) in ways that
+make sense for your collection.
 
 ## Uninstalling
 You can uninstall AvantRelationships in the usual way; however, by default, the uninstaller will not remove the database tables that store relationship information. This is to protect against accidental deletion of important data. To remove the tables, you must check the *Delete Tables* option on the Configure Plugin page, save the change, and then proceed with uninstalling the plugin.
