@@ -70,6 +70,7 @@ Option | Description
 Visualization&nbsp;Preview |  Specify where the Relationships Visulization Preview should appear. You can have the visualization appear immediately after metadata elements,or you designate a location, e.g. in the sidebar, by calling the 'show_relationships_visualization' hook in your theme's `items/show.php` page. To not show the visualization, choose the `Don't show visualization option`.
 Max Direct Items | Number of directly related items listed before displaying a "Show more" message.
 MaxIndirectItems |  Number of indirectly related items listed before displaying a "Show more" message.
+Implicit Relationships | Elements that have an implicit relationship to other items based on the Title of those items. See the description of this option below.
 Delete Tables |  WARNING: Checking this option will cause all relationship database tables and data to be permanently deleted if you uninstall this plugin. Do not check this box unless you are certain that in the future you will not be using relationship data that you created (relationships, types, rules, and cover images) while using this plugin . If you are just experimenting with the plugin, leave the box unchecked. If you decide not to use the plugin, check the box, Save Changes, and then uninstall the plugin.
 
 
@@ -93,23 +94,43 @@ To learn about features provided by AvantRelationships, see the following topics
 * [Relationship Rules]
 
 ### Implicit Relationships
-An implicit relationship is one where two items are related to each other by virtue of having common
-data that creates an implicit association between them. In contrast, an explicit relationship is one that an
-archivist manually adds a relationship between two items.
-The AvantRelationships plugin detects an implicit relationship when an item’s Creator or Publisher text exactly matches the Title of another item.
-For example if three photograph items (creations) list "Andsel Adams" as their Creator, and another item has "Ansel Adams"
-as its Title, the three creation items are implicitly related to the creator item. The plugin displays implicit relationships in two ways:
+An implicit relationship is one where the value of an element for one item exactly matches the value of the Title
+element for another item. For example, if the Creator element for a photograph item specifies the name of a
+photographer and that photographer's name is used for the Title on another item, then there is an implicit
+*Created / Created by* relationship between the items.
+ 
+The AvantRelationships configuration page has an option called `Implicit Relationships` that lets you specify which
+elements can have an implicit relationship to items that have a matching Title element value.
 
-* When a creation item is displayed, its Creator and/or Publisher text is shown as a hyperlink to the corresponding creator item.
+In the example above, the plugin displays implicit relationships in three ways:
 
-* When a creator item is displayed, a list of its creations and/or publications appears following other related items. These implicit
-relationships also appear in the Visualization.
+* When someone is viewing one of the photograph items, its Creator text is shown as a hyperlink. Clicking this link
+ takes you to the item having the photographer's name as its Title.
+
+* When someone is viewing the item titled with the photographer's name, photographs created by that photographer
+appear on that page as related items.
+
+* The implicit relationships from the creator to his/her creations appear in the Visualization.
+
+The syntax for each row of the Implicit Relationships option is
+
+    <element-name> ":" <label>
+
+Where:
+
+* `<element-name>` is the name of an Omeka element.
+* `<label>` specifies the text to describe the relationship in the direction from the titles item to the implicitly
+related items. This text appears in the page's related items section and in the visualization.
+
+###### Example:
+```
+Creator: Created
+Publisher: Published
+```
 
 Notes:
-* The plugin only detects an implicit relationships when there is an exact match between the Creator or Publisher text in one
-item and the corresponding Title text in another. If the text varies even by a space, the relationship won't be detected.
-* The implicit relationships features assumes that you are using the Dublin Core Title element and the Dublin Core Creator and/or Publisher elements.
-If you need the feature to work with other elements, you'll have to adapt the source code.
+* The plugin only detects an implicit relationships when there is an exact match between the element text in one
+item and the corresponding Dublin Core Title text in another. If the text varies even by a space, the relationship won't be detected.
 * When displaying a creator item, if there are a lot of creation items, the page will display a short list of creation items followed by a button
 that the user can click to see all of the itmes. The number of items in the short list is controlled by the "Max indirect items" option
 on the AvantRelationships configuration page. If AvantSearch is also installed and activated, clicking the button will display all of
