@@ -30,7 +30,6 @@ Click the links below to see copyrights and licenses for each.
 * [cytoscape-panzoom](https://github.com/cytoscape/cytoscape.js-panzoom) - widget that lets the user pan and zoom about a Cytoscape.js graph
 * [Dagre](https://github.com/cytoscape/cytoscape.js-dagre) - DAG (directed acyclic graph) for Cytoscape.js
 * [CoSE Bilkent](https://github.com/cytoscape/cytoscape.js-cose-bilkent) - layout for Cytoscape.js
-* [Magnific Popup](https://github.com/dimsemenov/Magnific-Popup/) - lightbox for jQuery
 * [AvantCommon](https://github.com/gsoules/AvantCommon) plugin (see Installation section below)
 
 AvantRelationships requires that each item have a unique identifier. It uses the identifiers to establish the relationship
@@ -56,7 +55,7 @@ To install the AvantRelationships plugin, follow these steps:
 **Default Relationship Rules and Types**
 
 To help get you started using AvantRelationships, the installer creates a small set of relationship types and rules.
-After installation, you can see and edit these by clicking on the **Relationships** menu item in the admin left
+After installation you can see and edit these by clicking on the **Relationships** menu item in the admin left
 navigation panel. You'll need to
 [edit/add/remove rules](http://swhplibrary.net/archive/relationship-rules/) to meet your own needs.
 You also want to [edit/add/remove relationship types](http://swhplibrary.net/archive/relationship-types/) in ways that
@@ -139,6 +138,12 @@ that the user can click to see all of the itmes. The number of items in the shor
 on the AvantRelationships configuration page. If AvantSearch is also installed and activated, clicking the button will display all of
 the related creations as search results in an [Image View](http://swhplibrary.net/searching/search-results-image-view/). If AvantSearch is not active,
 clicking the button will display all of the creation items inline on the creator item page.
+
+#### Title Sync Option
+The [AvantElements](https://github.com/gsoules/AvantElements) plugin has a
+[Title Sync](https://github.com/gsoules/AvantElements#title-sync-option) option that makes it easy to keep
+implicitly related items in sync with each other. If you change the title text in one item, Title Sync will
+automatically update the corresponding text in implicitly related items.
 
 ### Placement of the Visualization Graph Preview
 The preview is a small image of the visualization graph. When you click on the preview's *Enlarge* link, a full size visualization appears in a popup. By default, the AvantRelationships plugin displays the preview immediately after an item's metadata elements and before item relationship groups. You can have the  preview appear somewhere else such as in the sidebar. To display the graph at a designated location:
