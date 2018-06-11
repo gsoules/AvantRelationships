@@ -54,6 +54,17 @@ class RelatedItemsTree
         $this->addAncestryGroup('3-descendants', $name, $relatedItem);
     }
 
+    public function addKidToRelatedItemsTreeNode($item, $itemId, $label, RelatedItemsTreeNode $treeNode)
+    {
+        $itemTitle = ItemMetadata::getItemTitle($item);
+        $relatedItem = new RelatedItem($itemId);
+        $relatedItem->setItem($item);
+        $relatedItem->setLabels($label);
+        $this->kidId++;
+        $kid = new RelatedItemsTreeNode($this->kidId, $itemTitle, $relatedItem);
+        $treeNode->addKid($kid);
+    }
+
     protected function addRelationshipGroup($name, RelatedItem $relatedItem)
     {
         $this->relationshipGroups[$name][$relatedItem->getItemId()] = $relatedItem;
@@ -149,19 +160,6 @@ class RelatedItemsTree
         $this->getDescendants($this->primaryItem->id, $relatedItem, 1);
     }
 
-    public function createCustomRelationshipsNode($item, $label)
-    {
-        $itemTitle = ItemMetadata::getItemTitle($item);
-        $relatedItem = new RelatedItem($item->id);
-        $relatedItem->setItem($item);
-        $relatedItem->setLabels($label);
-        $this->kidId++;
-        $kid = new RelatedItemsTreeNode($this->kidId, $itemTitle, $relatedItem);
-        $customRelationshipsNode = new RelatedItemsTreeNode(0, $label);
-        $customRelationshipsNode->addKid($kid);
-        return $customRelationshipsNode;
-    }
-
     protected function createHybridGroupName($groups)
     {
         $hybridGroupName = '';
@@ -186,7 +184,7 @@ class RelatedItemsTree
         if (empty($results))
             return null;
 
-        $customRelationshipsNode = new RelatedItemsTreeNode(0, $label);
+        $treeNode = new RelatedItemsTreeNode(0, $label);
 
         if (plugin_is_active('AvantSearch'))
         {
@@ -195,7 +193,7 @@ class RelatedItemsTree
             $url = ItemSearch::getAdvancedSearchUrl($elementId, $title);
             $imageViewId = SearchResultsViewFactory::IMAGE_VIEW_ID;
             $url .= "&view=$imageViewId";
-            $customRelationshipsNode->setData($url);
+            $treeNode->setData($url);
         }
 
         foreach ($results as $result)
@@ -216,16 +214,10 @@ class RelatedItemsTree
                 // The user does not have access to the target item e.g. because it's private.
                 continue;
             }
-            $itemTitle = ItemMetadata::getItemTitle($item);
-            $relatedItem = new RelatedItem($itemId);
-            $relatedItem->setItem($item);
-            $relatedItem->setLabels($label);
-            $this->kidId++;
-            $kid = new RelatedItemsTreeNode($this->kidId, $itemTitle, $relatedItem);
-            $customRelationshipsNode->addKid($kid);
+            $this->addKidToRelatedItemsTreeNode($item, $itemId, $label, $treeNode);
         }
 
-        return $customRelationshipsNode;
+        return $treeNode;
     }
 
     protected function createKid($name, $relatedItem = null)
