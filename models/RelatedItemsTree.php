@@ -149,6 +149,19 @@ class RelatedItemsTree
         $this->getDescendants($this->primaryItem->id, $relatedItem, 1);
     }
 
+    public function createCustomRelationshipsNode($item, $label)
+    {
+        $itemTitle = ItemMetadata::getItemTitle($item);
+        $relatedItem = new RelatedItem($item->id);
+        $relatedItem->setItem($item);
+        $relatedItem->setLabels($label);
+        $this->kidId++;
+        $kid = new RelatedItemsTreeNode($this->kidId, $itemTitle, $relatedItem);
+        $customRelationshipsNode = new RelatedItemsTreeNode(0, $label);
+        $customRelationshipsNode->addKid($kid);
+        return $customRelationshipsNode;
+    }
+
     protected function createHybridGroupName($groups)
     {
         $hybridGroupName = '';
@@ -525,6 +538,9 @@ class RelatedItemsTree
             if (!empty($node))
                 $nodes[] = $node;
         }
+
+        $customNodes = apply_filters('custom_relationships', $nodes, array('tree' => $this));
+        $nodes = array_merge($nodes, $customNodes);
 
         foreach ($nodes as $node)
         {

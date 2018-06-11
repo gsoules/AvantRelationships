@@ -27,6 +27,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
     protected $_filters = array(
         'admin_items_form_tabs',
         'admin_navigation_main',
+        'custom_relationships',
         'item_search_filters',
         'related_items_model'
     );
@@ -113,6 +114,11 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         $tabs[__('Cover Image')] = $content;
 
         return $tabs;
+    }
+
+    public function filterCustomRelationships($nodes, $args)
+    {
+        return AvantRelationships::createCustomRelationshipTreeNodes($args['tree']);
     }
 
     public function filterItemSearchFilters($displayArray, $args)

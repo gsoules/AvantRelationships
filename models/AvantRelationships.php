@@ -1,6 +1,22 @@
 <?php
 class AvantRelationships
 {
+    public static function createCustomRelationshipTreeNodes($tree)
+    {
+        $customCallbacks = RelationshipsConfig::getOptionDataForCustomRelationships();
+        foreach ($customCallbacks as $callback)
+        {
+            $className = $callback['class'];
+            $functionName = $callback['function'];
+            $callbackFunctionName = "$className::$functionName";
+            if (is_callable($callbackFunctionName))
+            {
+                $nodes = call_user_func($callbackFunctionName, $tree);
+            }
+        }
+        return $nodes;
+    }
+
     public static function emitImplicitRelationshipLink($text, $sourceItemId)
     {
         $text = html_entity_decode($text);

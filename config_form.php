@@ -14,6 +14,9 @@ $visualizationOption = intval(get_option('avantrelationships_visualizaton'));
 $implicitRelationships = RelationshipsConfig::getOptionTextForImplicitRelationships();
 $implicitRelationshipsRows = max(2, count(explode(PHP_EOL, $implicitRelationships)));
 
+$customRelationships = RelationshipsConfig::getOptionTextForCustomRelationships();
+$customRelationshipsRows = max(2, count(explode(PHP_EOL, $customRelationships)));
+
 $deleteTables = intval(get_option('avantrelationships_delete_tables')) != 0;
 
 ?>
@@ -58,6 +61,16 @@ $deleteTables = intval(get_option('avantrelationships_delete_tables')) != 0;
     <div class="inputs five columns omega">
         <p class="explanation"><?php echo __("Elements that are implicitly related to Titles."); ?></p>
         <?php echo $view->formTextarea(RelationshipsConfig::OPTION_IMPLICIT_RELATIONSHIPS, $implicitRelationships, array('rows' => $implicitRelationshipsRows)); ?>
+    </div>
+</div>
+
+<div class="field">
+    <div class="two columns alpha">
+        <label><?php echo CONFIG_LABEL_CUSTOM_RELATIONSHIPS; ?></label>
+    </div>
+    <div class="inputs five columns omega">
+        <p class="explanation"><?php echo __("Callback functions to provide custom relationships."); ?></p>
+        <?php echo $view->formTextarea(RelationshipsConfig::OPTION_CUSTOM_RELATIONSHIPS, $customRelationships, array('rows' => $customRelationshipsRows)); ?>
     </div>
 </div>
 
