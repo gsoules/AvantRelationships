@@ -118,7 +118,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function filterCustomRelationships($nodes, $args)
     {
-        return AvantRelationships::createCustomRelationshipTreeNodes($args['tree']);
+        return AvantRelationships::createCustomRelationshipTreeNodes($args['item'], $args['tree']);
     }
 
     public function filterItemSearchFilters($displayArray, $args)

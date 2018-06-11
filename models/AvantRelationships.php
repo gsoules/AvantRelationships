@@ -1,8 +1,9 @@
 <?php
 class AvantRelationships
 {
-    public static function createCustomRelationshipTreeNodes($tree)
+    public static function createCustomRelationshipTreeNodes($item, $tree)
     {
+        $nodes = array();
         $customCallbacks = RelationshipsConfig::getOptionDataForCustomRelationships();
         foreach ($customCallbacks as $callback)
         {
@@ -11,7 +12,7 @@ class AvantRelationships
             $callbackFunctionName = "$className::$functionName";
             if (is_callable($callbackFunctionName))
             {
-                $nodes = call_user_func($callbackFunctionName, $tree);
+                $nodes = array_merge($nodes, call_user_func($callbackFunctionName, $item, $tree));
             }
         }
         return $nodes;

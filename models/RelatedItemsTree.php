@@ -539,7 +539,7 @@ class RelatedItemsTree
                 $nodes[] = $node;
         }
 
-        $customNodes = apply_filters('custom_relationships', $nodes, array('tree' => $this));
+        $customNodes = apply_filters('custom_relationships', $nodes, array('item' => $this->primaryItem, 'tree' => $this));
         $nodes = array_merge($nodes, $customNodes);
 
         foreach ($nodes as $node)
