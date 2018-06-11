@@ -73,6 +73,7 @@ Visualization&nbsp;Preview |  Specify where the Relationships Visulization Previ
 Max Direct Items | Number of directly related items listed before displaying a "Show more" message.
 MaxIndirectItems |  Number of indirectly related items listed before displaying a "Show more" message.
 Implicit Relationships | Elements that have an implicit relationship to other items based on the Title of those items. See the description of this option below.
+Custom&nbsp;Relationships | Callback functions that dynamically create custom relationships. See the description of this option below.
 Delete Tables |  WARNING: Checking this option will cause all relationship database tables and data to be permanently deleted if you uninstall this plugin. Do not check this box unless you are certain that in the future you will not be using relationship data that you created (relationships, types, rules, and cover images) while using this plugin . If you are just experimenting with the plugin, leave the box unchecked. If you decide not to use the plugin, check the box, Save Changes, and then uninstall the plugin.
 
 
@@ -128,6 +129,25 @@ related items. This text appears in the page's related items section and in the 
 ```
 Creator: Created
 Publisher: Published
+```
+
+### Custom Relationships
+This option lets you write custom logic that dynamically add relationships from the item being viewed to one or more
+other items. Use of this option requires familiarity with the public methods of the AvantRelationships `RelatedItemsTreeNode`
+class and its `addKidToRelatedItemsTreeNode` method.
+
+The syntax for each row of the Custom Relationships option is
+
+    <class-name> "," <function-name>
+
+Where:
+
+* `<class-name>` is the name of a PHP class in a custom plugin
+* `<function-name>` is the name of a public static function in <class-name> 
+
+###### Example:
+```
+SomeCustomClass, createCustomRelationshipNode
 ```
 
 #### Title Sync Option
