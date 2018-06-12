@@ -54,10 +54,10 @@ class RelatedItemsTree
         $this->addAncestryGroup('3-descendants', $name, $relatedItem);
     }
 
-    public function addKidToRelatedItemsTreeNode($item, $itemId, $label, RelatedItemsTreeNode $treeNode)
+    protected function addKidToRelatedItemsTreeNode($item, $label, RelatedItemsTreeNode $treeNode)
     {
         $itemTitle = ItemMetadata::getItemTitle($item);
-        $relatedItem = new RelatedItem($itemId);
+        $relatedItem = new RelatedItem($item->id);
         $relatedItem->setItem($item);
         $relatedItem->setLabels($label);
         $this->kidId++;
@@ -214,7 +214,7 @@ class RelatedItemsTree
                 // The user does not have access to the target item e.g. because it's private.
                 continue;
             }
-            $this->addKidToRelatedItemsTreeNode($item, $itemId, $label, $treeNode);
+            $this->addKidToRelatedItemsTreeNode($item, $label, $treeNode);
         }
 
         return $treeNode;
@@ -225,6 +225,38 @@ class RelatedItemsTree
         $this->kidId++;
         $kid = new RelatedItemsTreeNode($this->kidId, $name, $relatedItem);
         return $kid;
+    }
+
+    public function createCustomRelationshipsGroup($items, $groupName)
+    {
+        // This methods supports the AvantRelationships Custom Relationships configuration option. A custom callback
+        // function that is specified using the option, can call this method passing a list of items that belong to
+        // a custom relationship group.
+        //
+        // The custom callback function is called from AvantRelationships::createCustomRelationshipTreeNodes which
+        // is in turn called from AvantRelationshipsPlugin::filterCustomRelationships which is in turn called from
+        // RelatedItemsTree::insertImplicitRelationships for the filter 'custom_relationships'. This method returns
+        // a single tree node containing one or more related items which insertImplicitRelationships inserts into
+        // the tree as another node.
+
+        $group = array();
+
+        if (empty($items))
+            return $group;
+
+        $treeNode = new RelatedItemsTreeNode(0, $groupName);
+
+        foreach ($items as $item)
+        {
+            $relatedItem = ItemMetadata::getItemFromId($item->id);
+            if (empty($relatedItem))
+                continue;
+
+            $this->addKidToRelatedItemsTreeNode($item, $groupName, $treeNode);
+        }
+
+        $group[] = $treeNode;
+        return $group;
     }
 
     protected function createRelatedItemGroups()
