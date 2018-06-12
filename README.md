@@ -132,11 +132,15 @@ Publisher: Published
 ```
 
 ### Custom Relationships
-This option lets you write custom logic that dynamically add relationships from the item being viewed to one or more
-other items. Use of this option requires familiarity with the public methods of the AvantRelationships `RelatedItemsTreeNode`
-class and its `addKidToRelatedItemsTreeNode` method.
+This option lets you specify the names of custom callback functions that you write to dynamically create relationships
+for the items being viewed. The function must create and array of one or more Item objects that are somehow related to
+the item being viewed. These items will appear in their own relationship group at the end of the item's Show page
+after all other relationship groups. A relationship to the group will also appear in the visualization.
 
-The syntax for each row of the Custom Relationships option is
+Note that custom relationships are one-way from the item being viewed to other items. If you click one of the related
+items, it's Show page will not display a relationship back to the original item.
+ 
+Each row of the Custom Relationships option specifies one group. The synxtax is:
 
     <class-name> "," <function-name>
 
@@ -145,9 +149,25 @@ Where:
 * `<class-name>` is the name of a PHP class in a custom plugin
 * `<function-name>` is the name of a public static function in <class-name> 
 
-###### Example:
+###### Example use of option:
 ```
-SomeCustomClass, createCustomRelationshipNode
+SomeCustomClass, createCustomRelationshps
+```
+
+###### Example custom callback function:
+
+```
+class SomeCustomClass
+{
+    public static function createCustomRelationshps(Item $item, RelatedItemsTree $tree)
+    {
+        $items = array();
+        
+        // Add code here to add items to the array.
+
+        return $tree->createCustomRelationshipsGroup($items, 'Name of Relationship Group');
+    }
+}
 ```
 
 #### Title Sync Option
