@@ -133,9 +133,9 @@ Publisher: Published
 
 ### Custom Relationships
 This option lets you specify the names of custom callback functions that you write to dynamically create relationships
-for the items being viewed. The function must create and array of one or more Item objects that are somehow related to
-the item being viewed. These items will appear in their own relationship group at the end of the item's Show page
-after all other relationship groups. A relationship to the group will also appear in the visualization.
+for the items being viewed (the primary item). The function must create and array of one or more Item objects that are
+somehow related to the primary itemd. These items will appear in their own relationship group at the end of the item's
+Show page after all other relationship groups. A relationship to the group will also appear in the visualization.
 
 Note that custom relationships are one-way from the item being viewed to other items. If you click one of the related
 items, it's Show page will not display a relationship back to the original item.
@@ -159,11 +159,11 @@ SomeCustomClass, createCustomRelationshps
 ```
 class SomeCustomClass
 {
-    public static function createCustomRelationshps(Item $item, RelatedItemsTree $tree)
+    public static function createCustomRelationshps(Item $primaryItem, RelatedItemsTree $tree)
     {
         $items = array();
         
-        // Add code here to add items to the array.
+        // Put code here to add items to the array that are related to $primaryItem.
 
         return $tree->createCustomRelationshipsGroup($items, 'Name of Relationship Group');
     }
