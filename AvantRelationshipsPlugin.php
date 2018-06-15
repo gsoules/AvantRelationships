@@ -239,7 +239,9 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
         // Create the HTML for the List View. Always do this before creating the HTML for the graph view
         // because the graph view logic alters the relationships tree.
-        $listViewHtml = $this->relatedItemsModel->emitRelatedItemsListView($excludeItem);
+        $item = $args['item'];
+        $listViewIndex = 1;
+        $listViewHtml = $this->relatedItemsModel->emitRelatedItemsListView($listViewIndex, $item->id, $excludeItem);
 
         if ($visualizationOption == RelatedItemsGraphView::SHOW_PREVIEW_AT_DEFAULT_LOCATION)
         {

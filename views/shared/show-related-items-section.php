@@ -51,7 +51,7 @@ if ($numItemsInSection > $maxItemsVisible)
     else
     {
         // Emit a button to toggle show more / show less.
-        $showMoreLink = "<div class='related-items-show-more'><a href='#' id='{$sectionTreeNode->getId()}'>" . __('Show %s more', $numMore) . '</a></div>';
+        $showMoreLink = "<div class='related-items-show-more'><a href='#' id='$itemId-$sectionId'>" . __('Show %s more', $numMore) . '</a></div>';
     }
 }
 ?>
@@ -65,7 +65,7 @@ if ($numItemsInSection > $maxItemsVisible)
             $relatedItem = $kid->getRelatedItem();
             $item = $relatedItem->getItem();
             $itemPreview = new ItemPreview($item);
-            $attributes = $itemsShown <= $maxItemsVisible - 1 ? '' : " class='$sectionId-extra' style='display:none'";
+            $attributes = $itemsShown <= $maxItemsVisible - 1 ? '' : " class='$itemId-$sectionId-extra' style='display:none'";
             echo $itemPreview->emitItemPreviewAsListElement($relatedItem->usesCoverImage(), $attributes);
             $itemsShown++;
             if ($itemsShown >= $maxItemsToEmit)

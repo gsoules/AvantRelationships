@@ -24,13 +24,13 @@ class RelatedItemsModel
         return $this->relatedItemsGraphView->emitRelatedItemsGraph();
     }
 
-    public function emitRelatedItemsListView($excludeItem = null)
+    public function emitRelatedItemsListView($listViewIndex, $itemId, $excludeItem = null)
     {
         if (!isset($this->relatedItemsListView))
         {
             $this->relatedItemsListView = new RelatedItemsListView($this->view);
         }
-        return $this->relatedItemsListView->emitRelatedItemsList($this, $excludeItem);
+        return $this->relatedItemsListView->emitRelatedItemsList($this, $listViewIndex, $itemId, $excludeItem);
     }
 
     public function getPrimaryItem()

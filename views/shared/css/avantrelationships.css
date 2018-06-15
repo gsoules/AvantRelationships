@@ -79,10 +79,22 @@ a.metadata-implicit-link:hover {
     border-bottom-style: none;
 }
 
-.related-items-main-section .item-preview .item-img img,
-.related-items-subsection .item-preview .item-img img {
+/* These two specifiers control the size of images displayed in Relationships View search results. */
+.related-items-subsection .item-preview .item-img {
+    max-height: 130px;
     width: 120px;
 }
+
+.related-items-subsection .item-preview .item-img img {
+    max-height: 120px;
+}
+
+/* Display larger thumbnails on the admin show page */
+section.seven.columns.alpha .related-items-main-section .item-preview .item-img img,
+section.seven.columns.alpha .related-items-subsection .item-preview .item-img img {
+    width: 120px;
+}
+
 
 #related-items-graph h2 {
     margin-bottom: 0;

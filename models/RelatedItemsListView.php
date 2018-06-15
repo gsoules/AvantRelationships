@@ -12,22 +12,22 @@ class RelatedItemsListView
         $this->view = $view;
     }
 
-    public function emitSection(RelatedItemsTreeNode $directKid, $excludeItem = null)
+    public function emitSection(RelatedItemsTreeNode $directKid, $itemId, $excludeItem = null)
     {
         $itemsToShow = intval(get_option('avantrelationships_max_direct_shown'));
         if ($itemsToShow <= 0)
             $itemsToShow = self::MAX_RELATED_ITEMS_SHOWN;
 
-        return $this->emitRelatedItemsSection($directKid, 'related-items-main-section', $itemsToShow, $excludeItem);
+        return $this->emitRelatedItemsSection($directKid, 'related-items-main-section', $itemsToShow, $itemId, $excludeItem);
     }
 
-    public function emitSubsection(RelatedItemsTreeNode $indirectKid)
+    public function emitSubsection(RelatedItemsTreeNode $indirectKid, $itemId)
     {
         $itemsToShow = intval(get_option('avantrelationships_max_indirect_shown'));
         if ($itemsToShow <= 0)
             $itemsToShow = self::MAX_INDIRECTLY_RELATED_ITEMS_SHOWN;
 
-        return $this->emitRelatedItemsSection($indirectKid, 'related-items-subsection', $itemsToShow);
+        return $this->emitRelatedItemsSection($indirectKid, 'related-items-subsection', $itemsToShow, $itemId);
     }
 
     public function emitSubsectionHeader($subsectionName)
@@ -35,21 +35,31 @@ class RelatedItemsListView
         return "<p class=\"related-items-section-name related-items-subsection-header\">$subsectionName</p>";
     }
 
-    protected function emitRelatedItemsSection($sectionTreeNode, $class, $maxItemsVisible, $excludeItem = null)
+    protected function emitRelatedItemsSection($sectionTreeNode, $class, $maxItemsVisible, $itemId, $excludeItem = null)
     {
         return $this->view->partial('show-related-items-section.php', array(
             'relatedItemsListView' => $this,
             'sectionTreeNode' => $sectionTreeNode,
             'sectionClass' => $class,
             'maxItemsVisible' => $maxItemsVisible,
+            'itemId' => $itemId,
             'excludeItem' => $excludeItem));
     }
 
-    public function emitRelatedItemsList($relatedItemsModel, $excludeItem = null)
+    public function emitRelatedItemsList($relatedItemsModel, $listViewIndex, $itemId, $excludeItem = null)
     {
-        return $this->view->partial('show-related-items-list.php', array(
+        $html = $this->view->partial('show-related-items-list.php', array(
             'relatedItemsListView' => $this,
             'relatedItemsModel' => $relatedItemsModel,
+            'itemId' => $itemId,
             'excludeItem' => $excludeItem));
+
+        if ($listViewIndex == 1)
+        {
+            // Emit the jQuery for the Show More button, but only emit it once.
+            $html .= $this->view->partial('show-more-items-script.php');
+        }
+
+        return $html;
     }
 }
