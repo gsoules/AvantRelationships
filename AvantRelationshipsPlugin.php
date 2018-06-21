@@ -172,6 +172,12 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookAfterSaveItem($args)
     {
+        if (!AvantCommon::userClickedSaveChanges())
+        {
+            // Do nothing for a save that is done programmatically such as when batch editing.
+            return;
+        }
+
         $coverImageIdentifier = isset($_REQUEST['cover-image-identifier']) ? $_REQUEST['cover-image-identifier'] : '';
         $this->createRelatedItemsEditor($args['record']);
         $this->relatedItemsEditor->afterSaveItem($args, $coverImageIdentifier);
