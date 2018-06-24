@@ -76,7 +76,7 @@ class RelationshipsConfig extends ConfigOptions
                 }
                 $name = $definition['name'];
                 $label = $definition['label'];
-                $text = "$name: $label";
+                $text .= "$name: $label";
             }
         }
         return $text;
