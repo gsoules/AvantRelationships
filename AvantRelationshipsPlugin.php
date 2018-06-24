@@ -239,7 +239,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookPublicItemsShow($args)
     {
-        $visualizationOption = intval(get_option('avantrelationships_visualizaton'));
+        $visualizationOption = intval(get_option(RelationshipsConfig::OPTION_VISUALIZATION));
         $excludeItem = isset($args['exclude']) ? $args['exclude'] : null;
         $this->createRelatedItemsModel($args['item'], $args['view']);
 
@@ -259,7 +259,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookShowRelationshipsVisualization($args)
     {
-        $visualizationOption = intval(get_option('avantrelationships_visualizaton'));
+        $visualizationOption = intval(get_option(RelationshipsConfig::OPTION_VISUALIZATION));
         if ($visualizationOption == RelatedItemsGraphView::SHOW_PREVIEW_AT_DESIGNATED_LOCATION)
         {
             $this->createRelatedItemsModel($args['item'], $args['view']);
@@ -269,7 +269,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookUninstall()
     {
-        $deleteTables = intval(get_option('avantrelationships_delete_tables'))== 1;
+        $deleteTables = intval(get_option(RelationshipsConfig::OPTION_DELETE_TABLES))== 1;
         if (!$deleteTables)
             return;
 

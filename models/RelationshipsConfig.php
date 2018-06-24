@@ -1,9 +1,11 @@
 <?php
 
 define('CONFIG_LABEL_CUSTOM_RELATIONSHIPS', __('Custom Relationships'));
+define('CONFIG_LABEL_DELETE_TABLES', __('Delete Tables'));
 define('CONFIG_LABEL_IMPLICIT_RELATIONSHIPS', __('Implicit Relationships'));
 define('CONFIG_LABEL_MAX_DIRECT_ITEMS', __('Max Direct Items'));
 define('CONFIG_LABEL_MAX_INDIRECT_ITEMS', __('Max Indirect Items'));
+define('CONFIG_LABEL_VISUALIZATION_PREVIEW', __('Visualization Preview'));
 
 class RelationshipsConfig extends ConfigOptions
 {
@@ -12,7 +14,7 @@ class RelationshipsConfig extends ConfigOptions
     const OPTION_IMPLICIT_RELATIONSHIPS = 'avantrelationships_implicit';
     const OPTION_MAX_DIRECT_ITEMS = 'avantrelationships_max_direct_shown';
     const OPTION_MAX_INDIRECT_ITEMS = 'avantrelationships_max_indirect_shown';
-    const OPTION_VISUALIZATION = 'avantrelationships_visualizaton';
+    const OPTION_VISUALIZATION = 'avantrelationships_visualization';
 
     public static function getOptionDataForCustomRelationships()
     {
