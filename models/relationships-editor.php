@@ -9,7 +9,7 @@ $primaryItemIdentifier = ItemMetadata::getItemIdentifier($item);
     <thead>
     <tr>
         <th><?php echo __('Relationship'); ?></th>
-        <th><?php echo __('Related Item'); ?></th>
+        <th><?php echo __('Related&nbsp;Item'); ?></th>
         <th><?php echo __('Related Item Title'); ?></th>
         <th><?php echo __('Action'); ?></th>
     </tr>
@@ -32,7 +32,7 @@ $primaryItemIdentifier = ItemMetadata::getItemIdentifier($item);
     <?php }; ?>
     <tr class="add-relationship-row">
         <td><?php echo get_view()->formSelect('relationship-type-code', null, array('multiple' => false), $formSelectRelationshipNames); ?></td>
-        <td><?php echo get_view()->formText('related-item-identifier', null, array('size' => 12)); ?></td>
+        <td><?php echo get_view()->formText('related-item-identifier', null, array('size' => 5)); ?></td>
         <td></td>
         <td>
             <button type="button" class="action-button add-relationship-button"><?php echo __('Add'); ?></button>
