@@ -4,22 +4,22 @@ class RelationshipsTableFactory
 {
     public static function CreateDefaultRelationshipTypesAndRules()
     {
-        $ruleIdArticle = RelationshipRulesEditor::addDefaultRule('Article', 'Type:^Article');
-        $ruleIdArticlePeople = RelationshipRulesEditor::addDefaultRule('Article with subject People', 'Type:^Article;Subject:^People');
+        $ruleIdReference = RelationshipRulesEditor::addDefaultRule('Reference', 'Type:^Reference');
+        $ruleIdReferencePeople = RelationshipRulesEditor::addDefaultRule('Reference with subject People', 'Type:^Reference;Subject:^People');
         $ruleIdImage = RelationshipRulesEditor::addDefaultRule('Image', 'Type:^Image');
 
         $order = 1;
 
         // Create a 'depicts' type and set the Directives to that same type.
-        $typeDepicts = RelationshipTypesEditor::addDefaultType($order++, $ruleIdImage, 'depicts', 'Related Articles,Related Article', $ruleIdArticle, 'depicted by', 'Images,Image');
+        $typeDepicts = RelationshipTypesEditor::addDefaultType($order++, $ruleIdImage, 'depicts', 'Related References,Related Reference', $ruleIdReference, 'depicted by', 'Images,Image');
         $depictsTypeId = $typeDepicts['id'];
         $typeDepicts['directives'] = $depictsTypeId;
         $typeDepicts->save();
 
-        RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticlePeople, 'married to', 'Married to', $ruleIdArticlePeople, 'married to', 'Married to');
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdReferencePeople, 'married to', 'Married to', $ruleIdReferencePeople, 'married to', 'Married to');
 
         $ancestry = 'Siblings,Sibling; Parents,Parent:Grandparents,Grandparent:Great *; Children,Child:Grandchildren,Grandchild:Great *';
-        RelationshipTypesEditor::addDefaultType($order++, $ruleIdArticlePeople, 'child of', 'Parents,Parent', $ruleIdArticlePeople, 'parent of', 'Children,Child', '', $ancestry);
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdReferencePeople, 'child of', 'Parents,Parent', $ruleIdReferencePeople, 'parent of', 'Children,Child', '', $ancestry);
 
         RelationshipTypesEditor::addDefaultType($order++, 0, 'related to', 'Related to', 0, 'related to', 'Related to');
     }
