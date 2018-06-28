@@ -212,6 +212,18 @@ section.seven.columns.alpha .related-items-subsection .item-preview .item-img im
     font-size: 16px;
 }
 
+.relationship-table-relationship {
+    width: 140px;
+}
+
+.relationship-table-related-item {
+    width: 70px;
+}
+
+.relationship-table-action {
+    width: 70px;
+}
+
 .not-sortable {
     cursor: auto !important;
 }

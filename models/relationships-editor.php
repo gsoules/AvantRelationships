@@ -8,10 +8,10 @@ $primaryItemIdentifier = ItemMetadata::getItemIdentifier($item);
 <table>
     <thead>
     <tr>
-        <th><?php echo __('Relationship'); ?></th>
-        <th><?php echo __('Related&nbsp;Item'); ?></th>
-        <th><?php echo __('Related Item Title'); ?></th>
-        <th><?php echo __('Action'); ?></th>
+        <th class="relationship-table-relationship"><?php echo __('Relationship'); ?></th>
+        <th class="relationship-table-related-item"><?php echo __('Related&nbsp;Item'); ?></th>
+        <th class="relationship-table-related-item-title"><?php echo __('Related Item Title'); ?></th>
+        <th class="relationship-table-action"><?php echo __('Action'); ?></th>
     </tr>
     </thead>
     <tbody>
@@ -26,7 +26,7 @@ $primaryItemIdentifier = ItemMetadata::getItemIdentifier($item);
             <td><?php echo RelatedItemsEditor::getRelatedItemLink($relatedItemIdentifier) ?></td>
             <td>
                 <button type="button" class="action-button edit-relationship-button"><?php echo __('Edit'); ?></button>
-                <button type="button" class="action-button remove-relationship-button red button"><?php echo __('Remove'); ?></button>
+                <button type="button" class="action-button remove-relationship-button red button"><?php echo __('X'); ?></button>
             </td>
         </tr>
     <?php }; ?>
@@ -37,7 +37,7 @@ $primaryItemIdentifier = ItemMetadata::getItemIdentifier($item);
         <td>
             <button type="button" class="action-button add-relationship-button"><?php echo __('Add'); ?></button>
             <button type="button" class="action-button edit-relationship-button"><?php echo __('Edit'); ?></button>
-            <button type="button" class="action-button remove-relationship-button red button"><?php echo __('Remove'); ?></button>
+            <button type="button" class="action-button remove-relationship-button red button"><?php echo __('X'); ?></button>
         </td>
     </tr>
     </tbody>
