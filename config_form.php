@@ -2,7 +2,7 @@
 $view = get_view();
 
 // If this page posted back with an error, get the invalid option values, otherwise get the options from the database.
-$maxRelatedItemsShown = isset($_POST[RelationshipsConfig::OPTION_MAX_INDIRECT_ITEMS]) ? $_POST[RelationshipsConfig::OPTION_MAX_INDIRECT_ITEMS] : get_option(RelationshipsConfig::OPTION_MAX_INDIRECT_ITEMS);
+$maxRelatedItemsShown = isset($_POST[RelationshipsConfig::OPTION_MAX_DIRECT_ITEMS]) ? $_POST[RelationshipsConfig::OPTION_MAX_DIRECT_ITEMS] : get_option(RelationshipsConfig::OPTION_MAX_DIRECT_ITEMS);
 $maxIndirectlyRelatedItemsShown = isset($_POST[RelationshipsConfig::OPTION_MAX_INDIRECT_ITEMS]) ? $_POST[RelationshipsConfig::OPTION_MAX_INDIRECT_ITEMS] : get_option(RelationshipsConfig::OPTION_MAX_INDIRECT_ITEMS);
 
 $visualizationOptions = array(RelatedItemsGraphView::SHOW_PREVIEW_AT_DEFAULT_LOCATION => __('After metadata elements'),

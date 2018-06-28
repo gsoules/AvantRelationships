@@ -14,7 +14,7 @@ class RelatedItemsListView
 
     public function emitSection(RelatedItemsTreeNode $directKid, $itemId, $excludeItem = null)
     {
-        $itemsToShow = intval(get_option(RelationshipsConfig::OPTION_MAX_INDIRECT_ITEMS));
+        $itemsToShow = intval(get_option(RelationshipsConfig::OPTION_MAX_DIRECT_ITEMS));
         if ($itemsToShow <= 0)
             $itemsToShow = self::MAX_RELATED_ITEMS_SHOWN;
 
