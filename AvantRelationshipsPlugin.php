@@ -34,6 +34,12 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function __construct()
     {
+        if (AvantCommon::isSearchRequest())
+        {
+            // Don't spend the execution time to construct this class since it's not used for search requests.
+            return;
+        }
+
         parent::__construct();
         AvantRelationships::initializeImplicitRelationshipFilters($this->_filters);
     }
