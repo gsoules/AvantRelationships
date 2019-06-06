@@ -191,8 +191,8 @@ class RelatedItemsTree
             // Form a URL for a search that will find all the related items. The URL is
             // emitted in the "See all n items" link that appears following a short list of items.
             $url = ItemSearch::getAdvancedSearchUrl($elementId, $title);
-            $imageViewId = SearchResultsViewFactory::IMAGE_VIEW_ID;
-            $url .= "&view=$imageViewId";
+            $gridViewId = SearchResultsViewFactory::GRID_VIEW_ID;
+            $url .= "&view=$gridViewId";
             $treeNode->setData($url);
         }
 
