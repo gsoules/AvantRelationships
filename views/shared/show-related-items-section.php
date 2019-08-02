@@ -35,23 +35,32 @@ $itemsShown = 0;
 $showMoreLink = '';
 $maxItemsToEmit = $numItemsInSection;
 
+
 if ($numItemsInSection > $maxItemsVisible)
 {
-    // Only show a small number of thumbnails and provide a button to show more.
-    $numMore = $numItemsInSection - $maxItemsVisible;
-    $maxSearchItemsToShow = $maxItemsVisible * 5;
-    $advancedSearchUrl = $sectionTreeNode->getData();
-
-    if (!empty($advancedSearchUrl) && $numItemsInSection > $maxSearchItemsToShow)
+    if (($numItemsInSection - $maxItemsVisible) < 10)
     {
-        // There are too many items to show. Emit a link to do an advanced search to find all the items.
-        $maxItemsToEmit = $maxItemsVisible;
-        $showMoreLink = "<div class='related-items-see-all'><a href='$advancedSearchUrl' id='{$sectionTreeNode->getId()}'>See all $numItemsInSection items</a></div>";
+        // Don't emit a Show More link when there are not that many more items to show.
+        $maxItemsVisible = $numItemsInSection;
     }
     else
     {
-        // Emit a button to toggle show more / show less.
-        $showMoreLink = "<div class='related-items-show-more'><a href='#' id='$itemId-$sectionId'>" . __('Show %s more', $numMore) . '</a></div>';
+        // Only show a small number of thumbnails and provide a button to show more.
+        $numMore = $numItemsInSection - $maxItemsVisible;
+        $maxSearchItemsToShow = $maxItemsVisible * 5;
+        $advancedSearchUrl = $sectionTreeNode->getData();
+
+        if (!empty($advancedSearchUrl) && $numItemsInSection > $maxSearchItemsToShow)
+        {
+            // There are too many items to show. Emit a link to do an advanced search to find all the items.
+            $maxItemsToEmit = $maxItemsVisible;
+            $showMoreLink = "<div class='related-items-see-all'><a href='$advancedSearchUrl' id='{$sectionTreeNode->getId()}'>See all $numItemsInSection items</a></div>";
+        }
+        else
+        {
+            // Emit a button to toggle show more / show less.
+            $showMoreLink = "<div class='related-items-show-more'><a href='#' id='$itemId-$sectionId'>" . __('Show %s more', $numMore) . '</a></div>';
+        }
     }
 }
 ?>
