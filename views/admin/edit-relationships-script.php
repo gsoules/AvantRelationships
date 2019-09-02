@@ -31,6 +31,8 @@
         var code = jQuery('#relationship-type-code').val();
         var relationshipName = jQuery('#relationship-type-code option:selected').text();
 
+        Cookies.set('RELATIONSHIP', code, {expires: 14});
+
         jQuery.ajax(
             updateRelationshipUrl,
             {

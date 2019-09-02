@@ -43,6 +43,17 @@ $primaryItemIdentifier = ItemMetadata::getItemIdentifier($item);
     </tbody>
 </table>
 
+<div id="recent-relationships">
+    <?php
+    $cookie = isset($_COOKIE['RELATIONSHIP']) ? $_COOKIE['RELATIONSHIP'] : '';
+    $codes = explode(',', $cookie);
+    foreach ($codes as $code)
+    {
+        echo "<div>$code</div>";
+    ?>
+    <?php }; ?>
+</div>
+
 <?php echo get_view()->partial('/edit-relationships-script.php', array('primaryItemIdentifier' => $primaryItemIdentifier)); ?>
 
 
