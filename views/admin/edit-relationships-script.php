@@ -27,7 +27,7 @@
 
     function addActionLinkEventListeners()
     {
-        var codeLinks = jQuery('.relationship-editor-code');
+        var codeLinks = jQuery('.recent-relationship');
 
         codeLinks.click(function ()
         {
@@ -411,7 +411,7 @@
         for (code of codes)
         {
             name = relationshipNames[code];
-            recentRelationships.append('<a class="relationship-editor-code" data-code="' + code + '">' + name + '</a><br/>');
+            recentRelationships.append('<a class="recent-relationship" data-code="' + code + '">' + name + '</a><br/>');
         }
 
         addActionLinkEventListeners();
