@@ -1,6 +1,7 @@
 <script type="text/javascript">
     var updateRelationshipUrl = '<?php echo url('/relationships/update/relationship'); ?>';
     var detachedAddRelationshipRow = null;
+    var relationshipNames = JSON.parse('<?php echo $relationshipNames; ?>');
 
     function addActionButtonEventListeners()
     {
@@ -24,14 +25,24 @@
         });
     }
 
+    function addActionLinkEventListeners()
+    {
+        var codeLinks = jQuery('.relationship-editor-code');
+
+        codeLinks.click(function ()
+        {
+            var code = jQuery(this).attr('data-code');
+            setSelectedRelationship(code);
+            jQuery( "#related-item-identifier" ).focus();
+        });
+    }
+
     function addRelationship()
     {
         var relatedItemIdentifier = jQuery('#related-item-identifier').val();
         var primaryItemIdentifier = '<?php echo $primaryItemIdentifier; ?>';
         var code = jQuery('#relationship-type-code').val();
         var relationshipName = jQuery('#relationship-type-code option:selected').text();
-
-        Cookies.set('RELATIONSHIP', code, {expires: 14});
 
         jQuery.ajax(
             updateRelationshipUrl,
@@ -47,6 +58,7 @@
                 success: function (data)
                 {
                     afterAddRelationship(data, relationshipName, relatedItemIdentifier);
+                    saveSelectedRelationship(code);
                 },
                 error: function (data)
                 {
@@ -310,6 +322,55 @@
         setActionButtonEventListeners();
     }
 
+    function retrieveRelationshipCodes()
+    {
+        var value = Cookies.get('RELATIONSHIP');
+        var codes = [];
+        if (value !== undefined)
+        {
+            codes = value.split(',');
+        }
+
+        return codes;
+    }
+
+    function saveSelectedRelationship(selectedCode)
+    {
+        var oldCodes = retrieveRelationshipCodes();
+        var newCodes = '';
+        if (oldCodes.length === 0)
+        {
+            newCodes = selectedCode;
+        }
+        else
+        {
+
+            // Put the selected code at index 0, and copy the old codes after it.
+            newCodes = [selectedCode];
+            var count = 1;
+
+            for (code of oldCodes)
+            {
+                if (selectedCode === code)
+                {
+                    // The selected code was already in the stack. Ignore it since it's not on the top.
+                    continue;
+                }
+                newCodes.push(code);
+                count += 1;
+
+                // Only show the last dozen selections.
+                if (count >= 12)
+                    break;
+            }
+            newCodes = newCodes.join(',');
+        }
+
+        Cookies.set('RELATIONSHIP', newCodes, {expires: 14});
+
+        showRecentRelationships();
+    }
+
     function setActionButtonEventListeners()
     {
         removeActionButtonEventListeners();
@@ -318,8 +379,17 @@
 
     function setDefaultRelationship()
     {
-        jQuery('#relationship-type-code option[value=<?php echo $defaultCode; ?>]').prop('selected', true);
-        jQuery( "#related-item-identifier" ).focus();
+        codes = retrieveRelationshipCodes();
+        if (codes.length > 0)
+        {
+            // Select the previously chosen relationship and put the cursor in the item number textbox.
+            setSelectedRelationship(codes[0]);
+        }
+    }
+
+    function setSelectedRelationship(code)
+    {
+        jQuery('#relationship-type-code option[value=' + code + ']').prop('selected', true);
     }
 
     function setRowColumnHtml(row, relationshipName, relatedItemIdentifier, descriptionLink)
@@ -328,6 +398,23 @@
         jQuery(td[0]).html(relationshipName);
         jQuery(td[1]).html(relatedItemIdentifier);
         jQuery(td[2]).html(descriptionLink);
+    }
+
+    function showRecentRelationships()
+    {
+        var recentRelationships =  jQuery('#recent-relationships');
+
+        recentRelationships.empty();
+
+        var name;
+        codes = retrieveRelationshipCodes();
+        for (code of codes)
+        {
+            name = relationshipNames[code];
+            recentRelationships.append('<a class="relationship-editor-code" data-code="' + code + '">' + name + '</a><br/>');
+        }
+
+        addActionLinkEventListeners();
     }
 
     function updateRelationship(oldRelationshipId)
@@ -365,5 +452,6 @@
         initializeAddRowButtons();
         setActionButtonEventListeners();
         setDefaultRelationship();
+        showRecentRelationships();
     });
 </script>
