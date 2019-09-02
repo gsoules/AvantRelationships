@@ -316,6 +316,12 @@
         addActionButtonEventListeners();
     }
 
+    function setDefaultRelationship()
+    {
+        jQuery('#relationship-type-code option[value=<?php echo $defaultCode; ?>]').prop('selected', true);
+        jQuery( "#related-item-identifier" ).focus();
+    }
+
     function setRowColumnHtml(row, relationshipName, relatedItemIdentifier, descriptionLink)
     {
         var td = row.children();
@@ -358,5 +364,6 @@
     {
         initializeAddRowButtons();
         setActionButtonEventListeners();
+        setDefaultRelationship();
     });
 </script>
