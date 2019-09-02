@@ -99,19 +99,6 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
             return $tabs;
         }
 
-        $this->createRelatedItemsModel($item);
-        $relatedItems = $this->relatedItemsModel->getRelatedItems();
-
-        $this->createRelatedItemsEditor($item);
-        $formSelectRelationshipNames = $this->relatedItemsEditor->getRelationshipNamesSelectList();
-
-        ob_start();
-        include 'relationships-editor.php';
-        $content = ob_get_contents();
-        ob_end_clean();
-
-        $tabs[__('Relationships')] = $content;
-
         ob_start();
         include 'cover-image-editor.php';
         $content = ob_get_contents();
