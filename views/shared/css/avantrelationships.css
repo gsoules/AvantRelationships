@@ -206,10 +206,14 @@ section.seven.columns.alpha .related-items-subsection .item-preview .item-img im
     background: #FFF;
     padding: 10px 50px 10px 10px;
     width: auto;
-    max-width: 500px;
+    max-width: 700px;
     margin: 20px auto;
     border: 2px solid #c41130;
     font-size: 16px;
+}
+
+.relationship-editor-popup div {
+    margin-bottom: 8px;
 }
 
 .relationship-table-relationship {

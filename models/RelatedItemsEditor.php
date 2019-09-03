@@ -224,6 +224,14 @@ class RelatedItemsEditor
         return $determiner . $description;
     }
 
+    protected function getItemMetadata($item)
+    {
+        $type = ItemMetadata::getElementTextForElementName($item, 'Type');
+        $subject = ItemMetadata::getElementTextForElementName($item, 'Subject');
+        $metadata = "type $type with subject $subject";
+        return $metadata;
+    }
+
     public static function getRelatedItemLink($identifier)
     {
         $item = ItemMetadata::getItemFromIdentifier($identifier);
@@ -456,12 +464,16 @@ class RelatedItemsEditor
             return false;
         }
 
-        $valid = $this->validateRule($primaryItem->id, $rules['source'], __('this item'), $relationshipName);
+        $thisItemIdentifier = ItemMetadata::getItemIdentifier($primaryItem);
+        $thisItemMetadata = $this->getItemMetadata($primaryItem);
+        $valid = $this->validateRule($primaryItem->id, $rules['source'], __('this item %s', $thisItemIdentifier), $thisItemMetadata, $relationshipName);
 
         if (!$valid)
             return false;
 
-        $valid = $this->validateRule($relatedItem->id,  $rules['target'], __('the related item'), $relationshipName);
+        $relatedItemIdentifier = ItemMetadata::getItemIdentifier($relatedItem);
+        $relatedItemMetadata = $this->getItemMetadata($relatedItem);
+        $valid = $this->validateRule($relatedItem->id,  $rules['target'], __('item %s', $relatedItemIdentifier), $relatedItemMetadata, $relationshipName);
 
         return $valid;
     }
@@ -504,7 +516,7 @@ class RelatedItemsEditor
         return true;
     }
 
-    protected function validateRule($itemId, $rule, $violatorKind, $relationshipName)
+    protected function validateRule($itemId, $rule, $violatorKind, $violatorMetadata, $relationshipName)
     {
         if (empty($rule))
             return true;
@@ -527,7 +539,7 @@ class RelatedItemsEditor
         $count = $this->db->fetchOne($select);
         if ($count == 0)
         {
-            $this->addValidationError(__('The \'%1$s\' relationship was not accepted because %2$s is not %3$s.', $relationshipName, $violatorKind, $ruleDescription));
+            $this->addValidationError(__('<div>The <i>%1$s</i> relationship requires %2$s to be %3$s.</div><div>However, %2$s is %4$s.</div><div>Choose a different relationship or a different item.</div>', $relationshipName, $violatorKind, $ruleDescription, $violatorMetadata));
             return false;
         }
 
