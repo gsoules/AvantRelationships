@@ -2,12 +2,14 @@
     var updateRelationshipUrl = '<?php echo url('/relationships/update/relationship'); ?>';
     var detachedAddRelationshipRow = null;
     var relationshipNames = JSON.parse('<?php echo $relationshipNames; ?>');
+    const RELATIONSHIPS_COOKIE = 'RELATIONSHIPS';
 
     function addActionButtonEventListeners()
     {
         var addButtons = jQuery('.add-relationship-button');
         var editButtons = jQuery('.edit-relationship-button');
         var removeButtons = jQuery('.remove-relationship-button');
+        var recentItemButtons = jQuery('.recent-item');
 
         addButtons.click(function ()
         {
@@ -22,6 +24,12 @@
         removeButtons.click(function ()
         {
             removeRelationship(jQuery(this).parents('tr'));
+        });
+
+        recentItemButtons.click(function ()
+        {
+            var itemIdentifier = jQuery(this).attr('data-identifier');
+            setItemIdentifier(itemIdentifier);
         });
     }
 
@@ -324,7 +332,7 @@
 
     function retrieveRelationshipCodes()
     {
-        var value = Cookies.get('RELATIONSHIP');
+        var value = Cookies.get(RELATIONSHIPS_COOKIE);
         var codes = [];
         if (value !== undefined)
         {
@@ -366,7 +374,7 @@
             newCodes = newCodes.join(',');
         }
 
-        Cookies.set('RELATIONSHIP', newCodes, {expires: 14});
+        Cookies.set(RELATIONSHIPS_COOKIE, newCodes, {expires: 14});
 
         showRecentRelationships();
     }
@@ -385,6 +393,11 @@
             // Select the previously chosen relationship and put the cursor in the item number textbox.
             setSelectedRelationship(codes[0]);
         }
+    }
+
+    function setItemIdentifier(identifier)
+    {
+        jQuery('#related-item-identifier').val(identifier);
     }
 
     function setSelectedRelationship(code)
@@ -411,7 +424,7 @@
         for (code of codes)
         {
             name = relationshipNames[code];
-            recentRelationships.append('<a class="recent-relationship" data-code="' + code + '">' + name + '</a><br/>');
+            recentRelationships.append('<div class="recent-relationship" data-code="' + code + '">' + name + '</div>');
         }
 
         addActionLinkEventListeners();
