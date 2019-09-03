@@ -2,6 +2,7 @@
     var updateRelationshipUrl = '<?php echo url('/relationships/update/relationship'); ?>';
     var detachedAddRelationshipRow = null;
     var relationshipNames = JSON.parse('<?php echo $relationshipNames; ?>');
+    var primaryItemIdentifier = '<?php echo $primaryItemIdentifier; ?>';
     const RELATIONSHIPS_COOKIE = 'RELATIONSHIPS';
 
     function addActionButtonEventListeners()
@@ -9,7 +10,7 @@
         var addButtons = jQuery('.add-relationship-button');
         var editButtons = jQuery('.edit-relationship-button');
         var removeButtons = jQuery('.remove-relationship-button');
-        var recentItemButtons = jQuery('.recent-item');
+        var recentItemButtons = jQuery('.recent-identifier');
 
         addButtons.click(function ()
         {
@@ -48,7 +49,6 @@
     function addRelationship()
     {
         var relatedItemIdentifier = jQuery('#related-item-identifier').val();
-        var primaryItemIdentifier = '<?php echo $primaryItemIdentifier; ?>';
         var code = jQuery('#relationship-type-code').val();
         var relationshipName = jQuery('#relationship-type-code option:selected').text();
 
@@ -65,7 +65,7 @@
                 },
                 success: function (data)
                 {
-                    afterAddRelationship(data, relationshipName, relatedItemIdentifier);
+                    afterAddRelationship(data, relationshipName, relatedItemIdentifier, code);
                     saveSelectedRelationship(code);
                 },
                 error: function (data)
@@ -76,7 +76,7 @@
         );
     }
 
-    function afterAddRelationship(data, relationshipName, relatedItemIdentifier)
+    function afterAddRelationship(data, relationshipName, relatedItemIdentifier, code)
     {
         if (data.success)
         {
@@ -103,6 +103,7 @@
             buttons.find('.remove-relationship-button').show();
 
             setActionButtonEventListeners();
+            setSelectedRelationship(code);
         }
         else
         {
