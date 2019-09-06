@@ -10,7 +10,8 @@
         var addButtons = jQuery('.add-relationship-button');
         var editButtons = jQuery('.edit-relationship-button');
         var removeButtons = jQuery('.remove-relationship-button');
-        var recentItemButtons = jQuery('.recent-identifier');
+        var recentItemIdentifer = jQuery('.recent-item-identifier');
+        var recentItemThumbnail = jQuery('.recent-item-thumbnail');
 
         addButtons.click(function ()
         {
@@ -27,7 +28,13 @@
             removeRelationship(jQuery(this).parents('tr'));
         });
 
-        recentItemButtons.click(function ()
+        recentItemIdentifer.click(function ()
+        {
+            var itemIdentifier = jQuery(this).attr('data-identifier');
+            setItemIdentifier(itemIdentifier);
+        });
+
+        recentItemThumbnail.click(function ()
         {
             var itemIdentifier = jQuery(this).attr('data-identifier');
             setItemIdentifier(itemIdentifier);
