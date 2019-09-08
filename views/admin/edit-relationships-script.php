@@ -8,20 +8,17 @@
     function addActionButtonEventListeners()
     {
         var addButton = jQuery('.add-relationship-button');
-        var addButtons = jQuery('.add-relationship-buttons');
         var editButtons = jQuery('.edit-relationship-button');
         var removeButtons = jQuery('.remove-relationship-button');
-        var recentItemIdentifer = jQuery('.recent-item-identifier');
+        var recentItemAdd = jQuery('.recent-item-add');
+        var recentItemIdentifier = jQuery('.recent-item-identifier');
+        var recentItemRemove = jQuery('.recent-item-remove');
         var recentItemThumbnail = jQuery('.recent-item-thumbnail');
+        var recentItemsClearAll = jQuery('.recent-items-clear-all');
 
         addButton.click(function ()
         {
-            addRelationship();
-        });
-
-        addButtons.click(function ()
-        {
-            copyDataToIdentifier(this);
+            // The single Add button used to manually add a relationship.
             addRelationship();
         });
 
@@ -30,19 +27,41 @@
             editRelationship(jQuery(this).parents('tr'));
         });
 
-        removeButtons.click(function ()
+        recentItemAdd.click(function ()
         {
-            removeRelationship(jQuery(this).parents('tr'));
+            // The Add buttons that appear on each recent item row.
+            copyDataToIdentifier(this);
+            addRelationship();
         });
 
-        recentItemIdentifer.click(function ()
+        recentItemIdentifier.click(function ()
         {
             copyDataToIdentifier(this);
+        });
+
+        recentItemRemove.click(function ()
+        {
+            var itemIdentifier = jQuery(this).attr('data-identifier');
+            var itemId = jQuery(this).attr('data-id');
+            var row = jQuery('#row-' + itemIdentifier);
+            jQuery(row).hide("slow");
+            removeItemFromCookie(itemId);
         });
 
         recentItemThumbnail.click(function ()
         {
             copyDataToIdentifier(this);
+        });
+
+        recentItemsClearAll.click(function ()
+        {
+            if (confirm('Clear all recently visited items?'))
+                removeAllItemsFromCookie();
+        });
+
+        removeButtons.click(function ()
+        {
+            removeRelationship(jQuery(this).parents('tr'));
         });
     }
 
