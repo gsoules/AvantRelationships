@@ -7,14 +7,21 @@
 
     function addActionButtonEventListeners()
     {
-        var addButtons = jQuery('.add-relationship-button');
+        var addButton = jQuery('.add-relationship-button');
+        var addButtons = jQuery('.add-relationship-buttons');
         var editButtons = jQuery('.edit-relationship-button');
         var removeButtons = jQuery('.remove-relationship-button');
         var recentItemIdentifer = jQuery('.recent-item-identifier');
         var recentItemThumbnail = jQuery('.recent-item-thumbnail');
 
+        addButton.click(function ()
+        {
+            addRelationship();
+        });
+
         addButtons.click(function ()
         {
+            copyDataToIdentifier(this);
             addRelationship();
         });
 
@@ -30,14 +37,12 @@
 
         recentItemIdentifer.click(function ()
         {
-            var itemIdentifier = jQuery(this).attr('data-identifier');
-            setItemIdentifier(itemIdentifier);
+            copyDataToIdentifier(this);
         });
 
         recentItemThumbnail.click(function ()
         {
-            var itemIdentifier = jQuery(this).attr('data-identifier');
-            setItemIdentifier(itemIdentifier);
+            copyDataToIdentifier(this);
         });
     }
 
@@ -170,6 +175,12 @@
         jQuery('.edit-relationship-row').remove();
         jQuery('.original-relationship-row').show();
         restoreNormalState();
+    }
+
+    function copyDataToIdentifier(element)
+    {
+        var itemIdentifier = jQuery(element).attr('data-identifier');
+        setItemIdentifier(itemIdentifier);
     }
 
     function displayErrorMessage(message)
