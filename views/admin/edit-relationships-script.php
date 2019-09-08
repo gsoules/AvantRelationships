@@ -56,7 +56,11 @@
         recentItemsClearAll.click(function ()
         {
             if (confirm('Clear all recently visited items?'))
+            {
                 removeAllItemsFromCookie();
+                jQuery('#recent-items').remove();
+                jQuery(this).remove();
+            }
         });
 
         removeButtons.click(function ()
