@@ -45,7 +45,7 @@
             var itemId = jQuery(this).attr('data-id');
             var row = jQuery('#row-' + itemIdentifier);
             jQuery(row).hide("slow");
-            removeItemFromCookie(itemId);
+            removeRecentlyVisitedItem(itemId);
         });
 
         recentItemThumbnail.click(function ()
