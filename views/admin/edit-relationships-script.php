@@ -11,8 +11,6 @@
         var editButtons = jQuery('.edit-relationship-button');
         var removeButtons = jQuery('.remove-relationship-button');
         var recentItemAdd = jQuery('.recent-item-add');
-        var recentItemIdentifier = jQuery('.recent-item-identifier');
-        var recentItemThumbnail = jQuery('.recent-item-thumbnail');
 
         addButton.click(function ()
         {
@@ -30,16 +28,6 @@
             // The Add buttons that appear on each recent item row.
             copyDataToIdentifier(this);
             addRelationship();
-        });
-
-        recentItemIdentifier.click(function ()
-        {
-            copyDataToIdentifier(this);
-        });
-
-        recentItemThumbnail.click(function ()
-        {
-            copyDataToIdentifier(this);
         });
 
         removeButtons.click(function ()
