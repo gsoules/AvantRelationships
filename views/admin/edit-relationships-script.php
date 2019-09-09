@@ -12,9 +12,7 @@
         var removeButtons = jQuery('.remove-relationship-button');
         var recentItemAdd = jQuery('.recent-item-add');
         var recentItemIdentifier = jQuery('.recent-item-identifier');
-        var recentItemRemove = jQuery('.recent-item-remove');
         var recentItemThumbnail = jQuery('.recent-item-thumbnail');
-        var recentItemsClearAll = jQuery('.recent-items-clear-all');
 
         addButton.click(function ()
         {
@@ -39,28 +37,9 @@
             copyDataToIdentifier(this);
         });
 
-        recentItemRemove.click(function ()
-        {
-            var itemIdentifier = jQuery(this).attr('data-identifier');
-            var itemId = jQuery(this).attr('data-id');
-            var row = jQuery('#row-' + itemIdentifier);
-            jQuery(row).hide("slow");
-            removeRecentlyVisitedItem(itemId);
-        });
-
         recentItemThumbnail.click(function ()
         {
             copyDataToIdentifier(this);
-        });
-
-        recentItemsClearAll.click(function ()
-        {
-            if (confirm('Clear all recently visited items?'))
-            {
-                removeAllItemsFromCookie();
-                jQuery('#recent-items').remove();
-                jQuery(this).remove();
-            }
         });
 
         removeButtons.click(function ()
