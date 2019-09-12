@@ -27,7 +27,10 @@
         {
             // The Add buttons that appear on each recent item row.
             copyDataToIdentifier(this);
-            addRelationship();
+            addRelationship(this);
+
+            // Prevent the user from accidentally clicking the button more than once.
+            jQuery(this).prop('disabled', true);
         });
 
         removeButtons.click(function ()
@@ -48,7 +51,7 @@
         });
     }
 
-    function addRelationship()
+    function addRelationship(addButton)
     {
         var relatedItemIdentifier = jQuery('#related-item-identifier').val();
         var code = jQuery('#relationship-type-code').val();
@@ -69,6 +72,12 @@
                 {
                     afterAddRelationship(data, relationshipName, relatedItemIdentifier, code);
                     saveSelectedRelationship(code);
+
+                    if (addButton && !data.success)
+                    {
+                        // The action Add failed, so enable the button again.
+                        jQuery(addButton).prop('disabled', false);
+                    }
                 },
                 error: function (data)
                 {
@@ -353,6 +362,9 @@
 
     function saveSelectedRelationship(selectedCode)
     {
+        if (selectedCode.length === 0)
+            return;
+
         var oldCodes = retrieveRelationshipCodes();
         var newCodes = '';
         if (oldCodes.length === 0)
