@@ -423,7 +423,9 @@
 
     function setSelectedRelationship(code)
     {
-        jQuery('#relationship-type-code option[value=' + code + ']').prop('selected', true);
+        var option = jQuery('#relationship-type-code option[value=' + code + ']');
+        if (option.length)
+            option.prop('selected', true);
     }
 
     function setRowColumnHtml(row, relationshipName, relatedItemIdentifier, descriptionLink)
@@ -445,7 +447,8 @@
         for (code of codes)
         {
             name = relationshipNames[code];
-            recentRelationships.append('<div class="recent-relationship" data-code="' + code + '">' + name + '</div>');
+            if (name !== undefined)
+                recentRelationships.append('<div class="recent-relationship" data-code="' + code + '">' + name + '</div>');
         }
 
         addActionLinkEventListeners();

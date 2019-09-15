@@ -295,6 +295,16 @@ class RelatedItemsEditor
         return $saved ? $relationship->id : false;
     }
 
+    public function isValidRelationshipForPrimaryItem($primaryItem, $relationshipTypeCode)
+    {
+        $rules = $this->db->getTable('RelationshipTypes')->getRules($relationshipTypeCode);
+
+        if (empty($rules))
+            return false;
+
+        return $this->validateRule($primaryItem->id, $rules['source']);
+    }
+
     public function performAction($action)
     {
         switch ($action)
@@ -516,10 +526,12 @@ class RelatedItemsEditor
         return true;
     }
 
-    protected function validateRule($itemId, $rule, $violatorKind, $violatorMetadata, $relationshipName)
+    protected function validateRule($itemId, $rule, $violatorKind = null, $violatorMetadata = null, $relationshipName = null)
     {
         if (empty($rule))
             return true;
+
+        $reportError = !empty($violatorKind);
 
         $ruleDescription = $this->formatRuleDescription($rule['description']);
 
@@ -527,7 +539,8 @@ class RelatedItemsEditor
         $query = $this->constructAdvancedQuery($elementRules);
         if (empty($query))
         {
-            $this->addValidationError(__('The \'%1$s\' relationship was not accepted because the rule \'%2$s\' is invalid. Please report the exact text of this error to your Omeka system administrator.', $relationshipName, $ruleDescription));
+            if ($reportError)
+                $this->addValidationError(__('The \'%1$s\' relationship was not accepted because the rule \'%2$s\' is invalid. Please report the exact text of this error to your Omeka system administrator.', $relationshipName, $ruleDescription));
             return false;
         }
 
@@ -539,7 +552,8 @@ class RelatedItemsEditor
         $count = $this->db->fetchOne($select);
         if ($count == 0)
         {
-            $this->addValidationError(__('<div>The <i>%1$s</i> relationship requires %2$s to be %3$s.</div><div>However, %2$s is %4$s.</div><div>Choose a different relationship or a different item.</div>', $relationshipName, $violatorKind, $ruleDescription, $violatorMetadata));
+            if ($reportError)
+                $this->addValidationError(__('<div>The <i>%1$s</i> relationship requires %2$s to be %3$s.</div><div>However, %2$s is %4$s.</div><div>Choose a different relationship or a different item.</div>', $relationshipName, $violatorKind, $ruleDescription, $violatorMetadata));
             return false;
         }
 
