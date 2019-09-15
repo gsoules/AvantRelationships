@@ -305,6 +305,16 @@ class RelatedItemsEditor
         return $this->validateRule($primaryItem->id, $rules['source']);
     }
 
+    public function isValidRelationshipForTargetItem($targetItem, $relationshipTypeCode)
+    {
+        $rules = $this->db->getTable('RelationshipTypes')->getRules($relationshipTypeCode);
+
+        if (empty($rules))
+            return false;
+
+        return $this->validateRule($targetItem->id, $rules['target']);
+    }
+
     public function performAction($action)
     {
         switch ($action)

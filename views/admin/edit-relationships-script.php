@@ -71,7 +71,6 @@
                 success: function (data)
                 {
                     afterAddRelationship(data, relationshipName, relatedItemIdentifier, code);
-                    saveSelectedRelationship(code);
 
                     if (addButton && !data.success)
                     {
@@ -404,16 +403,17 @@
     {
         removeActionButtonEventListeners();
         addActionButtonEventListeners();
-    }
 
-    function setDefaultRelationship()
-    {
-        codes = retrieveRelationshipCodes();
-        if (codes.length > 0)
+        var relationshipSelector = jQuery('#relationship-type-code');
+
+        relationshipSelector.change(function ()
         {
-            // Select the previously chosen relationship and put the cursor in the item number textbox.
-            setSelectedRelationship(codes[0]);
-        }
+            var code = jQuery(this).val();
+            saveSelectedRelationship(code);
+            console.log('SELECTED: ' + code)
+            location.reload();
+        });
+
     }
 
     function setItemIdentifier(identifier)
@@ -488,7 +488,6 @@
     {
         initializeAddRowButtons();
         setActionButtonEventListeners();
-        setDefaultRelationship();
         showRecentRelationships();
     });
 </script>
