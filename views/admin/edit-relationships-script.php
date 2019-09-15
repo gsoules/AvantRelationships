@@ -28,9 +28,6 @@
             // The Add buttons that appear on each recent item row.
             copyDataToIdentifier(this);
             addRelationship(this);
-
-            // Prevent the user from accidentally clicking the button more than once.
-            jQuery(this).prop('disabled', true);
         });
 
         removeButtons.click(function ()
@@ -71,12 +68,7 @@
                 success: function (data)
                 {
                     afterAddRelationship(data, relationshipName, relatedItemIdentifier, code);
-
-                    if (addButton && !data.success)
-                    {
-                        // The action Add failed, so enable the button again.
-                        jQuery(addButton).prop('disabled', false);
-                    }
+                    location.reload();
                 },
                 error: function (data)
                 {
@@ -410,7 +402,6 @@
         {
             var code = jQuery(this).val();
             saveSelectedRelationship(code);
-            console.log('SELECTED: ' + code)
             location.reload();
         });
 
