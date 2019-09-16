@@ -50,6 +50,8 @@
 
     function addRelationship(addButton)
     {
+        showBusyIndicator('Adding relationship');
+
         var relatedItemIdentifier = jQuery('#related-item-identifier').val();
         var code = jQuery('#relationship-type-code').val();
         var relationshipName = jQuery('#relationship-type-code option:selected').text();
@@ -67,8 +69,11 @@
                 },
                 success: function (data)
                 {
-                    afterAddRelationship(data, relationshipName, relatedItemIdentifier, code);
-                    location.reload();
+                    var success = afterAddRelationship(data, relationshipName, relatedItemIdentifier, code);
+                    if (success)
+                        reloadPage();
+                    else
+                        showBusyIndicator('');
                 },
                 error: function (data)
                 {
@@ -106,10 +111,12 @@
 
             setActionButtonEventListeners();
             setSelectedRelationship(code);
+            return true;
         }
         else
         {
             displayErrorMessage(data.message);
+            return false;
         }
     }
 
@@ -152,19 +159,19 @@
             removeButton.removeClass('cancel-relationship-button');
             removeButton.addClass('remove-relationship-button');
 
-            restoreNormalState();
+            return true;
         }
         else
         {
             displayErrorMessage(data.message);
+            return false;
         }
     }
 
     function cancelRelationshipUpdate()
     {
-        jQuery('.edit-relationship-row').remove();
-        jQuery('.original-relationship-row').show();
-        restoreNormalState();
+        showBusyIndicator('Cancelling update');
+        reloadPage();
     }
 
     function copyDataToIdentifier(element)
@@ -283,6 +290,11 @@
         actions.find('.remove-relationship-button').hide();
     }
 
+    function reloadPage()
+    {
+        location.reload();
+    }
+
     function removeActionButtonEventListeners()
     {
         var addButtons = jQuery('.add-relationship-button');
@@ -302,6 +314,8 @@
         if (!confirm(message))
             return;
 
+        showBusyIndicator('Removing relationship');
+
         tr.fadeTo(750, 0.20);
 
         jQuery.ajax(
@@ -316,9 +330,14 @@
                 success: function (data)
                 {
                     if (data.success == true)
+                    {
                         afterRemoveRelationship(tr);
+                        reloadPage();
+                    }
                     else
+                    {
                         alert('<?php echo __('Remove action failed'); ?>');
+                    }
                 },
                 error: function (data)
                 {
@@ -326,17 +345,6 @@
                 }
             }
         );
-    }
-
-    function restoreNormalState()
-    {
-        // Reattach the Add new relationship row to the end of the table of relationships.
-        jQuery('#relationships-metadata tr:last').after(detachedAddRelationshipRow);
-
-        // Show the Add row and enable all action buttons.
-        jQuery(".action-button").fadeTo(0, 1);
-        initializeAddRowButtons();
-        setActionButtonEventListeners();
     }
 
     function retrieveRelationshipCodes()
@@ -400,9 +408,10 @@
 
         relationshipSelector.change(function ()
         {
+            showBusyIndicator('Finding allowed items');
             var code = jQuery(this).val();
             saveSelectedRelationship(code);
-            location.reload();
+            reloadPage();
         });
 
     }
@@ -445,8 +454,24 @@
         addActionLinkEventListeners();
     }
 
+    function showBusyIndicator(message)
+    {
+        var indicator = jQuery('#relationship-editor-busy');
+        if (message.length > 0)
+        {
+            indicator.text(message + '...');
+            indicator.show();
+        }
+        else
+        {
+            indicator.hide();
+        }
+    }
+
     function updateRelationship(oldRelationshipId)
     {
+        showBusyIndicator('Updating relationship');
+
         var primaryItemIdentifier = '<?php echo $primaryItemIdentifier; ?>';
         var relatedItemIdentifier = jQuery('#related-item-identifier').val();
         var code = jQuery('#relationship-type-code').val();
@@ -465,7 +490,11 @@
                 },
                 success: function (data, oldRelationshipId)
                 {
-                    afterUpdateRelationship(data);
+                    var success = afterUpdateRelationship(data);
+                    if (success)
+                        reloadPage();
+                    else
+                        showBusyIndicator('');
                 },
                 error: function (data)
                 {
