@@ -6,9 +6,13 @@ class RelatedItemsEditor
     const REMOVE_RELATIONSHIP = 2;
     const UPDATE_RELATIONSHIP = 3;
 
+    protected $allowedRelationshipSelections = array();
     protected $db;
     protected $primaryItem;
     protected $relatedItemsModel;
+    protected $selectedRelationshipCode = '';
+    protected $selectedRelationshipName = '';
+    protected $relatedItems = array();
     protected $validationErrorMessage;
 
     public function __construct($relatedItemsModel, $primaryItem)
@@ -129,6 +133,144 @@ class RelatedItemsEditor
 
         $coverImageIdentifier = isset($_REQUEST['cover-image-identifier']) ? $_REQUEST['cover-image-identifier'] : '';
         $this->validateCoverImageIdentifier($item, $coverImageIdentifier);
+    }
+
+    public function determineAllowedRelationshipSelections($primaryItem)
+    {
+        // Get all defined relationships.
+        $this->allowedRelationshipSelections = $this->getRelationshipNamesSelectList();
+
+        foreach ($this->allowedRelationshipSelections as $code => $name)
+        {
+            // Ignore the 'Select Below' option.
+            if (empty($code))
+                continue;
+
+            // Determine if this relationship code is valid using the primary item as its source.
+            if ($this->isValidRelationshipForPrimaryItem($primaryItem, $code))
+            {
+                if (empty($selectedRelationshipCode))
+                {
+                    // Use this first valid relationship as the selected option.
+                    // It may be overridden later by the most recently selected valid relationship.
+                    $this->selectedRelationshipCode = $code;
+                    $this->selectedRelationshipName = $name;
+                }
+            }
+            else
+            {
+                // This relationship is not valid for the primary item.
+                unset($this->allowedRelationshipSelections[$code]);
+            }
+        }
+
+        return $this->allowedRelationshipSelections;
+    }
+
+    public function determineSelectedRelationship()
+    {
+        $recentlySelectedRelationships = AvantAdmin::getRecentlySelectedRelationships();
+
+        // Determine if one of the recently selected relationships is allowed for the primary item.
+        // If one is found, set it as the current relationship.
+        foreach ($recentlySelectedRelationships as $code)
+        {
+            if (array_key_exists($code, $this->allowedRelationshipSelections))
+            {
+                $this->selectedRelationshipCode = $code;
+                $this->selectedRelationshipName = $this->allowedRelationshipSelections[$code];
+                break;
+            }
+        }
+
+        return $this->selectedRelationshipCode;
+    }
+
+    public function emitPrimaryItem($item)
+    {
+        $type = ItemMetadata::getElementTextForElementName($item, 'Type');
+        $subject = ItemMetadata::getElementTextForElementName($item, 'Subject');
+        $title = ItemMetadata::getItemTitle($item);
+
+        $html = '<div id="relationships-editor-grid">';
+        $imageUrl = ItemPreview::getImageUrl($item, true, true);
+        $html .= "<img class='relationships-editor-image' src='$imageUrl'>";
+
+        $html .= "<div class='relationships-editor-metadata'>";
+        $html .= "<div class='relationships-editor-title'>$title</div>";
+        $html .= "<div><span class='element-name'>Type:</span> $type</div>";
+        $html .= "<div><span class='element-name'>Subject:</span> $subject</div>";
+        $html .= "</div>";
+
+        $html .= "<div class='relationships-editor-buttons'>";
+        $viewLink = html_escape(admin_url('items/show/' . metadata('item', 'id')));
+        $html .= "<a href='$viewLink' class='big beige button'>" . __('View Admin Item') . "</a>";
+        $publicLink = html_escape(public_url('items/show/' . metadata('item', 'id')));
+        $html .= "<div><a href='$publicLink' class='big blue button'>" . __('View Public Page') . "</a></div>";
+        if (is_allowed($item, 'edit'))
+        {
+            $editLink = link_to_item(__('Edit Item'), array('class' => 'big green button'), 'edit');
+            $html .= $editLink;
+        }
+        $html .= "</div>";
+
+        $html .= "</div>";
+
+        echo $html;
+    }
+
+    public function emitRecentlyViewedItems(array $relatedItems, $primaryItemIdentifier)
+    {
+        $recentlyViewedItems = AvantAdmin::getRecentlyViewedItems();
+        $allowedItems = array();
+
+        // Determine which items are allowed as targets of the selected relationship.
+        foreach ($recentlyViewedItems as $itemId => $itemIdentifier)
+        {
+            $item = ItemMetadata::getItemFromId($itemId);
+            if ($this->isValidRelationshipForTargetItem($item, $this->selectedRelationshipCode))
+            {
+                $allowedItems[$itemId] = $itemIdentifier;
+            }
+        }
+
+        // Determine which of the allowed items are already related to this item using the selected relationship.
+        $alreadyAddedItems = array();
+        foreach ($allowedItems as $allowedItemIdentifier)
+        {
+            foreach ($relatedItems as $relatedItem)
+            {
+                $relatedItemIdentifier = $relatedItem->getIdentifier();
+                $relationshipName = $relatedItem->getRelationshipName();
+                if ($allowedItemIdentifier == $relatedItemIdentifier && $relationshipName == $this->selectedRelationshipName)
+                {
+                    $key = array_search($relatedItemIdentifier, $allowedItems);
+                    $alreadyAddedItems[$key] = $relatedItemIdentifier;
+                }
+            }
+        }
+
+        // Move the allowed items which are not already related to the top of the list of recently viewed items.
+        $addableItems = array();
+        foreach ($allowedItems as $itemId => $itemIdentifier)
+        {
+            if (!in_array($itemIdentifier, $alreadyAddedItems))
+            {
+                $addableItems[$itemId] = $itemIdentifier;
+            }
+        }
+
+        // Add the already-added and disallowed items to the list.
+        foreach ($recentlyViewedItems as $itemId => $itemIdentifier)
+        {
+            if (!in_array($itemIdentifier, $allowedItems) || in_array($itemIdentifier, $alreadyAddedItems))
+            {
+                $addableItems[$itemId] = $itemIdentifier;
+            }
+        }
+
+        // Emit the list of items that can be added followed by those that can't be added.
+        echo AvantAdmin::emitRecentlyViewedItems($addableItems, $primaryItemIdentifier, $allowedItems, $alreadyAddedItems);
     }
 
     protected function extendAdvancedSearchQueryForRelationships($params, $select)
@@ -268,6 +410,11 @@ class RelatedItemsEditor
             return __('Has no relationships');
         else
             return '';
+    }
+
+    public function getSelectedRelationshipName()
+    {
+        return $this->selectedRelationshipName;
     }
 
     public function getValidationErrorMessage()
