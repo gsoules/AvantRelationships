@@ -8,11 +8,14 @@ class RelatedItemsEditor
 
     protected $allowedRelationshipSelections = array();
     protected $db;
+    protected $eligibleTargetItemsCount;
     protected $primaryItem;
     protected $relatedItemsModel;
-    protected $selectedRelationshipCode = '';
-    protected $selectedRelationshipName = '';
+    protected $selectedRelationshipCode;
+    protected $selectedRelationshipName;
+    protected $selectedRelationshipTargetDescription;
     protected $relatedItems = array();
+    protected $relationshipTypesTable;
     protected $validationErrorMessage;
 
     public function __construct($relatedItemsModel, $primaryItem)
@@ -20,6 +23,7 @@ class RelatedItemsEditor
         $this->relatedItemsModel = $relatedItemsModel;
         $this->primaryItem = $primaryItem;
         $this->db = get_db();
+        $this->relationshipTypesTable = $this->db->getTable('RelationshipTypes');
     }
 
     protected function constructAdvancedQuery(array $elementRules)
@@ -183,6 +187,9 @@ class RelatedItemsEditor
             }
         }
 
+        $rules = $this->relationshipTypesTable->getRules($code);
+        $this->selectedRelationshipTargetDescription = $rules['target']['description'];
+
         return $this->selectedRelationshipCode;
     }
 
@@ -251,12 +258,12 @@ class RelatedItemsEditor
         }
 
         // Move the allowed items which are not already related to the top of the list of recently viewed items.
-        $addableItems = array();
+        $recentlyViewedItemsAllowedAtTop = array();
         foreach ($allowedItems as $itemId => $itemIdentifier)
         {
             if (!in_array($itemIdentifier, $alreadyAddedItems))
             {
-                $addableItems[$itemId] = $itemIdentifier;
+                $recentlyViewedItemsAllowedAtTop[$itemId] = $itemIdentifier;
             }
         }
 
@@ -265,12 +272,17 @@ class RelatedItemsEditor
         {
             if (!in_array($itemIdentifier, $allowedItems) || in_array($itemIdentifier, $alreadyAddedItems))
             {
-                $addableItems[$itemId] = $itemIdentifier;
+                $recentlyViewedItemsAllowedAtTop[$itemId] = $itemIdentifier;
             }
         }
 
+        // Calculate the number of eligible target items.
+        $this->eligibleTargetItemsCount = count($allowedItems) - count($alreadyAddedItems);
+        if (in_array($primaryItemIdentifier, $allowedItems))
+            $this->eligibleTargetItemsCount -= 1;
+
         // Emit the list of items that can be added followed by those that can't be added.
-        echo AvantAdmin::emitRecentlyViewedItems($addableItems, $primaryItemIdentifier, $allowedItems, $alreadyAddedItems);
+        return AvantAdmin::emitRecentlyViewedItems($recentlyViewedItemsAllowedAtTop, $primaryItemIdentifier, $allowedItems, $alreadyAddedItems);
     }
 
     protected function extendAdvancedSearchQueryForRelationships($params, $select)
@@ -349,7 +361,7 @@ class RelatedItemsEditor
         $sql = (string)$select;
     }
 
-    protected function formatRuleDescription($description)
+    public function formatRuleDescription($description)
     {
         // In English grammar, a determiner is a word that precedes a noun to express its reference in the context.
         // For relationship rules, the determiners are the indefinite articles 'a' and 'an'. This method chooses
@@ -417,6 +429,23 @@ class RelatedItemsEditor
         return $this->selectedRelationshipName;
     }
 
+    public function getSelectedRelationshipTargetDescription()
+    {
+        $ruleDescription = $this->formatRuleDescription($this->selectedRelationshipTargetDescription);
+
+        $count = $this->eligibleTargetItemsCount;
+        if ($count == 0)
+            $eligible = __('<span>None of the items below are eligible.</span>', $count);
+        else if ($count == 1)
+            $eligible = __('One item below is eligible.', $count);
+        else
+            $eligible = __('%s items below are eligible.', $count);
+
+        $description = __('Choose a related item for the <i>%1$s</i> relationship. The item must be %2$s. %3$s', $this->selectedRelationshipName, $ruleDescription, $eligible);
+        $description = __('For the <i>%1$s</i> relationship, choose an item that is %2$s. %3$s', $this->selectedRelationshipName, $ruleDescription, $eligible);
+        return $description;
+    }
+
     public function getValidationErrorMessage()
     {
         return $this->validationErrorMessage;
@@ -444,7 +473,7 @@ class RelatedItemsEditor
 
     public function isValidRelationshipForPrimaryItem($primaryItem, $relationshipTypeCode)
     {
-        $rules = $this->db->getTable('RelationshipTypes')->getRules($relationshipTypeCode);
+        $rules = $this->relationshipTypesTable->getRules($relationshipTypeCode);
 
         if (empty($rules))
             return false;
@@ -454,7 +483,7 @@ class RelatedItemsEditor
 
     public function isValidRelationshipForTargetItem($targetItem, $relationshipTypeCode)
     {
-        $rules = $this->db->getTable('RelationshipTypes')->getRules($relationshipTypeCode);
+        $rules = $this->relationshipTypesTable->getRules($relationshipTypeCode);
 
         if (empty($rules))
             return false;
@@ -622,8 +651,8 @@ class RelatedItemsEditor
 
     public function validateRelationship($primaryItem, $relationshipTypeCode, $relatedItem)
     {
-        $rules = $this->db->getTable('RelationshipTypes')->getRules($relationshipTypeCode);
-        $relationshipName = $this->db->getTable('RelationshipTypes')->getRelationshipName($relationshipTypeCode);
+        $rules = $this->relationshipTypesTable->getRules($relationshipTypeCode);
+        $relationshipName = $this->relationshipTypesTable->getRelationshipName($relationshipTypeCode);
 
         if (empty($rules))
         {
