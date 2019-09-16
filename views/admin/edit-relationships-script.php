@@ -43,8 +43,7 @@
         codeLinks.click(function ()
         {
             var code = jQuery(this).attr('data-code');
-            setSelectedRelationship(code);
-            jQuery( "#related-item-identifier" ).focus();
+            selectRelationship(code);
         });
     }
 
@@ -399,6 +398,13 @@
         showRecentRelationships();
     }
 
+    function selectRelationship(code)
+    {
+        showBusyIndicator('Finding allowed items');
+        saveSelectedRelationship(code);
+        reloadPage();
+    }
+
     function setActionButtonEventListeners()
     {
         removeActionButtonEventListeners();
@@ -408,12 +414,9 @@
 
         relationshipSelector.change(function ()
         {
-            showBusyIndicator('Finding allowed items');
             var code = jQuery(this).val();
-            saveSelectedRelationship(code);
-            reloadPage();
+            selectRelationship(code);
         });
-
     }
 
     function setItemIdentifier(identifier)
