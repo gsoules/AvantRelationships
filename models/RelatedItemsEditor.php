@@ -193,6 +193,26 @@ class RelatedItemsEditor
         return $this->selectedRelationshipCode;
     }
 
+    public function emitAddRelationshipInstructions()
+    {
+        $ruleDescription = $this->formatRuleDescription($this->selectedRelationshipTargetDescription);
+        $title = ItemMetadata::getItemTitle($this->primaryItem);
+
+        $html = '';
+        $html .= "<div id='relationship-editor-add-instructions'>";
+        $html .= "<div id='relationship-editor-add-header'>" . __('Add a related item where:') . "</div>";
+        $html .= "<div id='relationship-editor-add'>";
+        $html .= "<div id='relationship-editor-add-source'>$title</div>";
+        $html .= "<div id='relationship-editor-add-relationship'>&rarr; &nbsp;&nbsp;$this->selectedRelationshipName &nbsp;&nbsp;&rarr;</div>";
+        $html .= "<div id='relationship-editor-add-target'>$ruleDescription</div>";
+        $html .= "</div>";
+        if ($this->eligibleTargetItemsCount == 0)
+            $html .= "<div id='relationship-editor-add-footer'>" . __('None of the recently viewed items below meet the criterion above.') . "</div>";
+        $html .= "</div>";
+
+        return $html;
+    }
+
     public function emitPrimaryItem($item)
     {
         $type = ItemMetadata::getElementTextForElementName($item, 'Type');
@@ -267,10 +287,19 @@ class RelatedItemsEditor
             }
         }
 
-        // Add the already-added and disallowed items to the list.
+        // Add the already-added items to the list.
         foreach ($recentlyViewedItems as $itemId => $itemIdentifier)
         {
-            if (!in_array($itemIdentifier, $allowedItems) || in_array($itemIdentifier, $alreadyAddedItems))
+            if (in_array($itemIdentifier, $alreadyAddedItems))
+            {
+                $recentlyViewedItemsAllowedAtTop[$itemId] = $itemIdentifier;
+            }
+        }
+
+        // Add the disallowed items to the list.
+        foreach ($recentlyViewedItems as $itemId => $itemIdentifier)
+        {
+            if (!in_array($itemIdentifier, $allowedItems))
             {
                 $recentlyViewedItemsAllowedAtTop[$itemId] = $itemIdentifier;
             }
@@ -427,23 +456,6 @@ class RelatedItemsEditor
     public function getSelectedRelationshipName()
     {
         return $this->selectedRelationshipName;
-    }
-
-    public function getSelectedRelationshipTargetDescription()
-    {
-        $ruleDescription = $this->formatRuleDescription($this->selectedRelationshipTargetDescription);
-
-        $count = $this->eligibleTargetItemsCount;
-        if ($count == 0)
-            $eligible = __('<span>None of the items below are eligible.</span>', $count);
-        else if ($count == 1)
-            $eligible = __('One item below is eligible.', $count);
-        else
-            $eligible = __('%s items below are eligible.', $count);
-
-        $description = __('Choose a related item for the <i>%1$s</i> relationship. The item must be %2$s. %3$s', $this->selectedRelationshipName, $ruleDescription, $eligible);
-        $description = __('For the <i>%1$s</i> relationship, choose an item that is %2$s. %3$s', $this->selectedRelationshipName, $ruleDescription, $eligible);
-        return $description;
     }
 
     public function getValidationErrorMessage()
