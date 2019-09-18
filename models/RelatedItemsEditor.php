@@ -207,7 +207,7 @@ class RelatedItemsEditor
         $html .= "<div id='relationship-editor-add-target'>$ruleDescription</div>";
         $html .= "</div>";
         if ($this->eligibleTargetItemsCount == 0)
-            $html .= "<div id='relationship-editor-add-footer'>" . __('None of the recently viewed items below meet the criterion above.') . "</div>";
+            $html .= "<div id='relationship-editor-add-footer'>" . __('None of the recently viewed items below are eligible to be added.') . "</div>";
         $html .= "</div>";
 
         return $html;
