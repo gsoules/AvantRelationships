@@ -146,9 +146,12 @@ class RelatedItemsEditor
 
         foreach ($this->allowedRelationshipSelections as $code => $name)
         {
-            // Ignore the 'Select Below' option.
+            // Ignore and remove the 'Select Below' option.
             if (empty($code))
+            {
+                unset($this->allowedRelationshipSelections[$code]);
                 continue;
+            }
 
             // Determine if this relationship code is valid using the primary item as its source.
             if ($this->isValidRelationshipForPrimaryItem($primaryItem, $code))
@@ -249,72 +252,71 @@ class RelatedItemsEditor
         echo $html;
     }
 
-    public function emitRecentlyViewedItems(array $relatedItems, $primaryItemIdentifier)
+    public function emitRecentlyViewedItems(array $relatedItems, $primaryItemId)
     {
         $recentlyViewedItems = AvantAdmin::getRecentlyViewedItems();
+
         $allowedItems = array();
 
         // Determine which items are allowed as targets of the selected relationship.
-        foreach ($recentlyViewedItems as $itemId => $itemIdentifier)
+        foreach ($recentlyViewedItems as $recentlyViewedItem)
         {
-            $item = ItemMetadata::getItemFromId($itemId);
-            if ($this->isValidRelationshipForTargetItem($item, $this->selectedRelationshipCode))
+            if ($this->isValidRelationshipForTargetItem($recentlyViewedItem, $this->selectedRelationshipCode))
             {
-                $allowedItems[$itemId] = $itemIdentifier;
+                $allowedItems[$recentlyViewedItem->id] = $recentlyViewedItem;
             }
         }
 
         // Determine which of the allowed items are already related to this item using the selected relationship.
-        $alreadyAddedItems = array();
-        foreach ($allowedItems as $allowedItemIdentifier)
+        $alreadyRelatedItemIds = array();
+        foreach ($allowedItems as $allowedItemId => $allowedItem)
         {
             foreach ($relatedItems as $relatedItem)
             {
-                $relatedItemIdentifier = $relatedItem->getIdentifier();
+                $relatedItemId = $relatedItem->getItemId();
                 $relationshipName = $relatedItem->getRelationshipName();
-                if ($allowedItemIdentifier == $relatedItemIdentifier && $relationshipName == $this->selectedRelationshipName)
+                if ($allowedItemId == $relatedItemId && $relationshipName == $this->selectedRelationshipName)
                 {
-                    $key = array_search($relatedItemIdentifier, $allowedItems);
-                    $alreadyAddedItems[$key] = $relatedItemIdentifier;
+                    $alreadyRelatedItemIds[] = $relatedItemId;
                 }
             }
         }
 
         // Move the allowed items which are not already related to the top of the list of recently viewed items.
-        $recentlyViewedItemsAllowedAtTop = array();
-        foreach ($allowedItems as $itemId => $itemIdentifier)
+        $recentlyViewedItemsWithAllowedAtTop = array();
+        foreach ($allowedItems as $allowedItemId => $allowedItem)
         {
-            if (!in_array($itemIdentifier, $alreadyAddedItems))
+            if (!in_array($allowedItemId, $alreadyRelatedItemIds))
             {
-                $recentlyViewedItemsAllowedAtTop[$itemId] = $itemIdentifier;
+                $recentlyViewedItemsWithAllowedAtTop[$allowedItemId] = $allowedItem;
             }
         }
 
         // Add the already-added items to the list.
-        foreach ($recentlyViewedItems as $itemId => $itemIdentifier)
+        foreach ($recentlyViewedItems as $recentlyViewedItemId => $recentlyViewedItem)
         {
-            if (in_array($itemIdentifier, $alreadyAddedItems))
+            if (in_array($recentlyViewedItemId, $alreadyRelatedItemIds))
             {
-                $recentlyViewedItemsAllowedAtTop[$itemId] = $itemIdentifier;
+                $recentlyViewedItemsWithAllowedAtTop[$recentlyViewedItemId] = $recentlyViewedItem;
             }
         }
 
         // Add the disallowed items to the list.
-        foreach ($recentlyViewedItems as $itemId => $itemIdentifier)
+        foreach ($recentlyViewedItems as $recentlyViewedItemId => $recentlyViewedItem)
         {
-            if (!in_array($itemIdentifier, $allowedItems))
+            if (!array_key_exists($recentlyViewedItemId, $allowedItems))
             {
-                $recentlyViewedItemsAllowedAtTop[$itemId] = $itemIdentifier;
+                $recentlyViewedItemsWithAllowedAtTop[$recentlyViewedItemId] = $recentlyViewedItem;
             }
         }
 
         // Calculate the number of eligible target items.
-        $this->eligibleTargetItemsCount = count($allowedItems) - count($alreadyAddedItems);
-        if (in_array($primaryItemIdentifier, $allowedItems))
+        $this->eligibleTargetItemsCount = count($allowedItems) - count($alreadyRelatedItemIds);
+        if (array_key_exists($primaryItemId, $allowedItems))
             $this->eligibleTargetItemsCount -= 1;
 
         // Emit the list of items that can be added followed by those that can't be added.
-        return AvantAdmin::emitRecentlyViewedItems($recentlyViewedItemsAllowedAtTop, $primaryItemIdentifier, $allowedItems, $alreadyAddedItems);
+        return AvantAdmin::emitRecentlyViewedItems($recentlyViewedItemsWithAllowedAtTop, $primaryItemId, $allowedItems, $alreadyRelatedItemIds);
     }
 
     protected function extendAdvancedSearchQueryForRelationships($params, $select)
