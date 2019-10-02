@@ -254,7 +254,7 @@ class RelatedItemsEditor
 
     public function emitRecentlyViewedItems(array $relatedItems, $primaryItemId)
     {
-        $recentlyViewedItems = AvantAdmin::getRecentlyViewedItems();
+        $recentlyViewedItems = AvantAdmin::getRecentlyViewedItems($primaryItemId);
 
         $allowedItems = array();
 
@@ -312,8 +312,6 @@ class RelatedItemsEditor
 
         // Calculate the number of eligible target items.
         $this->eligibleTargetItemsCount = count($allowedItems) - count($alreadyRelatedItemIds);
-        if (array_key_exists($primaryItemId, $allowedItems))
-            $this->eligibleTargetItemsCount -= 1;
 
         // Emit the list of items that can be added followed by those that can't be added.
         return AvantAdmin::emitRecentlyViewedItems($recentlyViewedItemsWithAllowedAtTop, $primaryItemId, $allowedItems, $alreadyRelatedItemIds);
