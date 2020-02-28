@@ -144,7 +144,6 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
     public function hookAdminHead($args)
     {
         $this->head();
-        queue_js_file('js.cookie');
     }
 
     public function hookAdminItemsSearch()
