@@ -178,20 +178,24 @@ class RelatedItemsEditor
     {
         $recentlySelectedRelationships = AvantAdmin::getRecentlySelectedRelationships();
 
-        // Determine if one of the recently selected relationships is allowed for the primary item.
-        // If one is found, set it as the current relationship.
-        foreach ($recentlySelectedRelationships as $code)
+        if ($recentlySelectedRelationships)
         {
-            if (array_key_exists($code, $this->allowedRelationshipSelections))
+            // Determine if one of the recently selected relationships is allowed for the primary item.
+            // If one is found, set it as the current relationship.
+            $code = 0;
+            foreach ($recentlySelectedRelationships as $code)
             {
-                $this->selectedRelationshipCode = $code;
-                $this->selectedRelationshipName = $this->allowedRelationshipSelections[$code];
-                break;
+                if (array_key_exists($code, $this->allowedRelationshipSelections))
+                {
+                    $this->selectedRelationshipCode = $code;
+                    $this->selectedRelationshipName = $this->allowedRelationshipSelections[$code];
+                    break;
+                }
             }
-        }
 
-        $rules = $this->relationshipTypesTable->getRules($code);
-        $this->selectedRelationshipTargetDescription = $rules['target']['description'];
+            $rules = $this->relationshipTypesTable->getRules($code);
+            $this->selectedRelationshipTargetDescription = $rules['target']['description'];
+        }
 
         return $this->selectedRelationshipCode;
     }
