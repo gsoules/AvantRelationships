@@ -128,7 +128,7 @@ Publisher: Published
 ### Custom Relationships
 This option lets you specify the names of custom callback functions that you write to dynamically create relationships
 for the items being viewed (the primary item). The function must create and array of one or more Item objects that are
-somehow related to the primary itemd. These items will appear in their own relationship group at the end of the item's
+somehow related to the primary item. These items will appear in their own relationship group at the end of the item's
 Show page after all other relationship groups. A relationship to the group will also appear in the visualization.
 
 Note that custom relationships are one-way from the item being viewed to other items. If you click one of the related
