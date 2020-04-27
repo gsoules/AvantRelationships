@@ -82,8 +82,8 @@ class RelationshipsTableFactory
             `target_name` varchar(50) NOT NULL,
             `source_rule_id` int(10) unsigned NOT NULL,
             `target_rule_id` int(10) unsigned NOT NULL,
-            `source_label` varchar(50) NOT NULL,
-            `target_label` varchar(50) NOT NULL,
+            `source_label` varchar(128) NOT NULL,
+            `target_label` varchar(128) NOT NULL,
             `directives` varchar(1024) NOT NULL,
             `ancestry` varchar(1024) NOT NULL,
             PRIMARY KEY (`id`)

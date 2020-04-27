@@ -20,7 +20,8 @@ echo '<div>' . __('The number following the rule indicates how many relationship
         <li id="<?php echo $id; ?>">
             <div class="main_link ui-sortable-handle">
                 <div class="sortable-item not-sortable">
-                    <div class="relationship-rule-title"><?php echo __('Rule ') . $rule['id']; ?>: <?php echo $rule['description']; ?></div>
+                    <div class="relationship-rule-id"><?php echo __('Rule ') . $rule['id'] . ':'; ?></div>
+                    <div class="relationship-rule-title"><?php echo $rule['description']; ?></div>
                     <span class="relationship-item-count"><?php echo $usageCount; ?></span>
                     <span class="drawer"></span>
                 </div>

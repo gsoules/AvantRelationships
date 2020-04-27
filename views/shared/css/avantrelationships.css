@@ -172,6 +172,15 @@ section.seven.columns.alpha .related-items-subsection .item-preview .item-img im
     padding-bottom: 2px;
 }
 
+.relationship-name {
+    font-size: 120%;
+}
+
+.relationship-rule-id {
+    width: 50px;
+    display: inline-block;
+}
+
 .relationship-rule-title {
     font-weight: bold;
     width: 700px;
@@ -180,9 +189,16 @@ section.seven.columns.alpha .related-items-subsection .item-preview .item-img im
 
 .relationship-type-id,
 .relationship-type-title {
-    font-weight: bold;
-    width: 160px;
     display: inline-block;
+}
+
+.relationship-type-id {
+    width: 32px;
+}
+
+.relationship-type-title {
+    font-weight: bold;
+    width: 400px;
 }
 
 #relationships-table {

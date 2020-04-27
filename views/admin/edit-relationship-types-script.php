@@ -89,25 +89,35 @@
     {
         var item = jQuery('#' + id);
         var itemValues = getItemValues(item);
-        item.find('.relationship-type-title').first().text(itemValues.sourceName);
-        item.find('.relationship-type-title').last().text(itemValues.targetName);
+        item.find('.relationship-type-title').first().html(itemValues.sourceToTarget);
+        item.find('.relationship-type-title').last().html(itemValues.targetToSource);
         item.find('.update-item-button').fadeTo(0, 1.0);
-        item.find('.drawer-contents').slideUp();
     }
 
     function getItemValues(item)
     {
+        // This formatting logic duplicates the formatting logic in edit-relationship-types.php.
+        // Any format change made here needs to be made there and vice-versa.
+        sourceName = item.find('.source-name').val()
+        targetName = item.find('.target-name').val()
+        sourceRuleName = item.find('.source-rule-id option:selected').text().split(':')[1]
+        targetRuleName = item.find('.target-rule-id option:selected').text().split(':')[1]
+        sourceToTarget = sourceRuleName + '<br/><span class="relationship-name">' + sourceName + '</span><br/>' + targetRuleName;
+        targetToSource = targetRuleName + '<br/><span class="relationship-name">' + targetName + '</span><br/>' + sourceRuleName;
+
         var itemValues =
         {
             order:item.find('.order').text(),
-            sourceName:item.find('.source-name').val(),
-            targetName:item.find('.target-name').val(),
+            sourceName:sourceName,
+            targetName:targetName,
             sourceRuleId:item.find('.source-rule-id').val(),
             targetRuleId:item.find('.target-rule-id').val(),
             sourceLabel:item.find('.source-label').val(),
             targetLabel:item.find('.target-label').val(),
             directives:item.find('.directives').val(),
-            ancestry:item.find('.ancestry').val()
+            ancestry:item.find('.ancestry').val(),
+            sourceToTarget:sourceToTarget,
+            targetToSource:targetToSource
         };
 
         return itemValues;

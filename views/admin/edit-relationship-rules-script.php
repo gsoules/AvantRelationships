@@ -82,7 +82,6 @@
         var itemValues = getItemValues(item);
         item.find('.relationship-rule-title').first().text(itemValues.description);
         item.find('.update-item-button').fadeTo(0, 1.0);
-        item.find('.drawer-contents').slideUp();
     }
 
     function getItemValues(item)

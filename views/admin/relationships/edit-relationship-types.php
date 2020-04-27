@@ -20,15 +20,22 @@ echo '<div>' . __('Drag Relationship Types in the list below into the preferred 
         $usageCount = RelationshipTypesEditor::getUsageCount($id);
         $removeClass = $usageCount > 0 || count($list) == 1 ? ' no-remove' : '';
 
-        $sourceRule = get_view()->formSelect(null, $type['source_rule_id'], array('multiple' => false, 'class' => 'source-rule-id'), get_table_options('RelationshipRules'));
-        $targetRule = get_view()->formSelect(null, $type['target_rule_id'], array('multiple' => false, 'class' => 'target-rule-id'), get_table_options('RelationshipRules'));
+        // This formatting logic duplicates the formatting logic in edit-relationship-types-script.php.
+        // Any format change made here needs to be made there and vice-versa.
+        $ruleOptions = get_table_options('RelationshipRules');
+        $sourceRule = get_view()->formSelect(null, $type['source_rule_id'], array('multiple' => false, 'class' => 'source-rule-id'), $ruleOptions);
+        $targetRule = get_view()->formSelect(null, $type['target_rule_id'], array('multiple' => false, 'class' => 'target-rule-id'), $ruleOptions);
+        $sourceRuleName = explode(':', $ruleOptions[$type['source_rule_id']])[1];
+        $targetRuleName = explode(':', $ruleOptions[$type['target_rule_id']])[1];
+        $sourceToTarget = "$sourceRuleName<br/><span class='relationship-name'>{$type['source_name']}</span><br/>$targetRuleName";
+        $targetToSource = "$targetRuleName<br/><span class='relationship-name'>{$type['target_name']}</span><br/>$sourceRuleName";
     ?>
         <li id="<?php echo $id; ?>">
             <div class="main_link ui-sortable-handle">
                 <div class="sortable-item">
                     <div class="relationship-type-id"><?php echo $type['id']; ?></div>
-                    <div class="relationship-type-title"><?php echo $type['source_name']; ?></div>
-                    <div class="relationship-type-title"><?php echo $type['target_name']; ?></div>
+                    <div class="relationship-type-title"><?php echo $sourceToTarget; ?></div>
+                    <div class="relationship-type-title"><?php echo $targetToSource; ?></div>
                     <span class="relationship-item-count"><?php echo $usageCount; ?></span>
                     <span class="drawer"></span>
                 </div>
