@@ -137,6 +137,14 @@ section.seven.columns.alpha .related-items-subsection .item-preview .item-img im
     list-style-type:none;
 }
 
+.related-item-rows {
+    margin-bottom: 16px;
+}
+
+.related-item-rows div {
+    margin-bottom: 8px;
+}
+
 .relationship-rule {
     margin-top: 8px;
 }

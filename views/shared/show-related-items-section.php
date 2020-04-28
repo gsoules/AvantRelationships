@@ -34,11 +34,11 @@ $numItemsInSection = count($kids);
 $itemsShown = 0;
 $showMoreLink = '';
 $maxItemsToEmit = $numItemsInSection;
-
+$showMoreThreshold = 10;
 
 if ($numItemsInSection > $maxItemsVisible)
 {
-    if (($numItemsInSection - $maxItemsVisible) < 10)
+    if (($numItemsInSection - $maxItemsVisible) < $showMoreThreshold)
     {
         // Don't emit a Show More link when there are not that many more items to show.
         $maxItemsVisible = $numItemsInSection;
@@ -63,27 +63,38 @@ if ($numItemsInSection > $maxItemsVisible)
         }
     }
 }
-?>
-<li class="<?php echo $sectionClass; ?>">
-    <p class="related-items-section-name"><?php echo $sectionTreeNode->getName(); ?></p>
-    <ul class="item-preview">
-        <?php
-        foreach ($kids as $kid)
-        {
-            /* @var $relatedItem RelatedItem */
-            $relatedItem = $kid->getRelatedItem();
-            $item = $relatedItem->getItem();
-            $itemPreview = new ItemPreview($item);
-            $attributes = $itemsShown <= $maxItemsVisible - 1 ? '' : " class='$itemId-$sectionId-extra' style='display:none'";
-            echo $itemPreview->emitItemPreviewAsListElement($relatedItem->usesCoverImage(), $attributes);
-            $itemsShown++;
-            if ($itemsShown >= $maxItemsToEmit)
-            {
-                break;
-            }
-        };
-        ?>
-    </ul>
-</li>
 
-<?php echo $showMoreLink; ?>
+$showRows = intval(get_option(RelationshipsConfig::OPTION_SHOW_RELATED_ITEMS_AS_ROWS))== 1;
+
+echo "<li class='$sectionClass'>";
+echo "<p class='related-items-section-name'>{$sectionTreeNode->getName()}</p>";
+echo $showRows ? "<div class='related-item-rows'>" : "<ul class='item-preview'>";
+foreach ($kids as $kid)
+{
+    /* @var $relatedItem RelatedItem */
+    $relatedItem = $kid->getRelatedItem();
+    $item = $relatedItem->getItem();
+
+    $extraClass = " class='$itemId-$sectionId-extra' style='display:none'";
+    $attributes = $itemsShown <= $maxItemsVisible - 1 ? '' : $extraClass;
+    if ($showRows)
+    {
+        $rowText = ItemMetadata::getItemTitle($item);
+        echo "<div{$attributes}>$rowText</div>";
+    }
+    else
+    {
+        $itemPreview = new ItemPreview($item);
+        echo $itemPreview->emitItemPreviewAsListElement($relatedItem->usesCoverImage(), $attributes);
+    }
+
+    $itemsShown++;
+    if ($itemsShown >= $maxItemsToEmit)
+    {
+        break;
+    }
+};
+echo $showRows ? "</div>" : "</ul>";
+echo "</li>";
+
+echo $showMoreLink;
