@@ -142,7 +142,19 @@ section.seven.columns.alpha .related-items-subsection .item-preview .item-img im
 }
 
 .related-item-rows div {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+.related-item-row div.item-preview-header {
+    margin-bottom: 0;
+}
+
+.related-item-row a {
+    font-weight: bold;
+}
+
+.related-item-row a:link, .related-item-row a:visited {
+    color: var(--preview-link-color);
 }
 
 .relationship-rule {
@@ -280,6 +292,10 @@ section.seven.columns.alpha .related-items-subsection .item-preview .item-img im
 
     #related-items ul {
         max-width: 100%;
+    }
+
+    .related-item-rows {
+        margin-left: 16px;
     }
 
 }

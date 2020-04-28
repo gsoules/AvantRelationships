@@ -75,16 +75,30 @@ foreach ($kids as $kid)
     $relatedItem = $kid->getRelatedItem();
     $item = $relatedItem->getItem();
 
-    $extraClass = " class='$itemId-$sectionId-extra' style='display:none'";
-    $attributes = $itemsShown <= $maxItemsVisible - 1 ? '' : $extraClass;
+    $class = '';
+    $style = '';
+    $attributes = '';
+    if ($itemsShown > $maxItemsVisible - 1)
+    {
+        $class = "$itemId-$sectionId-extra";
+        $style = 'display:none;';
+    }
     if ($showRows)
     {
-        $rowText = ItemMetadata::getItemTitle($item);
-        echo "<div{$attributes}>$rowText</div>";
+        $class .= ' related-item-row';
+    }
+    if (!empty($class))
+        $attributes = " class='$class'";
+    if (!empty($style))
+        $attributes .= " style='$style'";
+
+    $itemPreview = new ItemPreview($item);
+    if ($showRows)
+    {
+        echo $itemPreview->emitItemPreviewAsRow($attributes);
     }
     else
     {
-        $itemPreview = new ItemPreview($item);
         echo $itemPreview->emitItemPreviewAsListElement($relatedItem->usesCoverImage(), $attributes);
     }
 
