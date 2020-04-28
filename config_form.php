@@ -17,6 +17,8 @@ $implicitRelationshipsRows = max(2, count(explode(PHP_EOL, $implicitRelationship
 $customRelationships = RelationshipsConfig::getOptionTextForCustomRelationships();
 $customRelationshipsRows = max(2, count(explode(PHP_EOL, $customRelationships)));
 
+$showRelatedItemsAsRows = intval(get_option(RelationshipsConfig::OPTION_SHOW_RELATED_ITEMS_AS_ROWS)) != 0;
+
 $deleteTables = intval(get_option(RelationshipsConfig::OPTION_DELETE_TABLES)) != 0;
 
 ?>
@@ -71,6 +73,16 @@ $deleteTables = intval(get_option(RelationshipsConfig::OPTION_DELETE_TABLES)) !=
     <div class="inputs five columns omega">
         <p class="explanation"><?php echo __("Callback functions to provide custom relationships."); ?></p>
         <?php echo $view->formTextarea(RelationshipsConfig::OPTION_CUSTOM_RELATIONSHIPS, $customRelationships, array('rows' => $customRelationshipsRows)); ?>
+    </div>
+</div>
+
+<div class="field">
+    <div class="two columns alpha">
+        <label><?php echo CONFIG_LABEL_SHOW_RELATED_ITEMS_AS_ROWS; ?></label>
+    </div>
+    <div class="inputs five columns omega">
+        <p class="explanation"><?php echo __("Show related items as rows instead of as image thumbnails."); ?></p>
+        <?php echo $view->formCheckbox(RelationshipsConfig::OPTION_SHOW_RELATED_ITEMS_AS_ROWS, true, array('checked' => $showRelatedItemsAsRows)); ?>
     </div>
 </div>
 

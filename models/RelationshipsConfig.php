@@ -5,6 +5,7 @@ define('CONFIG_LABEL_DELETE_TABLES', __('Delete Tables'));
 define('CONFIG_LABEL_IMPLICIT_RELATIONSHIPS', __('Implicit Relationships'));
 define('CONFIG_LABEL_MAX_DIRECT_ITEMS', __('Max Direct Items'));
 define('CONFIG_LABEL_MAX_INDIRECT_ITEMS', __('Max Indirect Items'));
+define('CONFIG_LABEL_SHOW_RELATED_ITEMS_AS_ROWS', __('Show Related Items As Rows'));
 define('CONFIG_LABEL_VISUALIZATION_PREVIEW', __('Visualization Preview'));
 
 class RelationshipsConfig extends ConfigOptions
@@ -14,6 +15,7 @@ class RelationshipsConfig extends ConfigOptions
     const OPTION_IMPLICIT_RELATIONSHIPS = 'avantrelationships_implicit';
     const OPTION_MAX_DIRECT_ITEMS = 'avantrelationships_max_direct_shown';
     const OPTION_MAX_INDIRECT_ITEMS = 'avantrelationships_max_indirect_shown';
+    const OPTION_SHOW_RELATED_ITEMS_AS_ROWS = 'avantrelationships_show_related_items_as_rows';
     const OPTION_VISUALIZATION = 'avantrelationships_visualization';
 
     public static function getOptionDataForCustomRelationships()
@@ -91,6 +93,7 @@ class RelationshipsConfig extends ConfigOptions
         delete_option(self::OPTION_IMPLICIT_RELATIONSHIPS);
         delete_option(self::OPTION_MAX_DIRECT_ITEMS);
         delete_option(self::OPTION_MAX_INDIRECT_ITEMS);
+        delete_option(self::OPTION_SHOW_RELATED_ITEMS_AS_ROWS);
         delete_option(self::OPTION_VISUALIZATION);
     }
 
@@ -103,6 +106,7 @@ class RelationshipsConfig extends ConfigOptions
 
         set_option(self::OPTION_VISUALIZATION, $_POST[self::OPTION_VISUALIZATION]);
         set_option(self::OPTION_DELETE_TABLES, (int)(boolean)$_POST[self::OPTION_DELETE_TABLES]);
+        set_option(self::OPTION_SHOW_RELATED_ITEMS_AS_ROWS, (int)(boolean)$_POST[self::OPTION_SHOW_RELATED_ITEMS_AS_ROWS]);
     }
 
     public static function saveOptionDataForCustomRelationships()
