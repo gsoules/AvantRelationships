@@ -236,7 +236,8 @@ class RelatedItemsEditor
         $html .= "<div class='relationships-editor-metadata'>";
         $html .= "<div class='relationships-editor-title'>$title</div>";
         $html .= "<div><span class='element-name'>Type:</span> $type</div>";
-        $html .= "<div><span class='element-name'>Subject:</span> $subject</div>";
+        if (!empty($subject))
+            $html .= "<div><span class='element-name'>Subject:</span> $subject</div>";
         $html .= "</div>";
 
         $html .= "<div class='relationships-editor-buttons'>";
