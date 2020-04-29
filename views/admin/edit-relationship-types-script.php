@@ -105,7 +105,7 @@
         sourceToTarget = sourceRuleName + '<br/><span class="relationship-name">' + sourceName + '</span><br/>' + targetRuleName;
         targetToSource = targetRuleName + '<br/><span class="relationship-name">' + targetName + '</span><br/>' + sourceRuleName;
 
-        var itemValues =
+        let itemValues =
         {
             order:item.find('.order').text(),
             sourceName:sourceName,
@@ -212,8 +212,8 @@
         if (!validateItemValues(itemValues))
             return;
 
-        newItem.find('.relationship-type-title').first().text(itemValues.sourceName);
-        newItem.find('.relationship-type-title').last().text(itemValues.targetName);
+        newItem.find('.relationship-type-title').first().html(itemValues.sourceToTarget);
+        newItem.find('.relationship-type-title').last().html(itemValues.targetToSource);
 
         jQuery.ajax(
             itemEditorUrl,
