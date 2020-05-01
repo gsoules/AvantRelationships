@@ -81,8 +81,9 @@
 
     function afterUpdateItemOrder()
     {
-        updateOrderButton.slideUp(500);
-        jQuery('#message-area').text('<?php echo __('Order has been updated'); ?>');
+        // Reload the page so that the order value of each item gets updated with the correct order.
+        // If the reload was not done, the div with the 'order' class would still have the original order value.
+        location.reload();
     }
 
     function afterUpdateItem(id)
