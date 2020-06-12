@@ -199,11 +199,11 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function hookInstall() {
 
-        RelationshipsTableFactory::CreateRelationshipRulesTable();
-        RelationshipsTableFactory::CreateRelationshipTypesTable();
-        RelationshipsTableFactory::CreateRelationshipsTable();
-        RelationshipsTableFactory::CreateRelationshipImagesTable();
-        RelationshipsTableFactory::CreateDefaultRelationshipTypesAndRules();
+        RelationshipsTableFactory::createRelationshipRulesTable();
+        RelationshipsTableFactory::createRelationshipTypesTable();
+        RelationshipsTableFactory::createRelationshipsTable();
+        RelationshipsTableFactory::createRelationshipImagesTable();
+        RelationshipsTableFactory::createDefaultRelationshipTypesAndRules();
 
         RelationshipsConfig::setDefaultOptionValues();
     }
@@ -266,10 +266,10 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         if (!$deleteTables)
             return;
 
-        RelationshipsTableFactory::DropRelatonshipsTable();
-        RelationshipsTableFactory::DropRelatonshipTypesTable();
-        RelationshipsTableFactory::DropRelatonshipRulesTable();
-        RelationshipsTableFactory::DropRelatonshipImagesTable();
+        RelationshipsTableFactory::dropRelatonshipsTable();
+        RelationshipsTableFactory::dropRelatonshipTypesTable();
+        RelationshipsTableFactory::dropRelatonshipRulesTable();
+        RelationshipsTableFactory::dropRelatonshipImagesTable();
 
         RelationshipsConfig::removeConfiguration();
     }

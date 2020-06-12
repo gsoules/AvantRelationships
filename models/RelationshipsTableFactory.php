@@ -2,7 +2,7 @@
 
 class RelationshipsTableFactory
 {
-    public static function CreateDefaultRelationshipTypesAndRules()
+    public static function createDefaultRelationshipTypesAndRules()
     {
         $ruleIdReference = RelationshipRulesEditor::addDefaultRule('Reference', 'Type:^Reference');
         $ruleIdReferencePeople = RelationshipRulesEditor::addDefaultRule('Reference with subject People', 'Type:^Reference;Subject:^People');
@@ -24,7 +24,7 @@ class RelationshipsTableFactory
         RelationshipTypesEditor::addDefaultType($order++, 0, 'related to', 'Related to', 0, 'related to', 'Related to');
     }
 
-    public static function CreateRelationshipsTable()
+    public static function createRelationshipsTable()
     {
         $db = get_db();
 
@@ -40,7 +40,7 @@ class RelationshipsTableFactory
         $db->query($sql);
     }
 
-    public static function CreateRelationshipImagesTable()
+    public static function createRelationshipImagesTable()
     {
         $db = get_db();
 
@@ -55,7 +55,7 @@ class RelationshipsTableFactory
         $db->query($sql);
     }
 
-    public static function CreateRelationshipRulesTable()
+    public static function createRelationshipRulesTable()
     {
         $db = get_db();
 
@@ -70,7 +70,7 @@ class RelationshipsTableFactory
         $db->query($sql);
     }
 
-    public static function CreateRelationshipTypesTable()
+    public static function createRelationshipTypesTable()
     {
         $db = get_db();
 
@@ -92,28 +92,28 @@ class RelationshipsTableFactory
         $db->query($sql);
     }
 
-    public static function DropRelatonshipsTable()
+    public static function dropRelatonshipsTable()
     {
         $db = get_db();
         $sql = "DROP TABLE IF EXISTS `{$db->prefix}relationships`";
         $db->query($sql);
     }
 
-    public static function DropRelatonshipImagesTable()
+    public static function dropRelatonshipImagesTable()
     {
         $db = get_db();
         $sql = "DROP TABLE IF EXISTS `{$db->prefix}relationship_images`";
         $db->query($sql);
     }
 
-    public static function DropRelatonshipRulesTable()
+    public static function dropRelatonshipRulesTable()
     {
         $db = get_db();
         $sql = "DROP TABLE IF EXISTS `{$db->prefix}relationship_rules`";
         $db->query($sql);
     }
 
-    public static function DropRelatonshipTypesTable()
+    public static function dropRelatonshipTypesTable()
     {
         $db = get_db();
         $sql = "DROP TABLE IF EXISTS `{$db->prefix}relationship_types`";
