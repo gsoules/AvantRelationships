@@ -393,7 +393,7 @@
             newCodes = newCodes.join(',');
         }
 
-        Cookies.set(RELATIONSHIPS_COOKIE, newCodes, {expires: 14});
+        Cookies.set(RELATIONSHIPS_COOKIE, newCodes, {expires: 14, sameSite: 'lax'});
 
         showRecentRelationships();
     }

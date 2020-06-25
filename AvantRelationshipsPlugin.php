@@ -78,10 +78,13 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
 
     public function filterAdminNavigationMain($nav)
     {
-        $nav[] = array(
-            'label' => __('Relationships'),
-            'uri' => url('relationships/browse')
-        );
+        if (AvantCommon::userIsSuper())
+        {
+            $nav[] = array(
+                'label' => __('Relationships'),
+                'uri' => url('relationships/browse')
+            );
+        }
         return $nav;
     }
 
