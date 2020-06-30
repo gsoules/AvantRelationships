@@ -153,10 +153,6 @@ section.seven.columns.alpha .related-items-subsection .item-preview .item-img im
     font-weight: bold;
 }
 
-.related-item-row a:link, .related-item-row a:visited {
-    color: var(--preview-link-color);
-}
-
 .relationship-rule {
     margin-top: 8px;
 }
