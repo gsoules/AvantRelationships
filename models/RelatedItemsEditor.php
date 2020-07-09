@@ -176,7 +176,7 @@ class RelatedItemsEditor
 
     public function determineSelectedRelationship()
     {
-        $recentlySelectedRelationships = AvantAdmin::getRecentlySelectedRelationships();
+        $recentlySelectedRelationships = AvantCommon::getRecentlySelectedRelationships();
 
         if ($recentlySelectedRelationships)
         {
@@ -259,7 +259,7 @@ class RelatedItemsEditor
 
     public function emitRecentlyViewedItems(array $relatedItems, $primaryItemId)
     {
-        $recentlyViewedItems = AvantAdmin::getRecentlyViewedItems($primaryItemId);
+        $recentlyViewedItems = AvantCommon::getRecentlyViewedItems($primaryItemId);
 
         $allowedItems = array();
 
@@ -319,7 +319,7 @@ class RelatedItemsEditor
         $this->eligibleTargetItemsCount = count($allowedItems) - count($alreadyRelatedItemIds);
 
         // Emit the list of items that can be added followed by those that can't be added.
-        return AvantAdmin::emitRecentlyViewedItems($recentlyViewedItemsWithAllowedAtTop, $primaryItemId, $allowedItems, $alreadyRelatedItemIds);
+        return AvantCommon::emitRecentlyViewedItems($recentlyViewedItemsWithAllowedAtTop, $primaryItemId, $allowedItems, $alreadyRelatedItemIds);
     }
 
     protected function extendAdvancedSearchQueryForRelationships($params, $select)
