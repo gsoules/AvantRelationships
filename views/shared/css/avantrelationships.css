@@ -354,6 +354,16 @@ The aspect ration of the preview and full size graphs should be the same.
     opacity: 0.4;
 }
 
+div#cyPopupBox.cyPopupBox button.mfp-close {
+    color: #a5304b;
+}
+
+div#cyPopupBox.cyPopupBox button.mfp-close:hover {
+    color: #d72b53;
+    background-color: white;
+    border: unset;
+}
+
 .fa {
     display: inline-block;
     font-family: FontAwesome;

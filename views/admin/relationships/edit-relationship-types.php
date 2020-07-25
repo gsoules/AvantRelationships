@@ -23,10 +23,12 @@ echo '<div>' . __('Drag Relationship Types in the list below into the preferred 
         // This formatting logic duplicates the formatting logic in edit-relationship-types-script.php.
         // Any format change made here needs to be made there and vice-versa.
         $ruleOptions = get_table_options('RelationshipRules');
-        $sourceRule = get_view()->formSelect(null, $type['source_rule_id'], array('multiple' => false, 'class' => 'source-rule-id'), $ruleOptions);
-        $targetRule = get_view()->formSelect(null, $type['target_rule_id'], array('multiple' => false, 'class' => 'target-rule-id'), $ruleOptions);
-        $sourceRuleName = explode(':', $ruleOptions[$type['source_rule_id']])[1];
-        $targetRuleName = explode(':', $ruleOptions[$type['target_rule_id']])[1];
+        $sourceRuleId = $type['source_rule_id'];
+        $targetRuleId = $type['target_rule_id'];
+        $sourceRule = get_view()->formSelect(null, $sourceRuleId, array('multiple' => false, 'class' => 'source-rule-id'), $ruleOptions);
+        $targetRule = get_view()->formSelect(null, $targetRuleId, array('multiple' => false, 'class' => 'target-rule-id'), $ruleOptions);
+        $sourceRuleName = $sourceRuleId ? explode(':', $ruleOptions[$sourceRuleId])[1] : 'any source';
+        $targetRuleName = $targetRuleId ? explode(':', $ruleOptions[$targetRuleId])[1] : 'any target';
         $sourceToTarget = "$sourceRuleName<br/><span class='relationship-name'>{$type['source_name']}</span><br/>$targetRuleName";
         $targetToSource = "$targetRuleName<br/><span class='relationship-name'>{$type['target_name']}</span><br/>$sourceRuleName";
     ?>

@@ -751,6 +751,7 @@ class RelatedItemsEditor
         }
 
         $params = array();
+        $params['search'] = '';
         $params['advanced'] = $query;
         $table = $this->db->getTable('Item');
         $select = $table->getSelectForCount($params);
@@ -759,7 +760,7 @@ class RelatedItemsEditor
         if ($count == 0)
         {
             if ($reportError)
-                $this->addValidationError(__('<div>The <i>%1$s</i> relationship requires %2$s to be %3$s.</div><div>However, %2$s is %4$s.</div><div>Choose a different relationship or a different item.</div>', $relationshipName, $violatorKind, $ruleDescription, $violatorMetadata));
+                $this->addValidationError(__('The %1$s relationship requires %2$s to be %3$s. However, %2$s is %4$s. Choose a different relationship or a different item.', $relationshipName, $violatorKind, $ruleDescription, $violatorMetadata));
             return false;
         }
 
