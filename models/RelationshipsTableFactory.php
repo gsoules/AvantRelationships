@@ -4,24 +4,43 @@ class RelationshipsTableFactory
 {
     public static function createDefaultRelationshipTypesAndRules()
     {
+        // Add rules.
         $ruleIdReference = RelationshipRulesEditor::addDefaultRule('Reference', 'Type:^Reference');
         $ruleIdReferencePeople = RelationshipRulesEditor::addDefaultRule('Reference with subject People', 'Type:^Reference;Subject:^People');
         $ruleIdImage = RelationshipRulesEditor::addDefaultRule('Image', 'Type:^Image');
+        $ruleIdSet = RelationshipRulesEditor::addDefaultRule('Set', 'Type:^Set');
+        $ruleIdAnyItem = RelationshipRulesEditor::addDefaultRule('Any Item except Set', 'Type:^(Reference|Document|Image|Map|Publication|Object)');
+        $ruleIdDocumentaryItemOrObject = RelationshipRulesEditor::addDefaultRule('Documentary item or object', 'Type:^(Reference|Document|Publication|Object)');
+        $ruleIdPeopleOrAnimals = RelationshipRulesEditor::addDefaultRule('Reference with subject People or Animals', 'Type:^Reference;Subject:^(People|Nature, Animals)');
+        $ruleIdStructureOrPlaces = RelationshipRulesEditor::addDefaultRule('Reference with subject Structures or Places', 'Type:^Reference;Subject:^(Structures|Places)');
 
+        // Add relationship types.
         $order = 1;
 
-        // Create a 'depicts' type and set the Directives to that same type.
+        // depicts / depicted by
         $typeDepicts = RelationshipTypesEditor::addDefaultType($order++, $ruleIdImage, 'depicts', 'Related References,Related Reference', $ruleIdReference, 'depicted by', 'Images,Image');
         $depictsTypeId = $typeDepicts['id'];
         $typeDepicts['directives'] = $depictsTypeId;
         $typeDepicts->save();
 
+        // set of / has set
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdSet, 'set of', 'Set of', $ruleIdReference, 'has set', 'Item Sets,Item Set');
+
+        // married to
         RelationshipTypesEditor::addDefaultType($order++, $ruleIdReferencePeople, 'married to', 'Married to', $ruleIdReferencePeople, 'married to', 'Married to');
 
+        // child of / parent of
         $ancestry = 'Siblings,Sibling; Parents,Parent:Grandparents,Grandparent:Great *; Children,Child:Grandchildren,Grandchild:Great *';
         RelationshipTypesEditor::addDefaultType($order++, $ruleIdReferencePeople, 'child of', 'Parents,Parent', $ruleIdReferencePeople, 'parent of', 'Children,Child', '', $ancestry);
 
-        RelationshipTypesEditor::addDefaultType($order++, 0, 'related to', 'Related to', 0, 'related to', 'Related to');
+        // about / mentioned it
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdDocumentaryItemOrObject, 'about', 'About', $ruleIdReference, 'mentioned in', 'Mentioned in');
+
+        // in set / set contains
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdAnyItem, 'in set', 'In Item Set', $ruleIdSet, 'set contains', 'Item Set Contains');
+
+        // resided at / occupied by
+        RelationshipTypesEditor::addDefaultType($order++, $ruleIdPeopleOrAnimals, 'resided at', 'Resided at', $ruleIdStructureOrPlaces, 'occupied by', 'Residents,Resident');
     }
 
     public static function createRelationshipsTable()

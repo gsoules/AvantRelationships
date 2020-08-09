@@ -242,7 +242,7 @@ class RelatedItemsEditor
 
         $html .= "<div class='relationships-editor-buttons'>";
         $viewLink = html_escape(admin_url('items/show/' . metadata('item', 'id')));
-        $html .= "<a href='$viewLink' class='big beige button'>" . __('View Admin Page') . "</a>";
+        $html .= "<a href='$viewLink' class='big blue button'>" . __('View Admin Page') . "</a>";
         $publicLink = html_escape(public_url('items/show/' . metadata('item', 'id')));
         $html .= "<div><a href='$publicLink' class='big blue button'>" . __('View Public Page') . "</a></div>";
         if (is_allowed($item, 'edit'))
