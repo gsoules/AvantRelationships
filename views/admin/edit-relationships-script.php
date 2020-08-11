@@ -328,7 +328,7 @@
                 },
                 success: function (data)
                 {
-                    if (data.success == true)
+                    if (data.success === true)
                     {
                         afterRemoveRelationship(tr);
                         reloadPage();
@@ -462,12 +462,26 @@
         var indicator = jQuery('#relationship-editor-busy');
         if (message.length > 0)
         {
+            console.log('>>>' + message);
             indicator.text(message + '...');
             indicator.show();
+
+            // Disable the buttons on all rows so the user can click one while busy.
+            jQuery(".action-button").fadeTo(0, .3);
+            removeActionButtonEventListeners();
+
+            // jQuery('.recent-item-add').css('visibility', 'hidden');
+            // jQuery('.add-relationship-button').css('visibility', 'hidden');
+            // jQuery('.edit-relationship-button').css('visibility', 'hidden');
+            // jQuery('.remove-relationship-button').css('visibility', 'hidden');
         }
         else
         {
             indicator.hide();
+            // jQuery('.recent-item-add').css('visibility', 'visible');
+            // jQuery('.add-relationship-button').css('visibility', 'visible');
+            // jQuery('.edit-relationship-button').css('visibility', 'visible');
+            // jQuery('.remove-relationship-button').css('visibility', 'visible');
         }
     }
 
