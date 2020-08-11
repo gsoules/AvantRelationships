@@ -75,7 +75,15 @@ class RelatedItemsEditor
 
         $relationshipId = $this->insertItemRelationship($this->primaryItem, $relationshipTypeCode, $relatedItemIdentifier);
         $success = $relationshipId !== false;
-        $message = $success ? 'Relationship Added' : $this->validationErrorMessage;
+        if ($success)
+        {
+            $this->updatedRelatedItemsIndexes($this->primaryItem, $relatedItem);
+            $message = __('Relationship Added');
+        }
+        else
+        {
+            $message = $this->validationErrorMessage;
+        }
         $relatedItemLink = self::getRelatedItemLink($relatedItemIdentifier);
         return json_encode(array('success' => $success, 'message' => $message, 'link' => $relatedItemLink, 'relationshipId' => $relationshipId));
     }
@@ -559,7 +567,12 @@ class RelatedItemsEditor
         if ($relationship)
         {
             $relationship->delete();
-            $success = true;
+
+            $sourceItem = ItemMetadata::getItemFromId($relationship['source_item_id']);
+            $targetItem = ItemMetadata::getItemFromId($relationship['target_item_id']);
+            $this->updatedRelatedItemsIndexes($sourceItem, $targetItem);
+
+             $success = true;
         }
 
         return json_encode(array('success' => $success));
@@ -613,6 +626,19 @@ class RelatedItemsEditor
             $relationshipImages->identifier = $coverImageIdentifier;
             $relationshipImages->save();
         }
+    }
+
+    protected function updatedRelatedItemsIndexes($primaryItem, $relatedItem)
+    {
+        if (!plugin_is_active('AvantElasticsearch'))
+            return;
+
+        $sharedIndexIsEnabled = (bool)get_option(ElasticsearchConfig::OPTION_ES_SHARE) == true;
+        $localIndexIsEnabled = (bool)get_option(ElasticsearchConfig::OPTION_ES_LOCAL) == true;
+        $avantElasticsearchIndexBuilder = new AvantElasticsearchIndexBuilder();
+        $avantElasticsearch = new AvantElasticsearch();
+        $avantElasticsearch->updateIndexForItem($primaryItem, $avantElasticsearchIndexBuilder, $sharedIndexIsEnabled, $localIndexIsEnabled);
+        $avantElasticsearch->updateIndexForItem($relatedItem, $avantElasticsearchIndexBuilder, $sharedIndexIsEnabled, $localIndexIsEnabled);
     }
 
     public function validateCoverImageIdentifier($item, $coverImageIdentifier)

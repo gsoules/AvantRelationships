@@ -466,22 +466,13 @@
             indicator.text(message + '...');
             indicator.show();
 
-            // Disable the buttons on all rows so the user can click one while busy.
+            // Disable all buttons so the user cannot click one while busy performing another action.
             jQuery(".action-button").fadeTo(0, .3);
             removeActionButtonEventListeners();
-
-            // jQuery('.recent-item-add').css('visibility', 'hidden');
-            // jQuery('.add-relationship-button').css('visibility', 'hidden');
-            // jQuery('.edit-relationship-button').css('visibility', 'hidden');
-            // jQuery('.remove-relationship-button').css('visibility', 'hidden');
         }
         else
         {
             indicator.hide();
-            // jQuery('.recent-item-add').css('visibility', 'visible');
-            // jQuery('.add-relationship-button').css('visibility', 'visible');
-            // jQuery('.edit-relationship-button').css('visibility', 'visible');
-            // jQuery('.remove-relationship-button').css('visibility', 'visible');
         }
     }
 
