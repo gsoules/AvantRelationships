@@ -23,7 +23,7 @@ $deleteTables = intval(get_option(RelationshipsConfig::OPTION_DELETE_TABLES)) !=
 
 ?>
 <div class="plugin-help">
-    <a href="https://github.com/gsoules/AvantRelationships#usage" target="_blank">Learn about the configuration options on this page</a>
+    <a href="https://digitalarchive.us/plugins/avantrelationships/" target="_blank">Learn about the configuration options on this page</a>
 </div>
 
 <div class="field">
@@ -93,7 +93,7 @@ $deleteTables = intval(get_option(RelationshipsConfig::OPTION_DELETE_TABLES)) !=
     <div class="inputs five columns omega">
         <p class="explanation"><?php echo __(" WARNING: Checking this box will cause all relationship data to be
         permanently deleted if you uninstall this plugin. 
-        Click <a href=\"https://github.com/gsoules/AvantRelationships#usage\" target=\"_blank\" style=\"color:red;\">
+        Click <a href=\"https://digitalarchive.us/plugins/avantrelationships/#delete-tables-option\" target=\"_blank\" style=\"color:red;\">
         here</a> to read the documentation for the Delete Tables option before checking the box."); ?></p>
         <?php echo $view->formCheckbox(RelationshipsConfig::OPTION_DELETE_TABLES, true, array('checked' => $deleteTables)); ?>
     </div>
