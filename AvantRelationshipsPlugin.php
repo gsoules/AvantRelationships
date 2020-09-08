@@ -9,7 +9,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         'admin_head',
         'admin_items_show',
         'admin_items_search',
-        'after_delete_record',
+        'after_delete_item',
         'after_save_item',
         'before_save_item',
         'define_routes',
@@ -155,7 +155,7 @@ class AvantRelationshipsPlugin extends Omeka_Plugin_AbstractPlugin
         echo common('related-items-advanced-search', array('formSelectRelationshipName' => $relationshipNames));
     }
 
-    public function hookAfterDeleteRecord($args)
+    public function hookAfterDeleteItem($args)
     {
         $this->createRelatedItemsEditor($args['record']);
         $this->relatedItemsEditor->afterDeleteItem($args);
