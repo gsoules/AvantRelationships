@@ -141,6 +141,9 @@ class RelatedItemsEditor
             return;
         }
 
+        if (AvantCommon::importingHybridItem())
+            return;
+
         $this->validateItemRelationships($item);
 
         $coverImageIdentifier = isset($_REQUEST['cover-image-identifier']) ? $_REQUEST['cover-image-identifier'] : '';
@@ -413,7 +416,7 @@ class RelatedItemsEditor
         // the correct determiner based on the first letter of the rule description. This logic should be controlled
         // by a configuration setting, but for now it's based on whether the user's browser language is English.
         $determiner = '';
-        $isEnglish = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) == 'en';
+        $isEnglish = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) == 'en';
         if ($isEnglish && strlen($description) >= 1)
         {
             $firstLetterIsVowel = in_array(strtolower($description[0]), array('a', 'e', 'i', 'o', 'u'));
