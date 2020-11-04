@@ -9,7 +9,7 @@ class RelationshipTypeCode
     // primary item (i.e. the item being viewed or edited) to related item. However, in the
     // Relationships table, there is always a source item Id, relationship type Id, and a target item Id.
     // So for example, from the user's perspective, primary item X may be the parent-of related
-    // item Y, but the the parent-of relationship is the inverse of the child-of relationship
+    // item Y, but the parent-of relationship is the inverse of the child-of relationship
     // and so Y is also the child-of X. Both the child-of and parent-of relationships have the
     // same relationship type Id e.g. 7 and so to distinguish between child-of and parent-of, that is,
     // the direction of the relationship, the relationship type Id gets prefixed to form a code

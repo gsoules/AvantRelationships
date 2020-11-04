@@ -97,7 +97,7 @@ class Table_Relationships extends Omeka_Db_Table
     {
         $db = $this->getDb();
 
-        // Get the base query that has the the Relationships table in its from clause.
+        // Get the base query that has the Relationships table in its from clause.
         $select = parent::getSelect();
 
         // Join with the RelationshipTypes table.
