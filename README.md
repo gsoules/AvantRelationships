@@ -16,12 +16,6 @@ in with the rest of the collection and easily discovers related items.
 
 This plugin was developed for the [Southwest Harbor Public Library](http://www.swhplibrary.org/), in Southwest Harbor, Maine. Funding was provided in part by the [John S. and James L. Knight Foundation](https://knightfoundation.org/). The library's [Digital Archive] contains historic photographs, documents, maps, and research material given to and shared with the library since about 1900. The Archive illustrates the way people, houses, businesses, vessels, Acadia National Park, places, structures, organizations, and events relate to one another and tells the story of how islanders and “people from away” lived on and visited Mount Desert Island, Maine, in the nineteenth, twentieth, and twenty-first centuries.
 
-## Demonstration Sites
-The best way to understand what AvantRelationships does is to see some examples. Below are links to two different Omeka sites that display the same item. Both sites use items and relationship data from the Southwest Harbor Public Library's Digital Archive, but the library site has a highly customized theme and utilizes many other plugins. The basic Omeka site is an out-of-the-box Omeka installation with only the AvantRelationships plugin installed. The basic site makes it easy to see just the functionality the plugin provides.
-
-* Southwest Harbor Public Library [Digital Archive site].
-* A [basic Omeka site] using only the AvantRelationships plugin and the Seasons theme.
-
 ## Dependencies
 AvantRelationships depends on the following open source libraries which are included in either the
 `views/shared/javascripts` folder or in AvantCommon.
