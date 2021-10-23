@@ -39,7 +39,7 @@ echo '<div>' . __('Drag Relationship Types in the list below into the preferred 
                     <div class="relationship-type-title"><?php echo $sourceToTarget; ?></div>
                     <div class="relationship-type-title"><?php echo $targetToSource; ?></div>
                     <span class="relationship-item-count"><?php echo $usageCount; ?></span>
-                    <span class="drawer"></span>
+                    <span class="drawer-toggle"></span>
                 </div>
                 <div class="drawer-contents" style="display:none;">
                     <div class="order" style="display: none"><?php echo $type['order']; ?></div>

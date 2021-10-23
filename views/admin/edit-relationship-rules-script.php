@@ -99,7 +99,7 @@
     {
         removeEventListeners();
 
-        var drawerButtons = jQuery('.drawer');
+        var drawerButtons = jQuery('.drawer-toggle');
         var updateButtons = jQuery('.update-item-button');
         var removeButtons = jQuery('.remove-item-button');
 
@@ -125,7 +125,7 @@
 
     function removeEventListeners()
     {
-        var drawerButtons = jQuery('.drawer');
+        var drawerButtons = jQuery('.drawer-toggle');
         var updateButtons = jQuery('.update-item-button');
         var removeButtons = jQuery('.remove-item-button');
 

@@ -23,7 +23,7 @@ echo '<div>' . __('The number following the rule indicates how many relationship
                     <div class="relationship-rule-id"><?php echo __('Rule ') . $rule['id'] . ':'; ?></div>
                     <div class="relationship-rule-title"><?php echo $rule['description']; ?></div>
                     <span class="relationship-item-count"><?php echo $usageCount; ?></span>
-                    <span class="drawer"></span>
+                    <span class="drawer-toggle"></span>
                 </div>
                 <div class="drawer-contents" style="display:none;">
                     <label><?php echo __('Description'); ?></label><input class="description" type="text" value="<?php echo $rule['description']; ?>">
