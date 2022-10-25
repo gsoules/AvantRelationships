@@ -64,11 +64,26 @@ if ($numItemsInSection > $maxItemsVisible)
     }
 }
 
-$showRows = intval(get_option(RelationshipsConfig::OPTION_SHOW_RELATED_ITEMS_AS_ROWS))== 1;
+// Determine if related items should be shown as previews (normal behavior) or as compact rows.
+// Even if the user opted for rows, show as a preview if any of the related items have a file attachment.
+$showRelatedItemsAsRows = intval(get_option(RelationshipsConfig::OPTION_SHOW_RELATED_ITEMS_AS_ROWS))== 1;
+if ($showRelatedItemsAsRows)
+{
+    foreach ($kids as $kid)
+    {
+        $relatedItem = $kid->getRelatedItem();
+        $item = $relatedItem->getItem();
+        if ($item->Files)
+        {
+            $showRelatedItemsAsRows = false;
+            break;
+        }
+    }
+}
 
 echo "<li class='$sectionClass'>";
 echo "<p class='related-items-section-name'>{$sectionTreeNode->getName()}</p>";
-echo $showRows ? "<div class='related-item-rows'>" : "<ul class='item-preview'>";
+echo $showRelatedItemsAsRows ? "<div class='related-item-rows'>" : "<ul class='item-preview'>";
 foreach ($kids as $kid)
 {
     /* @var $relatedItem RelatedItem */
@@ -83,7 +98,7 @@ foreach ($kids as $kid)
         $class = "$itemId-$sectionId-extra";
         $style = 'display:none;';
     }
-    if ($showRows)
+    if ($showRelatedItemsAsRows)
     {
         $class .= ' related-item-row';
     }
@@ -93,7 +108,7 @@ foreach ($kids as $kid)
         $attributes .= " style='$style'";
 
     $itemPreview = new ItemPreview($item);
-    if ($showRows)
+    if ($showRelatedItemsAsRows)
     {
         echo $itemPreview->emitItemPreviewAsRow($attributes);
     }
@@ -108,7 +123,7 @@ foreach ($kids as $kid)
         break;
     }
 };
-echo $showRows ? "</div>" : "</ul>";
+echo $showRelatedItemsAsRows ? "</div>" : "</ul>";
 echo "</li>";
 
 echo $showMoreLink;
