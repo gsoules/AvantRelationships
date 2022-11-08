@@ -57,8 +57,8 @@ class Table_RelationshipTypes extends Omeka_Db_Table
         {
             $rules = $this->_db->getTable('RelationshipTypes')->getRules($relationshipTypeCode);
 
-            $sourceRule = $rules['source']['description'];
-            $targetRule = $rules['target']['description'];
+            $sourceRule = $rules['source']['description'] ?? "";
+            $targetRule = $rules['target']['description'] ?? "";
 
             $list[$relationshipTypeCode][0] = RelationshipTypeCode::getRelationshipTypeId($relationshipTypeCode);
             $list[$relationshipTypeCode][1] = $sourceRule;
