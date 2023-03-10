@@ -20,7 +20,7 @@ class AvantRelationships
 
     public static function emitImplicitRelationshipLink($text, $sourceItemId)
     {
-        $text = html_entity_decode($text);
+        $text = $text ? html_entity_decode($text) : "";
         $results = ItemMetadata::getItemsWithElementValue(ItemMetadata::getTitleElementId(), $text);
 
         if (empty($results))
