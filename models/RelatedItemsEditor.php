@@ -417,7 +417,7 @@ class RelatedItemsEditor
         // by a configuration setting, but for now it's based on whether the user's browser language is English.
         $determiner = '';
         $isEnglish = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) && substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) == 'en';
-        if ($isEnglish && strlen($description) >= 1)
+        if ($isEnglish && $description != null && strlen($description) >= 1)
         {
             $firstLetterIsVowel = in_array(strtolower($description[0]), array('a', 'e', 'i', 'o', 'u'));
             $determiner = $firstLetterIsVowel ? 'an ' : 'a ';
