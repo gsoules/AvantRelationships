@@ -64,6 +64,21 @@ if ($numItemsInSection > $maxItemsVisible)
     }
 }
 
+if (plugin_is_active('MDIBL'))
+{
+    // Always show a link that goes to Table view in Layout 3 sorted by report number. Layout 3 must be defined in AvantElements config.
+    $advancedSearchUrl = $sectionTreeNode->getData();
+    $advancedSearchUrl .= "&sort=Report&view=1&layout=3";
+
+    // Get a description of what's being shown, reports or documents.
+    $kid = reset($kids);
+    $relatedItem = $kid->getRelatedItem();
+    $label = $relatedItem->getRelationshipLabelPlural();
+    $label = strtolower($label);
+
+    $showMoreLink = "<div class='related-items-see-all'><a href='$advancedSearchUrl' id='{$sectionTreeNode->getId()}'>See all $numItemsInSection $label</a></div>";
+}
+
 // Determine if related items should be shown as previews (normal behavior) or as compact rows.
 // Even if the user opted for rows, show as a preview if any of the related items have a file attachment.
 $showRelatedItemsAsRows = intval(get_option(RelationshipsConfig::OPTION_SHOW_RELATED_ITEMS_AS_ROWS))== 1;
