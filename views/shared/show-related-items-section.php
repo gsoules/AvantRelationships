@@ -76,7 +76,7 @@ if (plugin_is_active('MDIBL'))
     $label = $relatedItem->getRelationshipLabelPlural();
     $label = strtolower($label);
 
-    $showMoreLink = "<div class='related-items-see-all'><a href='$advancedSearchUrl' id='{$sectionTreeNode->getId()}'>See all $numItemsInSection $label</a></div>";
+    $showMoreLink = "<div class='related-items-see-all'><a href='$advancedSearchUrl' id='{$sectionTreeNode->getId()}'>Show a table of all $numItemsInSection $label</a></div>";
 }
 
 // Determine if related items should be shown as previews (normal behavior) or as compact rows.
